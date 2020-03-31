@@ -1,8 +1,9 @@
 import { db } from "@/firebase";
+const spotifyApiUrl = "https://api.spotify.com";
 
 export default {
   // Get track to be played
-  async getCurrentTrack() {
+  async getCurrentTrackId() {
     return db
       .collection("rooms")
       .doc("room1")
@@ -13,7 +14,7 @@ export default {
       });
   },
   // Get playlist
-  async getTracks() {
+  async getTracksIds() {
     return db
       .collection("rooms")
       .doc("room1")
@@ -22,5 +23,30 @@ export default {
       .catch(error => {
         console.error(error);
       });
+  },
+
+  async getTrack(accessToken, trackId) {
+    return fetch(`${spotifyApiUrl}/v1/tracks/${trackId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+      .then(response => response.json())
+      .catch(error => {
+        console.error(error);
+      });
+  },
+
+  async getTracks(accessToken) {
+    const tracksIds = await this.getTracksIds();
+    let tracks = [];
+    tracksIds.forEach(async trackId => {
+      const track = await this.getTrack(accessToken, trackId);
+      tracks.push(track);
+    });
+
+    return tracks;
   }
 };
