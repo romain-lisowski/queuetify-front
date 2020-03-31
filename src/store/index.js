@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import SpotifyAuthLib from "@/lib/SpotifyAuth";
 import PlayerLib from "@/lib/Player";
+import PlaylistLib from "@/lib/Playlist";
 
 Vue.use(Vuex);
 
@@ -14,11 +15,13 @@ try {
 }
 
 let player = null;
+let tracks = null;
 
 export default new Vuex.Store({
   state: {
     spotifyAuth,
-    player
+    player,
+    tracks
   },
   actions: {
     async spotifyGetTokens({ commit }, code) {
@@ -39,10 +42,22 @@ export default new Vuex.Store({
     async initPlayer({ commit, state }) {
       if (state.spotifyAuth && state.spotifyAuth.access_token) {
         const player = PlayerLib.initPlayer(spotifyAuth.access_token);
-        console.log(player);
         commit("setPlayer", player);
       } else {
         console.log("error", "Missing auth to init player", spotifyAuth);
+      }
+    },
+
+    getTracks({ commit, state }) {
+      if (state.spotifyAuth && state.spotifyAuth.access_token) {
+        return PlaylistLib.getTracks(state.spotifyAuth.access_token).then(
+          tracks => {
+            console.log(tracks);
+            commit("setTracks", tracks);
+          }
+        );
+      } else {
+        console.log("error", "Missing auth to get tracks", spotifyAuth);
       }
     }
   },
@@ -52,6 +67,9 @@ export default new Vuex.Store({
     },
     setPlayer(state, player) {
       state.player = player;
+    },
+    setTracks(state, tracks) {
+      state.tracks = tracks;
     }
   }
 });

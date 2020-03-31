@@ -59,7 +59,7 @@ export default {
       _options: { getOAuthToken, id }
     }
   }) {
-    const track = await PlaylistLib.getCurrentTrack();
+    const track = await PlaylistLib.getCurrentTrackId();
     getOAuthToken(accessToken => {
       fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
         method: "PUT",
