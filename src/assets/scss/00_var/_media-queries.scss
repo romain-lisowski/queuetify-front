@@ -1,0 +1,21 @@
+// Media Queries
+
+@mixin mobile {
+    @media screen and (max-width: (565em / 16)) { @content; }
+}
+
+@mixin tablet-xs {
+    @media screen and (max-width: (767em / 16)) { @content; }
+}
+
+@mixin tablet {
+    @media screen and (max-width: (1024em / 16)) { @content; }
+}
+
+@mixin desktop-xs {
+    @media screen and (max-width: (1199em / 16)) { @content; }
+}
+
+@mixin desktop {
+    @media screen and (max-width: (1400em / 16)) { @content; }
+}

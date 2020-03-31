@@ -1,0 +1,27 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: #fff;
+    font-family: $font-primary;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    background-color: #000;
+}
+
+main {
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+::selection {
+    background: $color-primary;
+    color: #000;
+}
