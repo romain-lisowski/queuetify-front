@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1>Room 1 :</h1>
-    <Player :current-track="currentTrack" />
-    <Queue :queue="queue" />
+    <Player v-if="currentTrack" :current-track="currentTrack" />
+    <Queue v-if="queue" :queue="queue" />
   </div>
 </template>
 
