@@ -17,5 +17,9 @@
 }
 
 @mixin desktop {
-    @media screen and (max-width: (1400em / 16)) { @content; }
+    @media screen and (max-width: (1440em / 16)) { @content; }
+}
+
+@mixin desktop-large {
+    @media screen and (max-width: (1540em / 16)) { @content; }
 }

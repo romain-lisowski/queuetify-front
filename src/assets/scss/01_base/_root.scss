@@ -7,6 +7,7 @@ body {
     font-family: $font-primary;
     font-size: 1.6rem;
     line-height: 1.2;
+    font-weight: bold;
     font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     -webkit-font-smoothing: antialiased;
@@ -14,6 +15,11 @@ body {
     text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     background-color: #000;
+}
+
+#app {
+    width: 100vw;
+    height: 10vh;
 }
 
 main {
