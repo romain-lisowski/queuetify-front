@@ -25,8 +25,9 @@ export default {
       });
   },
 
-  async getTrack(accessToken, trackId) {
-    return fetch(`${spotifyApiUrl}/v1/tracks/${trackId}`, {
+  async getTracks(accessToken) {
+    const tracksIds = await this.getTracksIds();
+    return fetch(`${spotifyApiUrl}/v1/tracks?ids=${tracksIds.join()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,16 +38,5 @@ export default {
       .catch(error => {
         console.error(error);
       });
-  },
-
-  async getTracks(accessToken) {
-    const tracksIds = await this.getTracksIds();
-    let tracks = [];
-    tracksIds.forEach(async trackId => {
-      const track = await this.getTrack(accessToken, trackId);
-      tracks.push(track);
-    });
-
-    return tracks;
   }
 };

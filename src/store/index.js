@@ -53,7 +53,7 @@ export default new Vuex.Store({
         return PlaylistLib.getTracks(state.spotifyAuth.access_token).then(
           tracks => {
             console.log(tracks);
-            commit("setTracks", tracks);
+            commit("setTracks", tracks.tracks);
           }
         );
       } else {
