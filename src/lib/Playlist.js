@@ -13,7 +13,22 @@ export default {
         console.error(error);
       });
   },
-  // Get playlist
+
+  async getCurrentTrack(accessToken) {
+    const trackId = await this.getCurrentTrackId();
+    return fetch(`${spotifyApiUrl}/v1/tracks/${trackId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+      .then(response => response.json())
+      .catch(error => {
+        console.error(error);
+      });
+  },
+
   async getTracksIds() {
     return db
       .collection("rooms")

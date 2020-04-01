@@ -15,13 +15,15 @@ try {
 }
 
 let player = null;
-let tracks = null;
+let queue = null;
+let currentTrack = null;
 
 export default new Vuex.Store({
   state: {
     spotifyAuth,
     player,
-    tracks
+    queue,
+    currentTrack
   },
   actions: {
     async spotifyGetTokens({ commit }, code) {
@@ -48,11 +50,11 @@ export default new Vuex.Store({
       }
     },
 
-    getTracks({ commit, state }) {
+    getQueue({ commit, state }) {
       if (state.spotifyAuth && state.spotifyAuth.access_token) {
         return PlaylistLib.getTracks(state.spotifyAuth.access_token).then(
           tracks => {
-            commit("setTracks", tracks.tracks);
+            commit("setQueue", tracks.tracks.splice(1));
           }
         );
       } else {
@@ -67,8 +69,11 @@ export default new Vuex.Store({
     setPlayer(state, player) {
       state.player = player;
     },
-    setTracks(state, tracks) {
-      state.tracks = tracks;
+    setQueue(state, tracks) {
+      state.queue = tracks;
+    },
+    setCurrentTrack(state, track) {
+      state.currentTrack = track;
     }
   }
 });

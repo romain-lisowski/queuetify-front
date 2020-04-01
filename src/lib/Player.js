@@ -59,12 +59,13 @@ export default {
       _options: { getOAuthToken, id }
     }
   }) {
-    const track = await PlaylistLib.getCurrentTrackId();
-    getOAuthToken(accessToken => {
+    getOAuthToken(async accessToken => {
+      const track = await PlaylistLib.getCurrentTrack(accessToken);
+      store.commit("setCurrentTrack", track);
       fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
         method: "PUT",
         body: JSON.stringify({
-          uris: ["spotify:track:" + track]
+          uris: ["spotify:track:" + track.id]
         }),
         headers: {
           "Content-Type": "application/json",

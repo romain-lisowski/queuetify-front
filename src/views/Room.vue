@@ -1,47 +1,43 @@
 <template>
   <div class="container">
     <h1>Room 1 :</h1>
-    <ul>
-      <li v-for="(track, index) of tracks" :key="index">
-        <div><strong>Artist:</strong> {{ track.artists[0].name }}</div>
-        <div><strong>Track :</strong> {{ track.name }}</div>
-        <div>
-          <strong>Duration :</strong>
-          {{ convertTime(track.duration_ms) }}
-        </div>
-        <div><img :src="track.album.images[1].url" /></div>
-      </li>
-    </ul>
+    <Player :current-track="currentTrack" />
+    <Queue :queue="queue" />
   </div>
 </template>
 
 <script>
-import { millisToMinutesAndSeconds } from "@/lib/Utils";
+import Player from "@/components/Player";
+import Queue from "@/components/Queue";
 
 export default {
   name: "Room",
+  components: {
+    Player,
+    Queue
+  },
   computed: {
-    tracks() {
-      return this.$store.state.tracks;
+    currentTrack() {
+      return this.$store.state.currentTrack;
+    },
+    queue() {
+      return this.$store.state.queue;
     }
   },
   serverPrefetch: {
     tracks() {
-      return this.fetchTracks();
+      return this.fetchQueue();
     }
   },
   mounted() {
     if (!this.tracks) {
-      this.fetchTracks();
+      this.fetchQueue();
     }
     this.$store.dispatch("initPlayer");
   },
   methods: {
-    fetchTracks() {
-      return this.$store.dispatch("getTracks");
-    },
-    convertTime(millis) {
-      return millisToMinutesAndSeconds(millis);
+    fetchQueue() {
+      return this.$store.dispatch("getQueue");
     }
   }
 };
