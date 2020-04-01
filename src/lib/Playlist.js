@@ -2,7 +2,6 @@ import { db } from "@/firebase";
 const spotifyApiUrl = "https://api.spotify.com";
 
 export default {
-  // Get track to be played
   async getCurrentTrackId() {
     return db
       .collection("rooms")
