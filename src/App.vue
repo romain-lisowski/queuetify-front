@@ -5,6 +5,6 @@
 </template>
 
 <style lang="scss">
-    @import "@/assets/scss/01_base/_headings.scss";
-    @import "@/assets/scss/02_component/_button.scss";
+@import "@/assets/scss/01_base/_headings.scss";
+@import "@/assets/scss/02_component/_button.scss";
 </style>
