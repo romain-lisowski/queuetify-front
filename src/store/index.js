@@ -13,8 +13,8 @@ try {
 } catch (e) {
   localStorage.setItem("spotifyAuth", null);
 }
-
 let player = null;
+let playerState = null;
 let queue = null;
 let currentTrack = null;
 
@@ -22,6 +22,7 @@ export default new Vuex.Store({
   state: {
     spotifyAuth,
     player,
+    playerState,
     queue,
     currentTrack
   },
@@ -74,6 +75,9 @@ export default new Vuex.Store({
     },
     setCurrentTrack(state, track) {
       state.currentTrack = track;
+    },
+    setPlayerState(state, playerState) {
+      state.playerState = playerState;
     }
   }
 });
