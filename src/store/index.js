@@ -52,7 +52,6 @@ export default new Vuex.Store({
       if (state.spotifyAuth && state.spotifyAuth.access_token) {
         return PlaylistLib.getTracks(state.spotifyAuth.access_token).then(
           tracks => {
-            console.log(tracks);
             commit("setTracks", tracks.tracks);
           }
         );
