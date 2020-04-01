@@ -1,5 +1,6 @@
 <template>
   <div>
+    TIME : {{ playerPosition }}/{{ currentTrack.duration_ms }}
     <h2>PLAYER</h2>
     <div>
       <strong>Artist:</strong>
@@ -28,6 +29,12 @@ export default {
     currentTrack: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    playerPosition() {
+      const playerState = this.$store.state.playerState;
+      return playerState ? playerState.position : 0;
     }
   },
   methods: {
