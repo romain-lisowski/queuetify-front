@@ -3,13 +3,21 @@
     <h1>Room 1 :</h1>
     <ul>
       <li v-for="(track, index) of tracks" :key="index">
-        <strong>Artist:</strong> {{ track.artists[0].name }}, <strong>Track :</strong> {{ track.name }}, <strong>Duration (ms) :</strong> {{ track.duration_ms }}
+        <div><strong>Artist:</strong> {{ track.artists[0].name }}</div>
+        <div><strong>Track :</strong> {{ track.name }}</div>
+        <div>
+          <strong>Duration :</strong>
+          {{ convertTime(track.duration_ms) }}
+        </div>
+        <div><img :src="track.album.images[1].url" /></div>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { millisToMinutesAndSeconds } from "@/lib/Utils";
+
 export default {
   name: "Room",
   computed: {
@@ -31,6 +39,9 @@ export default {
   methods: {
     fetchTracks() {
       return this.$store.dispatch("getTracks");
+    },
+    convertTime(millis) {
+      return millisToMinutesAndSeconds(millis);
     }
   }
 };
