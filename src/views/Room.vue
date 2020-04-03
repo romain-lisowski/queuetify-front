@@ -2,6 +2,7 @@
   <div class="room">
     <div class="room_content">
       <div class="room_content-wrapper">
+        <Search />
         <Player :current-track="currentTrack" />
         <Queue :queue="queue" />
       </div>
@@ -21,12 +22,14 @@
 <script>
 import Player from "@/components/Player";
 import Queue from "@/components/Queue";
+import Search from "@/components/Search";
 
 export default {
   name: "Room",
   components: {
     Player,
-    Queue
+    Queue,
+    Search
   },
   computed: {
     currentTrack() {
