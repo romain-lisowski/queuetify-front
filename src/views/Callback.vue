@@ -7,7 +7,7 @@ export default {
   name: "Callback",
   created() {
     const code = this.$route.query.code;
-    this.$store.dispatch("spotifyGetTokens", code);
+    this.$store.dispatch("getSpotifyAuth", code);
     this.$router.push({ name: "Room" });
   }
 };

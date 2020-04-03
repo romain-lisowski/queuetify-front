@@ -1,9 +1,11 @@
 import PlaylistLib from "@/lib/Playlist";
+import SpotifyAuth from "@/lib/SpotifyAuth";
 import store from "@/store";
+
 const spotifyApiUrl = "https://api.spotify.com";
 
 export default {
-  initPlayer(accessToken) {
+  initPlayer() {
     let player = null;
 
     window.onSpotifyWebPlaybackSDKReady = () => {
@@ -11,13 +13,30 @@ export default {
       player = new Spotify.Player({
         name: "Queue Web Playback Player",
         getOAuthToken: cb => {
-          cb(accessToken);
+          let accessToken = null;
+          SpotifyAuth.refreshToken(store.state.spotifyAuth.refresh_token)
+            .then(token => {
+              accessToken = token.access_token;
+              store.dispatch("refreshToken", accessToken);
+              cb(accessToken);
+            })
+            .catch(error => {
+              console.log("Error refreshing token", error);
+            });
         }
       });
 
       this.addListeners(player);
       store.commit("setPlayer", player);
       player.connect();
+
+      setInterval(() => {
+        player.getCurrentState().then(state => {
+          if (state) {
+            store.commit("setPlayerState", state);
+          }
+        });
+      }, 1000);
     };
   },
   addListeners(player) {
@@ -37,6 +56,7 @@ export default {
 
     // Playback status updates
     player.addListener("player_state_changed", state => {
+      store.commit("setPlayerState", state);
       console.log(state);
     });
 

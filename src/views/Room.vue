@@ -1,6 +1,7 @@
 <template>
   <div class="room">
     <div class="room_content">
+      
       <div class="room_content-wrapper">
         <Player :current-track="currentTrack" />
         <Queue :queue="queue" />
@@ -24,6 +25,11 @@ import Queue from "@/components/Queue";
 
 export default {
   name: "Room",
+  data() {
+    return {
+      play: true
+    };
+  },
   components: {
     Player,
     Queue
