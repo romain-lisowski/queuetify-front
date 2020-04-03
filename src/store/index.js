@@ -27,7 +27,7 @@ export default new Vuex.Store({
     currentTrack
   },
   actions: {
-    async spotifyGetTokens({ commit }, code) {
+    async getSpotifyAuth({ commit }, code) {
       if (code !== "undefined") {
         const spotifyAuth = await SpotifyAuthLib.getTokens(code);
         if (spotifyAuth.access_token !== undefined) {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
 
     async initPlayer({ commit, state }) {
       if (state.spotifyAuth && state.spotifyAuth.access_token) {
-        const player = PlayerLib.initPlayer(spotifyAuth.access_token);
+        const player = PlayerLib.initPlayer();
         commit("setPlayer", player);
       } else {
         console.log("error", "Missing auth to init player", spotifyAuth);
@@ -53,14 +53,22 @@ export default new Vuex.Store({
 
     getQueue({ commit, state }) {
       if (state.spotifyAuth && state.spotifyAuth.access_token) {
-        return PlaylistLib.getTracks(state.spotifyAuth.access_token).then(
-          tracks => {
+        PlaylistLib.getTracks(state.spotifyAuth.access_token)
+          .then(tracks => {
             commit("setQueue", tracks.tracks.splice(1));
-          }
-        );
+          })
+          .catch(() => {
+            this.dispatch("refreshToken");
+          });
       } else {
         console.log("error", "Missing auth to get tracks", spotifyAuth);
       }
+    },
+
+    refreshToken({ commit, state }, token) {
+      state.spotifyAuth.access_token = token;
+      localStorage.setItem("spotifyAuth", JSON.stringify(state.spotifyAuth));
+      commit("setSpotifyAuth", spotifyAuth);
     }
   },
   mutations: {
