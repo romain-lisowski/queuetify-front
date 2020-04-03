@@ -1,4 +1,10 @@
 .player {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     &__track {
         display: flex;
         flex-direction: column;
@@ -9,6 +15,7 @@
             width: 25rem;
             height: 25rem;
             box-shadow: 0 8px 28px 0 rgba(0,0,0,0.25);
+            margin-bottom: 4.5rem;
 
             img {
                 width: 100%;
@@ -19,6 +26,7 @@
             text-align: center;
 
             .track-name {
+                margin-bottom: 1rem;
                 font-size: 3.4rem;
             }
 
@@ -30,6 +38,9 @@
     }
 
     &__controls {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
         margin-top: 10rem;
 
         &_inner {
