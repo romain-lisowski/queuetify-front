@@ -32,8 +32,7 @@
 </template>
 
 <script>
-import { millisToMinutesAndSeconds } from "@/lib/Utils";
-
+import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 import VoteArrow from "@/assets/svg/vote-arrow.svg";
 
 export default {

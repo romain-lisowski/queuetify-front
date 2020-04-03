@@ -1,5 +1,5 @@
-import PlaylistLib from "@/lib/Playlist";
-import SpotifyAuth from "@/lib/SpotifyAuth";
+import LibSpotifyApi from "@/lib/LibSpotifyApi";
+import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 import store from "@/store";
 
 const spotifyApiUrl = "https://api.spotify.com";
@@ -14,7 +14,7 @@ export default {
         name: "Queue Web Playback Player",
         getOAuthToken: cb => {
           let accessToken = null;
-          SpotifyAuth.refreshToken(store.state.spotifyAuth.refresh_token)
+          LibSpotifyAccount.refreshToken(store.state.spotifyAuth.refresh_token)
             .then(token => {
               accessToken = token.access_token;
               store.dispatch("refreshToken", accessToken);
@@ -80,7 +80,7 @@ export default {
     }
   }) {
     getOAuthToken(async accessToken => {
-      const track = await PlaylistLib.getCurrentTrack(accessToken);
+      const track = await LibSpotifyApi.getCurrentTrack(accessToken);
       store.commit("setCurrentTrack", track);
       fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
         method: "PUT",

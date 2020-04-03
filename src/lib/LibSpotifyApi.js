@@ -1,20 +1,9 @@
-import { db } from "@/firebase";
+import LibFirebase from "@/lib/LibFirebase";
 const spotifyApiUrl = "https://api.spotify.com";
 
 export default {
-  async getCurrentTrackId() {
-    return db
-      .collection("rooms")
-      .doc("room1")
-      .get()
-      .then(snapshot => snapshot.data().tracks[0])
-      .catch(error => {
-        console.error(error);
-      });
-  },
-
   async getCurrentTrack(accessToken) {
-    const trackId = await this.getCurrentTrackId();
+    const trackId = await LibFirebase.getCurrentTrackId();
     return fetch(`${spotifyApiUrl}/v1/tracks/${trackId}`, {
       method: "GET",
       headers: {
@@ -28,19 +17,8 @@ export default {
       });
   },
 
-  async getTracksIds() {
-    return db
-      .collection("rooms")
-      .doc("room1")
-      .get()
-      .then(snapshot => snapshot.data().tracks)
-      .catch(error => {
-        console.error(error);
-      });
-  },
-
   async getTracks(accessToken) {
-    const tracksIds = await this.getTracksIds();
+    const tracksIds = await LibFirebase.getTracksIds();
     return fetch(`${spotifyApiUrl}/v1/tracks?ids=${tracksIds.join()}`, {
       method: "GET",
       headers: {

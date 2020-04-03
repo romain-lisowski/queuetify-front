@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { millisToMinutesAndSeconds } from "@/lib/Utils";
+import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 
 export default {
   name: "Player",

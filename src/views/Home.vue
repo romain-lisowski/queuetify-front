@@ -46,7 +46,7 @@
 import Logo from "@/assets/svg/logo.svg";
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
 
-import SpotifyAuthLib from "@/lib/SpotifyAuth";
+import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 
 export default {
   name: "Home",
@@ -57,7 +57,7 @@ export default {
 
   methods: {
     connexion() {
-      SpotifyAuthLib.getAuthorization();
+      LibSpotifyAccount.getAuthorization();
     },
     animateHoverThis(e) {
       const { offsetX: x, offsetY: y } = e,
