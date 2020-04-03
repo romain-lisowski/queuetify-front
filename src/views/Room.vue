@@ -3,14 +3,15 @@
     <div class="room_content">
       <div class="room_content-wrapper">
         <Search />
-        <Player :current-track="currentTrack" />
-        <Queue :queue="queue" />
+        <Player v-if="currentTrack" :current-track="currentTrack" />
+        <Queue v-if="queue" :queue="queue" />
       </div>
       <div class="add-track">
         Add a song
       </div>
     </div>
     <div
+      v-if="currentTrack"
       class="room_bg"
       :style="{
         'background-image': 'url(' + currentTrack.album.images[0].url + ')'
