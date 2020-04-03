@@ -1,5 +1,10 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    @mousemove="mouseMove"
+    @mouseup="mouseUp"
+    @mousedown="mouseDown"
+  >
     <router-view />
     <div class="cursor"></div>
   </div>
@@ -7,6 +12,11 @@
 
 <script>
 export default {
+  computed: {
+    cursor() {
+      return this.$el.querySelector(".cursor");
+    }
+  },
   mounted() {
     (function() {
       const hoverThis = document.querySelectorAll(".hover-this");
@@ -17,7 +27,7 @@ export default {
       const animateHoverVote = function(e) {
         cursor.style.transform = "scale(4)";
         cursor.classList.add("hover");
-        console.log('aaaa');
+        console.log("aaaa");
         if (e.type === "mouseleave") {
           cursor.style.transform = "scale(1)";
           cursor.classList.remove("hover");
@@ -47,20 +57,6 @@ export default {
         if (e.type === "mouseleave") cursor.style.transform = "scale(1)";
       };
 
-      const editCursor = e => {
-        const { clientX: x, clientY: y } = e;
-        cursor.style.left = x + "px";
-        cursor.style.top = y + "px";
-      };
-
-      const clickCursorDown = function() {
-        cursor.style.padding = `0.3rem`;
-      };
-
-      const clickCursorUp = function() {
-        cursor.style.padding = `0.6rem`;
-      };
-
       hoverThis.forEach(b => b.addEventListener("mousemove", animateHoverThis));
       hoverThis.forEach(b =>
         b.addEventListener("mouseleave", animateHoverThis)
@@ -75,10 +71,20 @@ export default {
       hoverVote.forEach(b =>
         b.addEventListener("mouseleave", animateHoverVote)
       );
-      window.addEventListener("mousemove", editCursor);
-      window.addEventListener("mousedown", clickCursorDown);
-      window.addEventListener("mouseup", clickCursorUp);
     })();
+  },
+  methods: {
+    mouseMove(e) {
+      const { clientX: x, clientY: y } = e;
+      this.cursor.style.left = x + "px";
+      this.cursor.style.top = y + "px";
+    },
+    mouseUp() {
+      this.cursor.style.padding = `0.6rem`;
+    },
+    mouseDown() {
+      this.cursor.style.padding = `0.3rem`;
+    }
   }
 };
 </script>
