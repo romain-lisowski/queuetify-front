@@ -3,7 +3,7 @@
     <div class="queue_header">
       <h3>Queue</h3>
       <div class="queue-counter">
-        <span class="count">0</span>
+        <span class="count">{{ queue.length }}</span>
         Songs
       </div>
     </div>
