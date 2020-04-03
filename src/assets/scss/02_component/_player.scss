@@ -1,0 +1,35 @@
+.player {
+    &__track {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        &_artwork {
+            width: 25rem;
+            height: 25rem;
+            box-shadow: 0 8px 28px 0 rgba(0,0,0,0.25);
+
+            img {
+                width: 100%;
+            }
+        }
+
+        &_info {
+            text-align: center;
+
+            .track-name {
+                font-size: 3.4rem;
+            }
+
+            .track-artist {
+                font-size: 2rem;
+                opacity: .6;
+            }
+        }
+    }
+
+    &__controls {
+
+    }
+}

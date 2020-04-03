@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="vote" transform="translate(-1.000000, -3.000000)" fill="#FFFFFF">
+            <g transform="translate(0.000000, 3.000000)">
+                <polygon id="Path" fill-rule="nonzero" transform="translate(6.000000, 3.000000) rotate(-180.000000) translate(-6.000000, -3.000000) " points="9.82082031 0 6 3.71005019 2.17917969 0 1 1.14495594 6 6 11 1.14495594"></polygon>
+                <text id="2" font-family="Syne-Bold, Syne" font-size="18" font-style="expanded" font-weight="bold" line-spacing="16">
+                    <tspan x="0" y="22">2</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

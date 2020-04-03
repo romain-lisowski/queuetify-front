@@ -8,17 +8,28 @@
       <h1 class="headline">
         The collaborative listening<br />room using Spotify<span>®</span>
       </h1>
-      <button class="btn btn-main" @click="connexion">
-        Connect with Spotify
+      <button class="btn btn-main hover-this" @click="connexion">
+        <span>
+          Connect with Spotify
+          <ButtonArrow />
+        </span>
       </button>
     </div>
 
     <footer class="home__footer">
-      <div class="info">We do not store any personal data.</div>
       <div class="copyrights">
-        Code by <a href="#">Romain Lisowski</a>, Design by
-        <a href="#">Bastien Lemeunier</a>. Get it on
-        <a href="https://github.com/romain-lisowski">Github</a>
+        Code by
+        <a class="btn btn-inline hover-this-small" href="#"
+          >Romain Lisowski<ButtonArrow /></a
+        >, Design by
+        <a class="btn btn-inline hover-this-small" href="#"
+          >Bastien Lemeunier<ButtonArrow /></a
+        >. Get it on
+        <a
+          class="btn btn-inline hover-this-small"
+          href="https://github.com/romain-lisowski"
+          >Github<ButtonArrow
+        /></a>
       </div>
     </footer>
   </div>
@@ -26,13 +37,15 @@
 
 <script>
 import Logo from "@/assets/svg/logo.svg";
+import ButtonArrow from "@/assets/svg/button-arrow.svg";
 
 import SpotifyAuthLib from "@/lib/SpotifyAuth";
 
 export default {
   name: "Home",
   components: {
-    Logo
+    Logo,
+    ButtonArrow
   },
   methods: {
     connexion() {
@@ -41,7 +54,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import "@/assets/scss/03_page/_home.scss";
-</style>

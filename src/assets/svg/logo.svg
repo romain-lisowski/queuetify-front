@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="107px" height="25px" viewBox="0 0 107 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
-    <title>Queue.</title>
+    <title>logo</title>
     <desc>Created with Sketch.</desc>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="Syne-Bold, Syne" font-size="28" font-style="expanded" font-weight="bold" line-spacing="28">
-        <g id="logo" transform="translate(-1.000000, -5.000000)">
-            <text id="Queue.">
-                <tspan x="0" y="27" fill="#FFFFFF">Queue</tspan>
-                <tspan x="102.2" y="27" fill="#EBFF00">.</tspan>
-            </text>
+    <defs>
+        <linearGradient x1="16.2977431%" y1="0%" x2="83.5557726%" y2="83.7131076%" id="linearGradient-1">
+            <stop stop-color="#000000" offset="0%"></stop>
+            <stop stop-color="#2A0303" offset="32.8679265%"></stop>
+            <stop stop-color="#C60000" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#EBFF00" offset="0%"></stop>
+            <stop stop-color="#EBFF00" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo">
+            <g id="Oval">
+                <circle stroke="url(#linearGradient-1)" stroke-width="26" opacity="0.902599516" cx="36" cy="36" r="23"></circle>
+                <circle fill="url(#linearGradient-2)" cx="60" cy="60" r="12"></circle>
+            </g>
         </g>
     </g>
 </svg>

@@ -1,0 +1,33 @@
+.hover-this, .hover-this-small, .hover-vote {
+    transition: all 0.3s ease;
+    cursor: none;
+
+    &:hover {
+        cursor: none;
+    }
+}
+
+span {
+    display: inline-flex;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+
+.cursor {
+    pointer-events: none;
+    position: fixed;
+    padding: .6rem;
+    background-color: #fff;
+    border-radius: 99rem;
+    mix-blend-mode: difference;
+    -webkit-backface-visibility: hidden;
+    z-index: 999;
+
+    transition-property: transform, padding;
+    transition-duration: .3s;
+    transition-timing-function: ease;
+
+    &.hover {
+        background-color: $color-primary;
+    }
+}

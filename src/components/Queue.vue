@@ -1,8 +1,14 @@
 <template>
-  <div>
-    <h2>QUEUE</h2>
-    <div v-for="(track, index) of queue" :key="index">
-      <Track :track="track" />
+  <div class="queue">
+    <div class="queue_header">
+      <h3>Queue</h3>
+      <div class="queue-counter">
+        <span class="count">0</span>
+        Songs
+      </div>
+    </div>
+    <div class="queue_list">
+      <Track v-for="(track, index) of queue" :key="index" :track="track" />
     </div>
   </div>
 </template>

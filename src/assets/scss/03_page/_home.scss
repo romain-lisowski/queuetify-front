@@ -6,6 +6,26 @@
     justify-content: center;
     align-items: center;
 
+    &__logo {
+        svg {
+            width: 10rem;
+            height: 10rem;
+
+            @include desktop-large {
+                width: 9rem;
+                height: 9rem;
+            }
+            @include desktop {
+                width: 8rem;
+                height: 8rem;
+            }
+            @include tablet {
+                width: 7rem;
+                height: 7rem;
+            }
+        }
+    }
+
     &__content {
         margin-bottom: 10vh;
         display: flex;
@@ -40,15 +60,6 @@
         .copyrights {
             color: $grey;
             font-size: 1.4rem;
-
-            a {
-                color: #fff;
-                transition: all ease-in-out .2s;
-
-                &:hover {
-                    color: $color-primary;
-                }
-            }
         }
     }
 }

@@ -1,8 +1,20 @@
 <template>
-  <div class="container">
-    <h1>Room 1 :</h1>
-    <Player :current-track="currentTrack" />
-    <Queue :queue="queue" />
+  <div class="room">
+    <div class="room_content">
+      <div class="room_content-wrapper">
+        <Player :current-track="currentTrack" />
+        <Queue :queue="queue" />
+      </div>
+      <div class="add-track">
+        Add a song
+      </div>
+    </div>
+    <div
+      class="room_bg"
+      :style="{
+        'background-image': 'url(' + currentTrack.album.images[0].url + ')'
+      }"
+    ></div>
   </div>
 </template>
 

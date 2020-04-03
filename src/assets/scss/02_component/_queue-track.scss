@@ -1,0 +1,76 @@
+.queue-track {
+    display: flex;
+    align-items: center;
+    height: 16.6666666667%;
+    border-bottom: .1rem solid rgba(#fff, .1);
+    
+    &:last-child {
+        border-color: transparent;
+    }
+    
+    &__info {
+        display: flex;
+        align-items: center;
+
+        &_artwork {
+            width: 5rem;
+            height: 5rem;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.20);
+
+            img {
+                width: 100%;
+            }
+        }
+
+        &_content {
+            display: flex;
+            flex-direction: column;
+            padding: 0 2rem;            
+
+            .track-name {
+                font-size: 2rem;
+                line-height: 2rem;
+                padding: .2rem 0;
+            }
+
+            .track-artist {
+                font-size: 1.4rem;
+                line-height: 1.4rem;
+                opacity: .6;
+                padding: .2rem 0;
+            }
+        }
+    }
+
+    &__user {
+        margin-left: auto;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: rgba(#fff, .6)
+    }
+
+    &__vote {
+        margin-left: 4rem;
+
+        a {
+            font-size: 1.8rem;
+            padding: .2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            &:hover {
+                svg {
+                    opacity: 1;
+                }
+            }
+
+            svg {
+                opacity: .4;
+                transition: opacity ease-in-out .3s;
+            }
+        }
+    }
+}

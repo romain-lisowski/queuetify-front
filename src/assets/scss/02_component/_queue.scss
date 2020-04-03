@@ -1,0 +1,30 @@
+.queue {
+    background: rgba(#000, .4);
+    height: 100%;
+    padding: 0 5rem;
+
+    &_header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        height: calc(25vh - 3rem);
+        padding-bottom: 2rem;
+
+        h3 {
+            font-size: 3.4rem;
+        }
+
+        .queue-counter {
+            font-size: 1.6rem;
+            color: rgba(#fff, .4);
+
+            span {
+                color: #fff;
+            }
+        }
+    }
+
+    &_list {
+        height: calc(75vh - 3rem);
+    }
+}
