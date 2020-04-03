@@ -4,7 +4,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        
+
         &_artwork {
             width: 25rem;
             height: 25rem;
@@ -30,6 +30,23 @@
     }
 
     &__controls {
+        margin-top: 10rem;
 
+        &_inner {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &_progress {
+            height: .6rem;
+            background: rgba(#fff, .15);
+
+            .progress-bar {
+                width: 0;
+                height: .6rem;
+                background: $color-primary;
+                transition: all linear 1s;
+            }
+        }
     }
 }

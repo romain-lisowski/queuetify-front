@@ -15,18 +15,16 @@
     </div>
 
     <div class="player__controls">
-      <div class="player__controls_mute"></div>
-
-      <div class="player__controls_progress">
-        <button class="btn btn-main" @click="togglePlay">
+      <div class="player__controls_inner">
+        <div>{{ convertTime(playerPosition) }}</div>
+        <button @click="togglePlay">
           <span v-if="play">PAUSE</span>
           <span v-else>PLAY</span>
         </button>
-        <div class="durations">
-          <div>{{ convertTime(playerPosition) }}</div>
-          <div>{{ convertTime(currentTrack.duration_ms) }}</div>
-        </div>
-        <div class="progress-b"></div>
+        <div>{{ convertTime(currentTrack.duration_ms) }}</div>
+      </div>
+      <div class="player__controls_progress">
+        <div :style="increaseBar" class="progress-bar"></div>
       </div>
     </div>
   </div>
@@ -52,6 +50,11 @@ export default {
     playerPosition() {
       const playerState = this.$store.state.playerState;
       return playerState ? playerState.position : 0;
+    },
+    increaseBar() {
+      return {
+        width: `${(this.playerPosition / this.currentTrack.duration_ms) * 100}%`
+      };
     }
   },
   methods: {

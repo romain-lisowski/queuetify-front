@@ -18,7 +18,12 @@
       bastien
     </div>
     <div class="queue-track__vote">
-      <a class="hover-vote" href="#">
+      <a
+        class="hover-vote"
+        href="#"
+        @mousemove="animateHoverThis"
+        @mouseleave="animateHoverThisLeave"
+      >
         <VoteArrow />
         <div class="vote-counter">2</div>
       </a>
@@ -45,6 +50,16 @@ export default {
   methods: {
     convertTime(millis) {
       return millisToMinutesAndSeconds(millis);
+    },
+    animateHoverThis() {
+      this.$parent.$refs.cursor.style.transform = `scale(4)`;
+      this.$parent.$refs.cursor.classList.add("hover");
+    },
+    animateHoverThisLeave() {
+      this.animateHoverThis();
+      this.$refs.cursorSpan.style.transform = "";
+      this.$parent.$refs.cursor.style.transform = `scale(1)`;
+      this.$parent.$refs.cursor.classList.remove("hover");
     }
   }
 };

@@ -33,13 +33,13 @@
     &_bg {
         position: absolute;
         z-index: 1;
-        top: -6rem;
-        right: -6rem;
-        bottom: -6rem;
-        left: -6rem;
+        top: -5rem;
+        right: -5rem;
+        bottom: -5rem;
+        left: -5rem;
         background-size: cover;
         background-position: center;
-        filter: blur(6rem);
+        filter: blur(5rem);
         opacity: .8;
     }
 }
