@@ -37,6 +37,11 @@ import { millisToMinutesAndSeconds } from "@/lib/Utils";
 
 export default {
   name: "Player",
+  data() {
+    return {
+      play: true
+    };
+  },
   props: {
     currentTrack: {
       type: Object,
