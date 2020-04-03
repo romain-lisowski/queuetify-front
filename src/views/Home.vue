@@ -12,9 +12,9 @@
         class="btn btn-main hover-this"
         @click="connexion"
         @mousemove="animateHoverThis"
-        @mouseleave="animateHoverThis"
+        @mouseleave="animateHoverThisLeave"
       >
-        <span>
+        <span ref="cursorSpan">
           Connect with Spotify
           <ButtonArrow />
         </span>
@@ -54,31 +54,27 @@ export default {
     Logo,
     ButtonArrow
   },
-  computed: {
-    cursor() {
-      return this.$el.querySelector(".cursor");
-    }
-  },
+
   methods: {
     connexion() {
       SpotifyAuthLib.getAuthorization();
     },
     animateHoverThis(e) {
-      const span = this.querySelector("span");
       const { offsetX: x, offsetY: y } = e,
         { offsetWidth: width, offsetHeight: height } = this,
         move = 15,
         xMove = (x / width) * (move * 2) - move,
         yMove = (y / height) * (move * 2) - move;
 
-      span.style.transform = `translate(${xMove}px, ${yMove}px)`;
-      this.cursor.style.transform = `scale(4)`;
-      this.cursor.classList.add("hover");
-      if (e.type === "mouseleave") {
-        span.style.transform = "";
-        this.cursor.style.transform = `scale(1)`;
-        this.cursor.classList.remove("hover");
-      }
+      this.$refs.cursorSpan.style.transform = `translate(${xMove}px, ${yMove}px)`;
+      this.$parent.$refs.cursor.style.transform = `scale(4)`;
+      this.$parent.$refs.cursor.classList.add("hover");
+    },
+    animateHoverThisLeave(e) {
+      this.animateHoverThis(e);
+      this.$refs.cursorSpan.style.transform = "";
+      this.$parent.$refs.cursor.style.transform = `scale(1)`;
+      this.$parent.$refs.cursor.classList.remove("hover");
     }
   }
 };

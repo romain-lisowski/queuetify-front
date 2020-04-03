@@ -6,28 +6,23 @@
     @mousedown="mouseDown"
   >
     <router-view />
-    <div class="cursor"></div>
+    <div ref="cursor" class="cursor"></div>
   </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    cursor() {
-      return this.$el.querySelector(".cursor");
-    }
-  },
   methods: {
     mouseMove(e) {
       const { clientX: x, clientY: y } = e;
-      this.cursor.style.left = x + "px";
-      this.cursor.style.top = y + "px";
+      this.$refs.cursor.style.left = x + "px";
+      this.$refs.cursor.style.top = y + "px";
     },
     mouseUp() {
-      this.cursor.style.padding = `0.6rem`;
+      this.$refs.cursor.style.padding = `0.6rem`;
     },
     mouseDown() {
-      this.cursor.style.padding = `0.3rem`;
+      this.$refs.cursor.style.padding = `0.3rem`;
     }
   }
 };
