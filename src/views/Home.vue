@@ -9,8 +9,9 @@
         The collaborative listening<br />room using Spotify<span>®</span>
       </h1>
       <button
+        v-if="!accessToken"
         class="btn btn-main hover-this"
-        @click="connexion"
+        @click="authentification"
         @mousemove="animateHoverThis"
         @mouseleave="animateHoverThisLeave"
       >
@@ -19,6 +20,19 @@
           <ButtonArrow />
         </span>
       </button>
+      <router-link
+        v-else
+        :to="{ name: 'Room' }"
+        tag="button"
+        class="btn btn-main hover-this"
+        @mousemove="animateHoverThis"
+        @mouseleave="animateHoverThisLeave"
+      >
+        <span ref="cursorSpan">
+          Enter the room
+          <ButtonArrow />
+        </span>
+      </router-link>
     </div>
 
     <footer class="home__footer">
@@ -54,9 +68,14 @@ export default {
     Logo,
     ButtonArrow
   },
-
+  computed: {
+    accessToken() {
+      const spotifyAuth = this.$store.state.spotifyAuth;
+      return spotifyAuth ? spotifyAuth.access_token : null;
+    }
+  },
   methods: {
-    connexion() {
+    authentification() {
       LibSpotifyAccount.getAuthorization();
     },
     animateHoverThis(e) {
