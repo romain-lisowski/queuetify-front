@@ -51,16 +51,23 @@
     <footer class="home__footer">
       <div class="copyrights">
         Code by
-        <a class="btn btn-inline hover-this-small" href="#"
+        <a
+          class="btn btn-inline hover-this-small"
+          target="_blank"
+          href="https://open.spotify.com/user/11175592942"
           >Romain Lisowski<ButtonArrow />
         </a>
         , Design by
-        <a class="btn btn-inline hover-this-small" href="#"
+        <a
+          class="btn btn-inline hover-this-small"
+          target="_blank"
+          href="https://open.spotify.com/user/bqd"
           >Bastien Lemeunier<ButtonArrow />
         </a>
         . Get it on
         <a
           class="btn btn-inline hover-this-small"
+          target="_blank"
           href="https://github.com/romain-lisowski"
           >Github<ButtonArrow
         /></a>
