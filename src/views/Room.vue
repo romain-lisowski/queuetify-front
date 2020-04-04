@@ -3,9 +3,7 @@
     <Debug />
     <Header />
 
-    <div ref="search" class="search-wrapper">
-      <Search />
-    </div>
+    <Search ref="search" />
 
     <div class="room_content">
       <div class="room_content-wrapper">
@@ -69,7 +67,8 @@ export default {
       return this.$store.dispatch("getQueue");
     },
     showSearch() {
-      this.$refs.search.classList.toggle("active");
+      this.$refs.search.$refs.searchWrapper.classList.toggle("active");
+      this.$refs.search.$refs.searchInput.focus();
     }
   }
 };

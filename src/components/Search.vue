@@ -1,19 +1,23 @@
 <template>
-  <div class="search">
-    <h2>SEARCH</h2>
-    <input
-      type="text"
-      value=""
-      placeholder="Your search here ..."
-      v-model="search"
-    />
-    <div v-if="trackResults && trackResults.length > 0">
-      <h3>Results</h3>
-      <div v-for="track of trackResults" :key="track.id">
-        <Result :track="track" />
+  <div ref="searchWrapper" class="search-wrapper">
+    <div class="search">
+      <div class="search__input">
+        <input
+          ref="searchInput"
+          type="text"
+          value=""
+          placeholder="Enter artist, track..."
+          v-model="search"
+          v-on:keyup.esc="closeSearch"
+        />
       </div>
+      <div class="search__results" v-if="trackResults && trackResults.length > 0">
+        <div v-for="track of trackResults" :key="track.id">
+          <Result :track="track" />
+        </div>
+      </div>
+      <h3 v-else>No results</h3>
     </div>
-    <h3 v-else>No results</h3>
   </div>
 </template>
 
@@ -31,6 +35,11 @@ export default {
       search: "",
       trackResults: []
     };
+  },
+  methods: {
+    closeSearch() {
+      this.$refs.searchWrapper.classList.remove("active");
+    }
   },
   watch: {
     search() {
