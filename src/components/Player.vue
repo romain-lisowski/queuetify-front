@@ -1,6 +1,10 @@
 <template>
   <div class="player">
     <div class="player__track">
+      <div class="player__track_user">
+        <div class="vote-count">2</div>
+        <div class="user">bastien</div>
+      </div>
       <div class="player__track_artwork">
         <img v-if="currentTrack" :src="currentTrack.album.images[0].url" />
         <div v-else class="artwork-default">

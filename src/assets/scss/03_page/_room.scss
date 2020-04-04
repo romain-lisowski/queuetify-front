@@ -58,6 +58,7 @@
         background-position: center;
         filter: blur(5rem);
         opacity: .8;
+        transition: background-image .6s ease-in-out;
 
         &-default {
             position: absolute;

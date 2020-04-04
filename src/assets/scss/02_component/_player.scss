@@ -10,12 +10,27 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 10vh;
+
+        &_user {
+            text-align: center;
+            margin-bottom: 4rem;
+
+            .vote-count {
+                color: $color-primary;
+                font-size: 2.4rem;
+            }
+            .user {
+                font-weight: 400;
+                opacity: .6;
+            }
+        }
 
         &_artwork {
             width: 25rem;
             height: 25rem;
             box-shadow: 0 8px 28px 0 rgba(0,0,0,0.25);
-            margin-bottom: 4.5rem;
+            margin-bottom: 4rem;
 
             img {
                 width: 100%;
@@ -35,7 +50,7 @@
             text-align: center;
 
             .track-name {
-                margin-bottom: 1rem;
+                margin-bottom: .5rem;
                 font-size: 3.4rem;
             }
 
