@@ -23,7 +23,10 @@
 
       <div v-else>
         <div v-if="spotifyUser">
-          <img :src="spotifyUser.images[0].url" />
+          <img
+            v-if="spotifyUser.images.length > 0"
+            :src="spotifyUser.images[0].url"
+          />
           <div>Logged as : {{ spotifyUser.display_name }}</div>
         </div>
         <router-link
