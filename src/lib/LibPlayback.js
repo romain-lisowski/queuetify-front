@@ -34,6 +34,9 @@ export default {
         player.getCurrentState().then(state => {
           if (state) {
             store.commit("setPlayerState", state);
+            if (store.state.currentTrack.duration_ms - state.position < 1000) {
+              LibFirebase.removeTrack(store.state.currentTrack.id);
+            }
           }
         });
       }, 1000);

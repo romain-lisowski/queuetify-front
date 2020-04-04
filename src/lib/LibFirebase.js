@@ -38,5 +38,20 @@ export default {
       .catch(error => {
         console.error("LibFirebase.addTrack", error);
       });
+  },
+
+  removeTrack(trackId) {
+    db.collection("rooms")
+      .doc("room1")
+      .update({
+        tracks: firebase.firestore.FieldValue.arrayRemove(trackId)
+      })
+      .then(() => {
+        store.dispatch("getQueue");
+        console.log("Track added : " + trackId);
+      })
+      .catch(error => {
+        console.error("LibFirebase.addTrack", error);
+      });
   }
 };
