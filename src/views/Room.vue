@@ -5,7 +5,7 @@
         <Search />
         <Player v-if="currentTrack" :current-track="currentTrack" />
         <div v-else>No playing track</div>
-        <Queue v-if="queue" :queue="queue" />
+        <Queue v-if="queue && queue.length > 0" :queue="queue" />
         <div v-else>Empty queue</div>
       </div>
       <div class="add-track">
