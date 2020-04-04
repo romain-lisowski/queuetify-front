@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 import LibPlayback from "@/lib/LibPlayback";
 import LibSpotifyApi from "@/lib/LibSpotifyApi";
+import LibSpotifyUser from "@/lib/LibSpotifyUser";
 
 Vue.use(Vuex);
 
@@ -20,6 +21,13 @@ try {
   localStorage.removeItem("spotifyRefreshToken");
 }
 
+let spotifyUser = null;
+try {
+  spotifyUser = JSON.parse(localStorage.getItem("spotifyUser"));
+} catch (e) {
+  localStorage.removeItem("spotifyUser");
+}
+
 let player = null;
 let playerState = null;
 let queue = null;
@@ -29,6 +37,7 @@ export default new Vuex.Store({
   state: {
     spotifyAccessToken,
     spotifyRefreshToken,
+    spotifyUser,
     player,
     playerState,
     queue,
@@ -36,7 +45,7 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async getSpotifyAuth({ commit }, code) {
+    async getSpotifyTokens({ commit }, code) {
       if (code !== "undefined") {
         LibSpotifyAccount.getTokens(code).then(spotifyAuth => {
           if (spotifyAuth.access_token !== undefined) {
@@ -51,8 +60,9 @@ export default new Vuex.Store({
             );
             commit("setSpotifyAccessToken", spotifyAuth.access_token);
             commit("setSpotifyRefreshToken", spotifyAuth.refresh_token);
+            this.dispatch("getSpotifyUser");
           } else {
-            console.error("store.getSpotifyAuth : ", spotifyAuth);
+            console.error("store.getSpotifyTokens : ", spotifyAuth);
           }
         });
       } else {
@@ -63,6 +73,13 @@ export default new Vuex.Store({
     refreshToken({ commit }, token) {
       localStorage.setItem("spotifyAccessToken", token);
       commit("setSpotifyAccessToken", token);
+    },
+
+    getSpotifyUser({ commit, state }) {
+      LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
+        localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
+        commit("setSpotifyUser", spotifyUser);
+      });
     },
 
     initPlayer({ commit, state }) {
@@ -107,6 +124,9 @@ export default new Vuex.Store({
     },
     setSpotifyRefreshToken(state, token) {
       state.spotifyRefreshToken = token;
+    },
+    setSpotifyUser(state, spotifyUser) {
+      state.spotifyUser = spotifyUser;
     },
     setPlayer(state, player) {
       state.player = player;

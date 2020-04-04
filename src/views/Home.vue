@@ -20,19 +20,25 @@
           <ButtonArrow />
         </span>
       </button>
-      <router-link
-        v-else
-        :to="{ name: 'Room' }"
-        tag="button"
-        class="btn btn-main hover-this"
-        @mousemove="animateHoverThis"
-        @mouseleave="animateHoverThisLeave"
-      >
-        <span ref="cursorSpan">
-          Enter the room
-          <ButtonArrow />
-        </span>
-      </router-link>
+
+      <div v-else>
+        <div v-if="spotifyUser">
+          <img :src="spotifyUser.images[0].url" />
+          <div>Logged as : {{ spotifyUser.display_name }}</div>
+        </div>
+        <router-link
+          :to="{ name: 'Room' }"
+          tag="button"
+          class="btn btn-main hover-this"
+          @mousemove="animateHoverThis"
+          @mouseleave="animateHoverThisLeave"
+        >
+          <span ref="cursorSpan">
+            Enter the room
+            <ButtonArrow />
+          </span>
+        </router-link>
+      </div>
     </div>
 
     <footer class="home__footer">
@@ -71,6 +77,9 @@ export default {
   computed: {
     spotifyAccessToken() {
       return this.$store.state.spotifyAccessToken;
+    },
+    spotifyUser() {
+      return this.$store.state.spotifyUser;
     }
   },
   methods: {
