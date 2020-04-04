@@ -121,7 +121,6 @@ export default new Vuex.Store({
     },
 
     nextTrack({ state }) {
-      console.log(state.player);
       LibPlayback.play({ player: state.player });
       this.dispatch("getQueue");
     }
