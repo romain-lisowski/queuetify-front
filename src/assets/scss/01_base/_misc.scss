@@ -56,7 +56,6 @@ span {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: #000;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -69,12 +68,14 @@ span {
   button {
     font-size: 1.2rem;
     font-weight: bold;
-    text-transform: uppercase;
-    padding: .7rem 1rem;
-    color: #fff;
+    padding: 1rem 1rem;
+    color: rgba($color: #fff, $alpha: .4);
+    text-align: center;
+    width: 14rem;
 
     &:hover {
-      background: rgba($color: #fff, $alpha: .4);
+      color: #fff;
+      background: rgba($color: #000, $alpha: .2);
     }
   }
 }
