@@ -30,7 +30,7 @@ try {
 
 let player = null;
 let playerState = null;
-let queue = null;
+let queue = [];
 let currentTrack = null;
 
 export default new Vuex.Store({
