@@ -7,7 +7,7 @@ npm install
 
 ### Config
 ```
-cp .env_sample .env
+cp .env .env.local
 ```
 
 ### Compiles and hot-reloads for development
