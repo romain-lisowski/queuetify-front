@@ -1,12 +1,13 @@
 <template>
-  <div class="search">
-    <h2>DEBUG PANEL</h2>
-    <button class="btn btn-main hover-this" @click="next">
-      Next track
-    </button>
-    <button class="btn btn-main hover-this" @click="empty">
-      Empty queue
-    </button>
+  <div class="debug">
+    <div class="actions">
+      <button @click="next">
+        Next track
+      </button>
+      <button @click="empty">
+        Empty queue
+      </button>
+    </div>
   </div>
 </template>
 

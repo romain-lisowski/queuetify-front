@@ -1,5 +1,6 @@
 <template>
   <div class="room">
+    <Debug />
     <Header />
 
     <div ref="search" class="search-wrapper">
@@ -9,9 +10,7 @@
     <div class="room_content">
       <div class="room_content-wrapper">
         <Player />
-        <Queue v-if="queue && queue.length > 0" :queue="queue" />
-        <div v-else>Empty queue</div>
-        <Debug />
+        <Queue :queue="queue" />
       </div>
 
       <button class="add-track" @click="showSearch">
