@@ -13,7 +13,7 @@ export default {
     })
       .then(response => response.json())
       .catch(error => {
-        console.error(error);
+        console.error("LibSpotifyApi.getCurrentTrack", error);
       });
   },
 
@@ -28,7 +28,23 @@ export default {
     })
       .then(response => response.json())
       .catch(error => {
-        console.error(error);
+        console.error("LibSpotifyApi.getTracks", error);
+      });
+  },
+  async searchTracks(search, accessToken) {
+    return fetch(
+      `${spotifyApiUrl}/v1/search?q=${search}&type=track&offset=0&limit=50`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    )
+      .then(response => response.json())
+      .catch(error => {
+        console.error("LibSpotifyApi.search", error);
       });
   }
 };
