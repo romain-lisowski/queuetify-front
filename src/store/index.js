@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
-import LibPlayer from "@/lib/LibPlayer";
+import LibPlayback from "@/lib/LibPlayback";
 import LibSpotifyApi from "@/lib/LibSpotifyApi";
 
 Vue.use(Vuex);
@@ -45,7 +45,7 @@ export default new Vuex.Store({
 
     initPlayer({ commit, state }) {
       if (state.spotifyAuth && state.spotifyAuth.access_token) {
-        const player = LibPlayer.initPlayer();
+        const player = LibPlayback.initPlayer();
         commit("setPlayer", player);
       } else {
         console.log("error", "Missing auth to init player", spotifyAuth);
