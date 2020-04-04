@@ -2,10 +2,10 @@
   <div class="debug">
     <div class="actions">
       <button @click="next">
-        Next track
+        Next
       </button>
       <button @click="empty">
-        Empty queue
+        Empty
       </button>
     </div>
   </div>
