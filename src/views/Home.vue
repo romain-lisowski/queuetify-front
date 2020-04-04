@@ -28,7 +28,11 @@
             :src="spotifyUser.images[0].url"
           />
           <div>Logged as : {{ spotifyUser.display_name }}</div>
+          <button class="btn btn-main hover-this" @click="logout">
+            Logout
+          </button>
         </div>
+
         <router-link
           :to="{ name: 'Room' }"
           tag="button"
@@ -88,6 +92,9 @@ export default {
   methods: {
     authentification() {
       LibSpotifyAccount.getAuthorization();
+    },
+    logout() {
+      this.$store.dispatch("logout");
     },
     animateHoverThis(e) {
       const { offsetX: x, offsetY: y } = e,

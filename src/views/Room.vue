@@ -8,6 +8,9 @@
             v-if="spotifyUser.images.length > 0"
             :src="spotifyUser.images[0].url"
           />
+          <button class="btn btn-main hover-this" @click="logout">
+            Logout
+          </button>
         </div>
         <Search />
         <Player v-if="currentTrack" :current-track="currentTrack" />
@@ -66,6 +69,10 @@ export default {
   methods: {
     fetchQueue() {
       return this.$store.dispatch("getQueue");
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Home" });
     }
   }
 };

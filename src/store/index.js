@@ -82,6 +82,15 @@ export default new Vuex.Store({
       });
     },
 
+    logout({ commit }) {
+      commit("setSpotifyAccessToken", null);
+      commit("setSpotifyRefreshToken", null);
+      commit("setSpotifyUser", null);
+      localStorage.removeItem("spotifyAccessToken");
+      localStorage.removeItem("spotifyRefreshToken");
+      localStorage.removeItem("spotifyUser");
+    },
+
     initPlayer({ commit, state }) {
       if (state.spotifyAccessToken) {
         const player = LibPlayback.initPlayer();
