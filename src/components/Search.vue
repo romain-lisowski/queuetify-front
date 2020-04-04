@@ -8,7 +8,6 @@
           value=""
           placeholder="Enter artist, track..."
           v-model="search"
-          v-on:keyup.esc="closeSearch"
         />
       </div>
       <div
@@ -35,11 +34,6 @@ export default {
       search: "",
       trackResults: []
     };
-  },
-  methods: {
-    closeSearch() {
-      this.$refs.searchWrapper.classList.remove("active");
-    }
   },
   watch: {
     search() {

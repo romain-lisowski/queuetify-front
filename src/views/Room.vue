@@ -1,5 +1,5 @@
 <template>
-  <div class="room">
+  <div class="room" v-on:keyup.esc="closeSearch" tabindex="0">
     <Debug />
     <Header />
 
@@ -69,6 +69,9 @@ export default {
     showSearch() {
       this.$refs.search.$refs.searchWrapper.classList.toggle("active");
       this.$refs.search.$refs.searchInput.focus();
+    },
+    closeSearch() {
+      this.$refs.search.$refs.searchWrapper.classList.remove("active");
     }
   }
 };
