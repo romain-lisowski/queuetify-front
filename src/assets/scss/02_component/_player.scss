@@ -27,10 +27,25 @@
         }
 
         &_artwork {
-            width: 25rem;
-            height: 25rem;
+            width: 40rem;
+            height: 40rem;
             box-shadow: 0 8px 28px 0 rgba(0,0,0,0.25);
             margin-bottom: 4rem;
+
+            @include desktop-xlarge {
+                width: 35rem;
+                height: 35rem;
+            }
+
+            @include desktop-large {
+                width: 30rem;
+                height: 30rem;
+            }
+
+            @include desktop {
+                width: 25rem;
+                height: 25rem;
+            }
 
             img {
                 width: 100%;
@@ -56,12 +71,41 @@
 
             .track-name {
                 margin-bottom: .5rem;
-                font-size: 3.4rem;
+                font-size: 4.2rem;
+                display: flex;
+                max-width: 45vw;
+                
+                @include desktop-xlarge {
+                    font-size: 4rem;
+                }
+                @include desktop-large {
+                    font-size: 3.8rem;
+                }
+    
+                @include desktop {
+                    font-size: 3.4rem;
+                }
+
+                span {
+                    display: block;
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
 
             .track-artist {
-                font-size: 2rem;
+                font-size: 2.4rem;
                 opacity: .6;
+
+                @include desktop-large {
+                    font-size: 2.2rem;
+                }
+    
+                @include desktop {
+                    font-size: 2rem;
+                }
             }
         }
     }
@@ -78,14 +122,29 @@
             padding: 1rem 1.5rem;
 
             .toggle-mute {
-                width: 4.5rem;
-                height: 4.5rem;
+                width: 6rem;
+                height: 6rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 background: rgba(#000, .1);
                 transition: all ease-in-out .2s;
                 margin-bottom: 5rem;
+                
+                @include desktop-xlarge {
+                    width: 5.5rem;
+                    height: 5.5rem;
+                }
+    
+                @include desktop-large {
+                    width: 5rem;
+                    height: 5rem;
+                }
+    
+                @include desktop {
+                    width: 4.5rem;
+                    height: 4.5rem;
+                }
 
                 .unmute {
                     svg {

@@ -6,12 +6,36 @@
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
-        height: calc(25vh - 3rem);
+        height: calc(25vh - 3.9rem);
         padding-bottom: 2rem;
         padding: 0 5rem 2rem 5rem;
 
+        @include desktop-xlarge {
+            height: calc(25vh - 3.6rem);
+        }
+
+        @include desktop-large {
+            height: calc(25vh - 3.3rem);
+        }
+
+        @include desktop {
+            height: calc(25vh - 3rem);
+        }
+
         h3 {
-            font-size: 3.4rem;
+            font-size: 4rem;
+
+            @include desktop-xlarge {
+                font-size: 3.8rem;
+            }
+
+            @include desktop-large {
+                font-size: 3.6rem;
+            }
+
+            @include desktop {
+                font-size: 3.4rem;
+            }
         }
 
         .queue-counter {

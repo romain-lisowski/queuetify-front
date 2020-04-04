@@ -23,3 +23,7 @@
 @mixin desktop-large {
     @media screen and (max-width: (1540em / 16)) { @content; }
 }
+
+@mixin desktop-xlarge {
+    @media screen and (max-width: (1750em / 16)) { @content; }
+}

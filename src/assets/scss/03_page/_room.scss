@@ -11,7 +11,18 @@
 
         &-wrapper {
             display: flex;
-            height: calc(100% - 6rem);
+            height: calc(100% - 7rem);
+
+            @include desktop-xlarge {
+                height: calc(100% - 6.6rem);
+            }
+            @include desktop-large {
+                height: calc(100% - 6.3rem);
+            }
+    
+            @include desktop {
+                height: calc(100% - 6rem);
+            }
 
             .player {
                 width: 50%;
@@ -24,7 +35,7 @@
     }
 
     .add-track {
-        height: 5.9rem;
+        height: 6.9rem;
         background: #000;
         display: flex;
         width: 100%;
@@ -33,6 +44,17 @@
         align-items: center;
         justify-content: center;
         border-bottom: .1rem solid transparent;
+
+        @include desktop-xlarge {
+            height: 6.5rem;
+        }
+        @include desktop-large {
+            height: 6.2rem;
+        }
+
+        @include desktop {
+            height: 5.9rem;
+        }
 
         span {
             display: flex;
@@ -56,7 +78,7 @@
         left: -5rem;
         background-size: cover;
         background-position: center;
-        filter: blur(5rem);
+        filter: blur(6rem);
         opacity: .8;
         transition: background-image 1s ease-in-out;
 

@@ -4,12 +4,23 @@
     right: 50%;
     overflow-y: scroll;
     left: 0;
-    bottom: 6rem;
+    bottom: 7rem;
     z-index: 999;
     background: rgba($color: #000000, $alpha: .95);
     padding: 10rem 3rem 3rem 3rem;
     transform: translateX(-100%);
     transition: transform cubic-bezier(0.05, 0.45, 0.25, 0.75)  .4s;
+
+    @include desktop-xlarge {
+        bottom: 6.6rem;
+    }
+    @include desktop-large {
+        bottom: 6.3rem;
+    }
+
+    @include desktop {
+        bottom: 6rem;
+    }
 
     &.active {
         transform: translateX(0);
