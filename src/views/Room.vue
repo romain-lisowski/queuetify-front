@@ -11,6 +11,7 @@
         <Player />
         <Queue v-if="queue && queue.length > 0" :queue="queue" />
         <div v-else>Empty queue</div>
+        <Debug />
       </div>
 
       <button class="add-track" @click="showSearch">
@@ -34,6 +35,7 @@ import Player from "@/components/Player";
 import Queue from "@/components/Queue";
 import Search from "@/components/Search";
 import Header from "@/components/Header";
+import Debug from "@/components/Debug";
 
 export default {
   name: "Room",
@@ -41,7 +43,8 @@ export default {
     Player,
     Queue,
     Search,
-    Header
+    Header,
+    Debug
   },
   computed: {
     currentTrack() {
