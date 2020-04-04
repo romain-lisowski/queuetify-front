@@ -8,23 +8,34 @@
       </div>
     </div>
     <div class="queue_list">
-      <Track v-for="(track, index) of queue" :key="index" :track="track" />
+      <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
+      <QueueTrack
+        v-for="({}, index) of queueEmptySlots"
+        :key="index"
+        :track="null"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Track from "@/components/QueueTrack";
+import QueueTrack from "@/components/QueueTrack";
 
 export default {
   name: "Queue",
   components: {
-    Track
+    QueueTrack
   },
   props: {
     queue: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    queueEmptySlots() {
+      let emptySlots = 6 - this.queue.length;
+      return emptySlots > 0 ? new Array(emptySlots) : [];
     }
   }
 };

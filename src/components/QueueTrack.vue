@@ -1,6 +1,6 @@
 <template>
   <div class="queue-track">
-    <div class="queue-track__info">
+    <div v-if="track" class="queue-track__info">
       <div class="queue-track__info_artwork">
         <img :src="track.album.images[2].url" />
       </div>
@@ -10,6 +10,19 @@
         </div>
         <div class="track-artist">
           {{ track.artists[0].name }}
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="queue-track__info_artwork">
+        IMAGE
+      </div>
+      <div class="queue-track__info_content">
+        <div class="track-name">
+          TRACKNAME
+        </div>
+        <div class="track-artist">
+          ARTISTE
         </div>
       </div>
     </div>
@@ -42,8 +55,7 @@ export default {
   },
   props: {
     track: {
-      type: Object,
-      required: true
+      type: Object
     }
   },
   methods: {
