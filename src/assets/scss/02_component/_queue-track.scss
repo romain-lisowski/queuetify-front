@@ -16,7 +16,6 @@
         &_artwork {
             width: 7rem;
             height: 7rem;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.20);
             background: rgba($color: #fff, $alpha: .05);
 
             @include desktop-xlarge {
@@ -36,6 +35,7 @@
 
             img {
                 width: 100%;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.20);
             }
 
             .artwork-default {
@@ -46,8 +46,23 @@
                 height: 100%;
 
                 svg {
-                    width: 3.4rem;
-                    height: 3.4rem;
+                    width: 4.2rem;
+                    height: 4.2rem;
+                    
+                    @include desktop-xlarge {
+                        width: 3.8rem;
+                        height: 3.8rem;
+                    }
+        
+                    @include desktop-large {
+                        width: 3.6rem;
+                        height: 3.6rem;
+                    }
+        
+                    @include desktop {
+                        width: 3.4rem;
+                        height: 3.4rem;
+                    }
                 }
             }
         }

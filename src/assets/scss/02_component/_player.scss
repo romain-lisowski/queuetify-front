@@ -29,7 +29,6 @@
         &_artwork {
             width: 40rem;
             height: 40rem;
-            box-shadow: 0 8px 28px 0 rgba(0,0,0,0.25);
             margin-bottom: 4rem;
 
             @include desktop-xlarge {
@@ -49,6 +48,7 @@
 
             img {
                 width: 100%;
+                box-shadow: 0 8px 28px 0 rgba(0,0,0,0.25);
             }
 
             .artwork-default {
@@ -60,8 +60,23 @@
                 justify-content: center;
 
                 svg {
-                    width: 18rem;
-                    height: 18rem;
+                    width: 30rem;
+                    height: 30rem;
+
+                    @include desktop-xlarge {
+                        width: 26rem;
+                        height: 26rem;    
+                    }
+        
+                    @include desktop-large {
+                        width: 22rem;
+                        height: 22rem;    
+                    }
+        
+                    @include desktop {
+                        width: 18rem;
+                        height: 18rem;    
+                    }
                 }
             }
         }
