@@ -46,10 +46,42 @@
         &_inner {
             display: flex;
             justify-content: space-between;
+            align-items: flex-end;
+            padding: 1rem 1.5rem;
+
+            .toggle-mute {
+                width: 4.5rem;
+                height: 4.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(#000, .1);
+                transition: all ease-in-out .2s;
+                margin-bottom: 5rem;
+
+                &:hover {
+                    background: rgba(#000, .6);
+                }
+            }
+
+            .timer {
+                width: 6rem;
+                display: flex;
+
+                &.start {
+                    justify-content: flex-start;
+                }
+
+                &.end {
+                    justify-content: flex-end;
+                }
+            }
         }
 
         &_progress {
             height: .6rem;
+            width: 100%;
+            overflow: hidden;
             background: rgba(#fff, .15);
 
             .progress-bar {

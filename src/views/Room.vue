@@ -1,26 +1,23 @@
 <template>
   <div class="room">
+    <Header />
+
+    <div ref="search" class="search-wrapper">
+      <Search />
+    </div>
+
     <div class="room_content">
       <div class="room_content-wrapper">
-        <div v-if="spotifyUser">
-          <img
-            height="50px"
-            v-if="spotifyUser.images.length > 0"
-            :src="spotifyUser.images[0].url"
-          />
-          <button class="btn btn-main hover-this" @click="logout">
-            Logout
-          </button>
-        </div>
-        <Search />
         <Player v-if="currentTrack" :current-track="currentTrack" />
         <div v-else>No playing track</div>
         <Queue v-if="queue && queue.length > 0" :queue="queue" />
         <div v-else>Empty queue</div>
       </div>
-      <div class="add-track">
+
+      <button class="add-track" @click="showSearch">
+        <span>+</span>
         Add a song
-      </div>
+      </button>
     </div>
     <div
       v-if="currentTrack"
@@ -36,13 +33,15 @@
 import Player from "@/components/Player";
 import Queue from "@/components/Queue";
 import Search from "@/components/Search";
+import Header from "@/components/Header";
 
 export default {
   name: "Room",
   components: {
     Player,
     Queue,
-    Search
+    Search,
+    Header
   },
   computed: {
     currentTrack() {
@@ -50,9 +49,6 @@ export default {
     },
     queue() {
       return this.$store.state.queue;
-    },
-    spotifyUser() {
-      return this.$store.state.spotifyUser;
     }
   },
   serverPrefetch: {
@@ -70,9 +66,8 @@ export default {
     fetchQueue() {
       return this.$store.dispatch("getQueue");
     },
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.push({ name: "Home" });
+    showSearch() {
+      this.$refs.search.classList.toggle("active");
     }
   }
 };
