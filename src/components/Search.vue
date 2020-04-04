@@ -7,9 +7,6 @@
       placeholder="Your search here ..."
       v-model="search"
     />
-    <button @click="doSearch" class="btn btn-main hover-this">
-      Search
-    </button>
     <div v-if="trackResults && trackResults.length > 0">
       <h3>Results</h3>
       <div v-for="track of trackResults" :key="track.id">
@@ -35,8 +32,8 @@ export default {
       trackResults: []
     };
   },
-  methods: {
-    doSearch() {
+  watch: {
+    search() {
       if (this.search.length > 0) {
         LibSpotifyApi.searchTracks(
           this.search,
