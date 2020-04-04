@@ -11,7 +11,9 @@
         {{ track.artists[0].name }}
       </div>
     </div>
-    <button @click="addTrack">Add to queue</button>
+    <button @click="addTrack" class="btn btn-main hover-this">
+      Add to queue
+    </button>
   </div>
 </template>
 

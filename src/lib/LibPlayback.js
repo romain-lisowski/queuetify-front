@@ -1,5 +1,6 @@
 import LibSpotifyApi from "@/lib/LibSpotifyApi";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
+import LibFirebase from "@/lib/LibFirebase";
 import store from "@/store";
 
 const spotifyApiUrl = "https://api.spotify.com";
@@ -14,7 +15,7 @@ export default {
         name: "Queue Web Playback Player",
         getOAuthToken: cb => {
           let accessToken = null;
-          LibSpotifyAccount.refreshToken(store.state.spotifyAuth.refresh_token)
+          LibSpotifyAccount.refreshToken(store.state.spotifyRefreshToken)
             .then(token => {
               accessToken = token.access_token;
               store.dispatch("refreshToken", accessToken);
@@ -30,9 +31,10 @@ export default {
       store.commit("setPlayer", player);
       player.connect();
 
+      // store player state every second and skip track if played
       setInterval(() => {
         player.getCurrentState().then(state => {
-          if (state) {
+          if (state && !state.paused) {
             store.commit("setPlayerState", state);
             if (store.state.currentTrack.duration_ms - state.position < 1000) {
               LibFirebase.removeTrack(store.state.currentTrack.id);
@@ -84,17 +86,21 @@ export default {
   }) {
     getOAuthToken(async accessToken => {
       const track = await LibSpotifyApi.getCurrentTrack(accessToken);
-      store.commit("setCurrentTrack", track);
-      fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          uris: ["spotify:track:" + track.id]
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
+      if (track && track.id) {
+        store.commit("setCurrentTrack", track);
+        fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            uris: ["spotify:track:" + track.id]
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+      } else {
+        store.commit("setCurrentTrack", null);
+      }
     });
   }
 };

@@ -9,7 +9,7 @@
         The collaborative listening<br />room using Spotify<span>®</span>
       </h1>
       <button
-        v-if="!accessToken"
+        v-if="!spotifyAccessToken"
         class="btn btn-main hover-this"
         @click="authentification"
         @mousemove="animateHoverThis"
@@ -69,9 +69,8 @@ export default {
     ButtonArrow
   },
   computed: {
-    accessToken() {
-      const spotifyAuth = this.$store.state.spotifyAuth;
-      return spotifyAuth ? spotifyAuth.access_token : null;
+    spotifyAccessToken() {
+      return this.$store.state.spotifyAccessToken;
     }
   },
   methods: {

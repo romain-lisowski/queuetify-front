@@ -6,13 +6,20 @@ import LibSpotifyApi from "@/lib/LibSpotifyApi";
 
 Vue.use(Vuex);
 
-// init from localstorage
-let spotifyAuth = null;
+let spotifyAccessToken = null;
 try {
-  spotifyAuth = JSON.parse(localStorage.getItem("spotifyAuth"));
+  spotifyAccessToken = localStorage.getItem("spotifyAccessToken");
 } catch (e) {
-  localStorage.setItem("spotifyAuth", null);
+  localStorage.removeItem("spotifyAccessToken");
 }
+
+let spotifyRefreshToken = null;
+try {
+  spotifyRefreshToken = localStorage.getItem("spotifyRefreshToken");
+} catch (e) {
+  localStorage.removeItem("spotifyRefreshToken");
+}
+
 let player = null;
 let playerState = null;
 let queue = null;
@@ -20,61 +27,86 @@ let currentTrack = null;
 
 export default new Vuex.Store({
   state: {
-    spotifyAuth,
+    spotifyAccessToken,
+    spotifyRefreshToken,
     player,
     playerState,
     queue,
     currentTrack
   },
+
   actions: {
     async getSpotifyAuth({ commit }, code) {
       if (code !== "undefined") {
         LibSpotifyAccount.getTokens(code).then(spotifyAuth => {
           if (spotifyAuth.access_token !== undefined) {
-            // save to localstorage
-            localStorage.setItem("spotifyAuth", JSON.stringify(spotifyAuth));
-            commit("setSpotifyAuth", spotifyAuth);
+            // save access_token and refresh_token to localstorage
+            localStorage.setItem(
+              "spotifyAccessToken",
+              spotifyAuth.access_token
+            );
+            localStorage.setItem(
+              "spotifyRefreshToken",
+              spotifyAuth.refresh_token
+            );
+            commit("setSpotifyAccessToken", spotifyAuth.access_token);
+            commit("setSpotifyRefreshToken", spotifyAuth.refresh_token);
           } else {
-            console.log("error", "Spotify getToken error", spotifyAuth);
+            console.error("store.getSpotifyAuth : ", spotifyAuth);
           }
         });
       } else {
-        console.log("error", "Spotify code not defined");
+        console.error("Spotify code not defined");
       }
     },
 
+    refreshToken({ commit }, token) {
+      localStorage.setItem("spotifyAccessToken", token);
+      commit("setSpotifyAccessToken", token);
+    },
+
     initPlayer({ commit, state }) {
-      if (state.spotifyAuth && state.spotifyAuth.access_token) {
+      if (state.spotifyAccessToken) {
         const player = LibPlayback.initPlayer();
         commit("setPlayer", player);
       } else {
-        console.log("error", "Missing auth to init player", spotifyAuth);
+        console.error("store.initPlayer : ", state.spotifyAccessToken);
       }
     },
 
     getQueue({ commit, state }) {
-      if (state.spotifyAuth && state.spotifyAuth.access_token) {
-        LibSpotifyApi.getTracks(state.spotifyAuth.access_token)
-          .then(tracks => {
-            commit("setQueue", tracks.tracks.splice(1));
-          })
-          .catch(() => {
-            this.dispatch("refreshToken");
-          });
+      if (state.spotifyAccessToken) {
+        LibSpotifyApi.getTracks(state.spotifyAccessToken).then(data => {
+          if (data.tracks) {
+            if (data.tracks.length === 1) {
+              if (state.playerState && state.playerState.paused) {
+                LibPlayback.play({ player: state.player });
+              }
+            } else {
+              commit("setQueue", data.tracks.splice(1));
+            }
+          } else {
+            commit("setQueue", []);
+          }
+        });
       } else {
-        console.log("error", "Missing auth to get tracks", spotifyAuth);
+        console.error("store.getQueue : ", spotifyAccessToken);
       }
     },
 
-    refreshToken({ commit, state }, token) {
-      state.spotifyAuth.access_token = token;
-      localStorage.setItem("spotifyAuth", JSON.stringify(state.spotifyAuth));
-      commit("setSpotifyAuth", spotifyAuth);
+    nextTrack({ state }) {
+      console.log(state.player);
+      LibPlayback.play({ player: state.player });
+      this.dispatch("getQueue");
     }
   },
+
   mutations: {
-    setSpotifyAuth(state, spotifyAuth) {
-      state.spotifyAuth = spotifyAuth;
+    setSpotifyAccessToken(state, token) {
+      state.spotifyAccessToken = token;
+    },
+    setSpotifyRefreshToken(state, token) {
+      state.spotifyRefreshToken = token;
     },
     setPlayer(state, player) {
       state.player = player;

@@ -33,7 +33,6 @@ export default {
       })
       .then(() => {
         store.dispatch("getQueue");
-        console.log("Track added : " + trackId);
       })
       .catch(error => {
         console.error("LibFirebase.addTrack", error);
@@ -47,8 +46,7 @@ export default {
         tracks: firebase.firestore.FieldValue.arrayRemove(trackId)
       })
       .then(() => {
-        store.dispatch("getQueue");
-        console.log("Track added : " + trackId);
+        store.dispatch("nextTrack");
       })
       .catch(error => {
         console.error("LibFirebase.addTrack", error);
