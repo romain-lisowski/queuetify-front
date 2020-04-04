@@ -2,6 +2,13 @@
   <div class="room">
     <div class="room_content">
       <div class="room_content-wrapper">
+        <div v-if="spotifyUser">
+          <img
+            height="50px"
+            v-if="spotifyUser.images.length > 0"
+            :src="spotifyUser.images[0].url"
+          />
+        </div>
         <Search />
         <Player v-if="currentTrack" :current-track="currentTrack" />
         <div v-else>No playing track</div>
@@ -40,6 +47,9 @@ export default {
     },
     queue() {
       return this.$store.state.queue;
+    },
+    spotifyUser() {
+      return this.$store.state.spotifyUser;
     }
   },
   serverPrefetch: {
