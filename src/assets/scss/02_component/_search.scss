@@ -2,12 +2,10 @@
     position: absolute;
     top: 0;
     right: 50%;
-    overflow-y: scroll;
     left: 0;
     bottom: 7rem;
     z-index: 999;
     background: rgba($color: #000000, $alpha: .95);
-    padding: 0 3rem 3rem 3rem;
     transform: translateX(-100%);
     transition: transform cubic-bezier(0.05, 0.45, 0.25, 0.75)  .4s;
 
@@ -27,14 +25,16 @@
     }
     .search {
         &__input {
+            padding: 0 3rem;
             input {
-                font-size: 2.8rem;
+                font-size: 3.8rem;
+                line-height: 1;
                 color: #fff;
                 font-weight: bold;
                 background: none;
                 width: 100%;
                 border: none;
-                height: 10rem;
+                height: 15rem;
 
                 &::placeholder {
                     color: rgba($color: #fff, $alpha: .3);
@@ -43,7 +43,13 @@
         }
 
         &__results {
+            padding: 0 3rem;
+            height: calc(100vh - 22rem);
+            overflow-y: scroll;
 
+            .queue-track {
+                padding: 1.5rem 0;
+            }   
         }
     }
 }

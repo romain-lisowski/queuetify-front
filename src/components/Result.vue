@@ -1,17 +1,20 @@
 <template>
-  <div>
-    <div>
-      <img :src="track.album.images[2].url" />
-    </div>
-    <div>
-      <div>
-        {{ track.name }}
+  <div class="queue-track">
+    <div class="queue-track__info">
+      <div class="queue-track__info_artwork">
+        <img v-if="track" :src="track.album.images[2].url" />
+        <div class="artwork-default" v-else></div>
       </div>
-      <div>
-        {{ track.artists[0].name }}
+      <div class="queue-track__info_content">
+        <div class="track-name">
+          <span v-if="track">{{ track.name }}</span>
+        </div>
+        <div class="track-artist">
+          <span v-if="track">{{ track.artists[0].name }}</span>
+        </div>
       </div>
     </div>
-    <button @click="addTrack" class="btn btn-main hover-this">
+    <button @click="addTrack" class="btn btn-inline">
       Add to queue
     </button>
   </div>

@@ -11,12 +11,12 @@
           v-on:keyup.esc="closeSearch"
         />
       </div>
-      <div class="search__results" v-if="trackResults && trackResults.length > 0">
-        <div v-for="track of trackResults" :key="track.id">
-          <Result :track="track" />
-        </div>
+      <div
+        class="search__results"
+        v-if="trackResults && trackResults.length > 0"
+      >
+        <Result v-for="track of trackResults" :key="track.id" :track="track" />
       </div>
-      <h3 v-else>No results</h3>
     </div>
   </div>
 </template>
