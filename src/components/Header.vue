@@ -24,7 +24,9 @@
     <!-- Get other connected users -->
     <div class="users">
       <!-- if no other users -->
+      <!-- 
       <div class="user-none"></div>
+      -->
 
       <!-- else : display users -->
       <!-- for other users -->

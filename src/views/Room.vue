@@ -8,8 +8,7 @@
 
     <div class="room_content">
       <div class="room_content-wrapper">
-        <Player v-if="currentTrack" :current-track="currentTrack" />
-        <div v-else>No playing track</div>
+        <Player />
         <Queue v-if="queue && queue.length > 0" :queue="queue" />
         <div v-else>Empty queue</div>
       </div>
@@ -26,6 +25,7 @@
         'background-image': 'url(' + currentTrack.album.images[0].url + ')'
       }"
     ></div>
+    <div v-else class="room_bg-default"></div>
   </div>
 </template>
 

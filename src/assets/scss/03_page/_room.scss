@@ -24,7 +24,7 @@
     }
 
     .add-track {
-        height: 6rem;
+        height: 5.9rem;
         background: #000;
         display: flex;
         width: 100%;
@@ -32,6 +32,7 @@
         font-weight: bold;
         align-items: center;
         justify-content: center;
+        border-bottom: .1rem solid transparent;
 
         span {
             display: flex;
@@ -45,7 +46,7 @@
             background: $color-primary;
         }
     }
-
+    
     &_bg {
         position: absolute;
         z-index: 1;
@@ -57,5 +58,15 @@
         background-position: center;
         filter: blur(5rem);
         opacity: .8;
+
+        &-default {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: linear-gradient(225deg, $gradient-bg-1 0%, $gradient-bg-2 100%);
+        }
     }
 }

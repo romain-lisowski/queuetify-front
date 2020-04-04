@@ -1,7 +1,6 @@
 .queue {
     background: rgba(#000, .4);
     height: 100%;
-    padding: 0 5rem;
 
     &_header {
         display: flex;
@@ -9,6 +8,7 @@
         justify-content: space-between;
         height: calc(25vh - 3rem);
         padding-bottom: 2rem;
+        padding: 0 5rem 2rem 5rem;
 
         h3 {
             font-size: 3.4rem;
@@ -26,5 +26,7 @@
 
     &_list {
         height: calc(75vh - 3rem);
+        padding: 0 5rem;
+        overflow-y: scroll;
     }
 }

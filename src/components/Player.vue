@@ -2,24 +2,31 @@
   <div class="player">
     <div class="player__track">
       <div class="player__track_artwork">
-        <img :src="currentTrack.album.images[0].url" />
+        <img v-if="currentTrack" :src="currentTrack.album.images[0].url" />
+        <div v-else class="artwork-default">
+          <ArtworkDefault />
+        </div>
       </div>
       <div class="player__track_info">
         <div class="track-name">
-          {{ currentTrack.name }}
+          <span v-if="currentTrack">{{ currentTrack.name }}</span>
+          <span v-else class="track-name-default"
+            >It’s very quiet around here !
+          </span>
         </div>
         <div class="track-artist">
-          {{ currentTrack.artists[0].name }}
+          <span v-if="currentTrack">{{ currentTrack.artists[0].name }}</span>
+          <span v-else class="track-artist-default">Start adding songs</span>
         </div>
       </div>
     </div>
 
-    <div class="player__controls">
+    <div class="player__controls" v-if="currentTrack">
       <div class="player__controls_inner">
         <div class="timer start">{{ convertTime(playerPosition) }}</div>
         <button class="toggle-mute" @click="togglePlay">
-          <span v-if="play"><IconMute /></span>
-          <span v-else><IconUnmute /></span>
+          <span v-if="play" class="control mute"><IconMute /></span>
+          <span v-else class="control unmute"><IconUnmute /></span>
         </button>
         <div class="timer end">{{ convertTime(currentTrack.duration_ms) }}</div>
       </div>
@@ -33,6 +40,7 @@
 <script>
 import IconMute from "@/assets/svg/icon-mute.svg";
 import IconUnmute from "@/assets/svg/icon-unmute.svg";
+import ArtworkDefault from "@/assets/svg/artwork-default.svg";
 
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 
@@ -45,15 +53,13 @@ export default {
   },
   components: {
     IconMute,
-    IconUnmute
-  },
-  props: {
-    currentTrack: {
-      type: Object,
-      required: true
-    }
+    IconUnmute,
+    ArtworkDefault
   },
   computed: {
+    currentTrack() {
+      return this.$store.state.currentTrack;
+    },
     playerPosition() {
       const playerState = this.$store.state.playerState;
       return playerState ? playerState.position : 0;
