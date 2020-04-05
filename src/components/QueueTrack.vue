@@ -10,9 +10,11 @@
       <div class="queue-track__info_content">
         <div class="track-name">
           <span v-if="track">{{ track.name }}</span>
+          <span v-else class="track-name-default">Hidden track name</span>
         </div>
         <div class="track-artist">
           <span v-if="track">{{ track.artist }}</span>
+          <span v-else class="track-artist-default">Hidden artist</span>
         </div>
       </div>
     </div>

@@ -48,7 +48,7 @@
                 svg {
                     width: 4.2rem;
                     height: 4.2rem;
-                    
+
                     @include desktop-xlarge {
                         width: 3.8rem;
                         height: 3.8rem;
@@ -101,13 +101,36 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+
+                    &.track-name-default {
+                        background: rgba(#fff, .05);
+                        flex: 0 0 25rem;
+                        color: transparent;
+                        height: 2.1rem;
+                        line-height: 2.2rem;
+
+                        @include desktop-xlarge {
+                            height: 1.8rem;
+                            line-height: 1.8rem;
+                        }
+            
+                        @include desktop-large {
+                            height: 1.6rem;
+                            line-height: 1.6rem;
+                        }
+            
+                        @include desktop {
+                            height: 1.5rem;
+                            line-height: 1.7rem;
+                        }
+                    }
                 }
             }
 
             .track-artist {
                 font-size: 2rem;
                 line-height: 2rem;
-                opacity: .6;
+                color: rgba(#fff, .6);
                 padding: .2rem 0;
 
                 @include desktop-xlarge {
@@ -123,6 +146,32 @@
                 @include desktop {
                     font-size: 1.4rem;
                     line-height: 1.4rem;
+                }
+
+                span {
+
+                    &.track-artist-default {
+                        background: rgba(#fff, .05);
+                        color: transparent;
+                        font-size: 1.8rem;
+                        line-height: 1.8rem;
+                        margin-top: .2rem;
+
+                        @include desktop-xlarge {
+                            font-size: 1.6rem;
+                            line-height: 1.6rem;
+                        }
+            
+                        @include desktop-large {
+                            font-size: 1.4rem;
+                            line-height: 1.4rem;
+                        }
+            
+                        @include desktop {
+                            font-size: 1.4rem;
+                            line-height: 1.4rem;
+                        }
+                    }
                 }
             }
         }
