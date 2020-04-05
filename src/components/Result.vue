@@ -6,6 +6,9 @@
         <div class="artwork-default" v-else></div>
       </div>
       <div class="queue-track__info_content">
+        <div v-if="alreadyInQueue">
+          (already in queue)
+        </div>
         <div class="track-name">
           <span v-if="track">{{ track.name }}</span>
         </div>
@@ -29,6 +32,15 @@ export default {
     track: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    alreadyInQueue() {
+      const existingTrack = this.$store.state.queue.find(
+        track => track.id === this.track.id
+      );
+      console.log(existingTrack);
+      return existingTrack !== undefined;
     }
   },
   methods: {
