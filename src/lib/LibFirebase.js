@@ -104,8 +104,10 @@ export default {
     return this.getQueue()
       .then(queue => {
         if (queue.length > 0) {
-          nextTrack = queue[0];
-          this.removeTrackFromQueue(nextTrack);
+          const sortQueue = queue.sort((track1, track2) => {
+            return track2.vote - track1.vote;
+          });
+          this.removeTrackFromQueue(sortQueue[0]);
         }
         this.updateCurrentTrack(nextTrack);
         return nextTrack;
