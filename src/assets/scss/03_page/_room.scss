@@ -6,7 +6,7 @@
 
     &_content {
         position: relative;
-        z-index: 2;
+        z-index: 3;
         height: 100%;
 
         &-wrapper {
@@ -76,9 +76,21 @@
         left: -5rem;
         background-size: cover;
         background-position: center;
-        filter: blur(6rem);
-        opacity: .8;
+        filter: blur(8rem);
+        opacity: 1;
         transition: background-image 1s ease-in-out;
+
+        &-texture {
+            background-image: url('~@/assets/img/bg-texture.png');
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+        }
 
         &-default {
             position: absolute;

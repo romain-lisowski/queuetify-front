@@ -16,6 +16,7 @@
         Add a song
       </button>
     </div>
+    <div class="room_bg-texture"></div>
     <div
       v-if="currentTrack"
       class="room_bg"

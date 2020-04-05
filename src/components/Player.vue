@@ -6,10 +6,12 @@
         <div class="user">bastien</div>
       </div>
       <div class="player__track_artwork">
+        <div class="track-artwork--texture"></div>
         <img v-if="track" :src="track.image_big" />
-        <div v-else class="artwork-default">
+        <div v-else class="artwork--default">
           <ArtworkDefault />
         </div>
+        <div v-if="track" class="track-artwork--vinyl"></div>
       </div>
       <div class="player__track_info">
         <div class="track-name">

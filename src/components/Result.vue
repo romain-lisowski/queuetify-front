@@ -1,14 +1,11 @@
 <template>
-  <div class="queue-track">
+  <div class="queue-track" :class="{ inactive: alreadyInQueue }">
     <div class="queue-track__info">
       <div class="queue-track__info_artwork">
         <img v-if="track" :src="track.album.images[2].url" />
         <div class="artwork-default" v-else></div>
       </div>
       <div class="queue-track__info_content">
-        <div v-if="alreadyInQueue">
-          (already in queue)
-        </div>
         <div class="track-name">
           <span v-if="track">{{ track.name }}</span>
         </div>
@@ -44,6 +41,7 @@ export default {
   },
   methods: {
     addTrack() {
+      console.log(this.track);
       LibFirebase.addTrackToQueue(this.track);
     }
   }
