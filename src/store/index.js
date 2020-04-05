@@ -45,7 +45,7 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async fetchSpotifyTokens({ commit }, code) {
+    async fetchSpotifyTokens({ commit, dispatch }, code) {
       console.info("fetchSpotifyTokens");
       if (code !== "undefined") {
         LibSpotifyAccount.getTokens(code).then(spotifyAuth => {
@@ -61,7 +61,7 @@ export default new Vuex.Store({
             );
             commit("setSpotifyAccessToken", spotifyAuth.access_token);
             commit("setSpotifyRefreshToken", spotifyAuth.refresh_token);
-            this.dispatch("fetchSpotifyUser");
+            dispatch("fetchSpotifyUser");
           } else {
             console.error("store.fetchSpotifyTokens : ", spotifyAuth);
           }
@@ -96,22 +96,22 @@ export default new Vuex.Store({
       });
     },
 
-    initRoom() {
+    initRoom({ dispatch }) {
       console.info("initRoom");
       LibPlayback.initPlayer();
-      this.dispatch("fetchQueue");
+      dispatch("fetchQueue");
     },
 
-    fetchCurrentTrack({ commit, state }) {
+    fetchCurrentTrack({ commit, dispatch, state }) {
       console.info("fetchCurrentTrack");
       LibFirebase.getCurrentTrack().then(track => {
         commit("setCurrentTrack", track);
         if (!track) {
-          this.dispatch("nextTrack");
+          dispatch("nextTrack");
         }
 
         if (!state.playerState || state.playerState.paused) {
-          this.dispatch("play");
+          dispatch("play");
         }
       });
     },
@@ -119,27 +119,30 @@ export default new Vuex.Store({
     fetchQueue({ commit }) {
       console.info("fetchQueue");
       LibFirebase.getQueue().then(queue => {
-        commit("setQueue", queue);
+        const sortQueue = queue.sort((track1, track2) => {
+          return track2.vote - track1.vote;
+        });
+        commit("setQueue", sortQueue);
       });
     },
 
-    nextTrack({ commit, state }) {
+    nextTrack({ commit, dispatch, state }) {
       console.info("nextTrack");
       LibFirebase.getNextTrack().then(track => {
         commit("setCurrentTrack", track);
         if (track) {
-          this.dispatch("fetchQueue");
-          this.dispatch("play");
+          dispatch("fetchQueue");
+          dispatch("play");
         } else {
           state.player.pause();
         }
       });
     },
 
-    addTrack() {
+    addTrack({ dispatch }) {
       console.info("addTrack");
-      this.dispatch("fetchQueue");
-      this.dispatch("fetchCurrentTrack");
+      dispatch("fetchQueue");
+      dispatch("fetchCurrentTrack");
     },
 
     play({ state }) {
@@ -152,6 +155,12 @@ export default new Vuex.Store({
       } else {
         console.log("No track to play");
       }
+    },
+
+    // eslint-disable-next-line no-unused-vars
+    vote({ commit, dispatch }, { track, increment }) {
+      console.info("vote");
+      LibFirebase.voteTrack(track, increment);
     }
   },
 

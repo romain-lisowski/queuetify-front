@@ -2,7 +2,7 @@
   <div class="player">
     <div class="player__track">
       <div class="player__track_user">
-        <div class="vote-count">2</div>
+        <div v-if="track" class="vote-count">{{ track.vote }}</div>
         <div class="user">bastien</div>
       </div>
       <div class="player__track_artwork">

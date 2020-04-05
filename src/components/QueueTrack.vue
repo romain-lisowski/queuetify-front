@@ -22,8 +22,13 @@
     </div>
     <div class="queue-track__vote" v-if="track">
       <a class="hover-vote" href="#">
-        <VoteArrow />
-        <div class="vote-counter">2</div>
+        <div @click="voteUp">
+          <VoteArrow />
+        </div>
+        <div class="vote-counter">{{ track.vote }}</div>
+        <div @click="voteDown">
+          <VoteArrow />
+        </div>
       </a>
     </div>
   </div>
@@ -46,6 +51,12 @@ export default {
     }
   },
   methods: {
+    voteUp() {
+      this.$store.dispatch("vote", { track: this.track, increment: 1 });
+    },
+    voteDown() {
+      this.$store.dispatch("vote", { track: this.track, increment: -1 });
+    },
     convertTime(millis) {
       return millisToMinutesAndSeconds(millis);
     }
