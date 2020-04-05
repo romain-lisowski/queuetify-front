@@ -78,7 +78,7 @@
                 line-height: 2.5rem;
                 padding: .2rem 0;
                 display: flex;
-                max-width: 30vw;
+                max-width: 25vw;
 
                 @include desktop-xlarge {
                     font-size: 2.35rem;
@@ -186,25 +186,34 @@
 
     &__vote {
         margin-left: 4rem;
+        display: flex;
+        align-items: center;
 
-        a {
-            font-size: 1.8rem;
-            padding: .2rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .vote-counter {
             text-align: center;
+            width: 4rem;
+        }
+
+        .vote {
+            padding: 1.8rem 1.5rem;
+            background: rgba(#000, .1);
+            transition: all ease-in-out .2s;
 
             &:hover {
+                background: rgba(#000, .8);
+
                 svg {
                     opacity: 1;
                 }
             }
 
             svg {
-                opacity: .4;
-                transition: opacity ease-in-out .3s;
+                opacity: .6;
+                transition: all ease-in-out .2s;
+            }
+
+            &.vote-down {
+                transform: rotate(180deg);
             }
         }
     }

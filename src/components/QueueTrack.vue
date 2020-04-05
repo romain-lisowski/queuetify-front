@@ -23,15 +23,13 @@
       bastien
     </div>
     <div class="queue-track__vote" v-if="track">
-      <a class="hover-vote" href="#">
-        <div @click="voteUp">
-          <VoteArrow />
-        </div>
-        <div class="vote-counter">{{ track.vote }}</div>
-        <div @click="voteDown">
-          <VoteArrow />
-        </div>
-      </a>
+      <div class="vote vote-up" @click="voteUp">
+        <VoteArrow />
+      </div>
+      <div class="vote-counter">{{ track.vote }}</div>
+      <div class="vote vote-down" @click="voteDown">
+        <VoteArrow />
+      </div>
     </div>
   </div>
 </template>
