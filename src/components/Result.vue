@@ -33,7 +33,8 @@ export default {
   },
   methods: {
     addTrack() {
-      LibFirebase.addTrack(this.track.id);
+      console.log(this.track);
+      LibFirebase.addTrackToQueue(this.track);
     }
   }
 };

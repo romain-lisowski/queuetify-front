@@ -2,8 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 import LibPlayback from "@/lib/LibPlayback";
-import LibSpotifyApi from "@/lib/LibSpotifyApi";
 import LibSpotifyUser from "@/lib/LibSpotifyUser";
+import LibFirebase from "@/lib/LibFirebase";
 
 Vue.use(Vuex);
 
@@ -45,7 +45,8 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async getSpotifyTokens({ commit }, code) {
+    async fetchSpotifyTokens({ commit }, code) {
+      console.info("fetchSpotifyTokens");
       if (code !== "undefined") {
         LibSpotifyAccount.getTokens(code).then(spotifyAuth => {
           if (spotifyAuth.access_token !== undefined) {
@@ -60,9 +61,9 @@ export default new Vuex.Store({
             );
             commit("setSpotifyAccessToken", spotifyAuth.access_token);
             commit("setSpotifyRefreshToken", spotifyAuth.refresh_token);
-            this.dispatch("getSpotifyUser");
+            this.dispatch("fetchSpotifyUser");
           } else {
-            console.error("store.getSpotifyTokens : ", spotifyAuth);
+            console.error("store.fetchSpotifyTokens : ", spotifyAuth);
           }
         });
       } else {
@@ -71,18 +72,13 @@ export default new Vuex.Store({
     },
 
     refreshToken({ commit }, token) {
+      console.info("refreshToken");
       localStorage.setItem("spotifyAccessToken", token);
       commit("setSpotifyAccessToken", token);
     },
 
-    getSpotifyUser({ commit, state }) {
-      LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
-        localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
-        commit("setSpotifyUser", spotifyUser);
-      });
-    },
-
     logout({ commit }) {
+      console.info("logout");
       commit("setSpotifyAccessToken", null);
       commit("setSpotifyRefreshToken", null);
       commit("setSpotifyUser", null);
@@ -91,29 +87,70 @@ export default new Vuex.Store({
       localStorage.removeItem("spotifyUser");
     },
 
-    getQueue({ commit, state }) {
-      if (state.spotifyAccessToken) {
-        LibSpotifyApi.getTracks(state.spotifyAccessToken).then(data => {
-          if (data.tracks) {
-            if (data.tracks.length === 1) {
-              if (state.playerState && state.playerState.paused) {
-                LibPlayback.play({ player: state.player });
-              }
-            } else {
-              commit("setQueue", data.tracks.splice(1));
-            }
-          } else {
-            commit("setQueue", []);
-          }
-        });
-      } else {
-        console.error("store.getQueue : ", spotifyAccessToken);
-      }
+    fetchSpotifyUser({ commit, state }) {
+      console.info("fetchSpotifyUser");
+      LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
+        localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
+        commit("setSpotifyUser", spotifyUser);
+      });
     },
 
-    nextTrack({ state }) {
-      LibPlayback.play({ player: state.player });
-      this.dispatch("getQueue");
+    initRoom() {
+      console.info("initRoom");
+      LibPlayback.initPlayer();
+      this.dispatch("fetchQueue");
+    },
+
+    fetchCurrentTrack({ commit, state }) {
+      console.info("fetchCurrentTrack");
+      LibFirebase.getCurrentTrack().then(track => {
+        commit("setCurrentTrack", track);
+        if (!track) {
+          this.dispatch("nextTrack");
+        }
+
+        if (!state.playerState || state.playerState.paused) {
+          this.dispatch("play");
+        }
+      });
+    },
+
+    fetchQueue({ commit }) {
+      console.info("fetchQueue");
+      LibFirebase.getQueue().then(queue => {
+        commit("setQueue", queue);
+      });
+    },
+
+    nextTrack({ commit, state }) {
+      console.info("nextTrack");
+      LibFirebase.getNextTrack().then(track => {
+        commit("setCurrentTrack", track);
+        if (track) {
+          this.dispatch("fetchQueue");
+          this.dispatch("play");
+        } else {
+          state.player.pause();
+        }
+      });
+    },
+
+    addTrack() {
+      console.info("addTrack");
+      this.dispatch("fetchQueue");
+      this.dispatch("fetchCurrentTrack");
+    },
+
+    play({ state }) {
+      console.info("play");
+      if (state.currentTrack) {
+        LibPlayback.play({
+          player: state.player,
+          trackId: state.currentTrack.id
+        });
+      } else {
+        console.log("No track to play");
+      }
     }
   },
 

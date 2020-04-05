@@ -2,7 +2,7 @@
   <div class="queue-track">
     <div class="queue-track__info">
       <div class="queue-track__info_artwork">
-        <img v-if="track" :src="track.album.images[2].url" />
+        <img v-if="track" :src="track.image_small" />
         <div class="artwork-default" v-else>
           <ArtworkDefault />
         </div>
@@ -12,7 +12,7 @@
           <span v-if="track">{{ track.name }}</span>
         </div>
         <div class="track-artist">
-          <span v-if="track">{{ track.artists[0].name }}</span>
+          <span v-if="track">{{ track.artist }}</span>
         </div>
       </div>
     </div>

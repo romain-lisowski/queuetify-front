@@ -3,53 +3,88 @@ import { db } from "@/firebase";
 import store from "@/store";
 
 export default {
-  async getCurrentTrackId() {
+  async getCurrentTrack() {
     return db
       .collection("rooms")
       .doc("room1")
       .get()
-      .then(snapshot => snapshot.data().tracks[0])
+      .then(snapshot => snapshot.data().current_track)
       .catch(error => {
-        console.error("LibFirebase.getCurrentTrackId", error);
+        console.error("LibFirebase.getCurrentTrack", error);
       });
   },
 
-  async getTracksIds() {
+  async getQueue() {
     return db
       .collection("rooms")
       .doc("room1")
       .get()
-      .then(snapshot => snapshot.data().tracks)
+      .then(snapshot => {
+        return snapshot.data() ? snapshot.data().queue : [];
+      })
       .catch(error => {
-        console.error("LibFirebase.getTracksIds", error);
+        console.error("LibFirebase.getQueue", error);
       });
   },
 
-  addTrack(trackId) {
+  addTrackToQueue(track) {
     db.collection("rooms")
       .doc("room1")
       .update({
-        tracks: firebase.firestore.FieldValue.arrayUnion(trackId)
+        queue: firebase.firestore.FieldValue.arrayUnion({
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          duration: track.duration_ms,
+          image_big: track.album.images[0].url,
+          image_medium: track.album.images[1].url,
+          image_small: track.album.images[2].url
+        })
       })
       .then(() => {
-        store.dispatch("getQueue");
+        store.dispatch("addTrack");
       })
       .catch(error => {
-        console.error("LibFirebase.addTrack", error);
+        console.error("LibFirebase.addTrackToQueue", error);
       });
   },
 
-  removeTrack(trackId) {
+  removeTrackFromQueue(track) {
     db.collection("rooms")
       .doc("room1")
       .update({
-        tracks: firebase.firestore.FieldValue.arrayRemove(trackId)
-      })
-      .then(() => {
-        store.dispatch("nextTrack");
+        queue: firebase.firestore.FieldValue.arrayRemove(track)
       })
       .catch(error => {
-        console.error("LibFirebase.addTrack", error);
+        console.error("LibFirebase.removeTrackFromQueue", error);
+      });
+  },
+
+  async updateCurrentTrack(track) {
+    db.collection("rooms")
+      .doc("room1")
+      .update({
+        current_track: track
+      })
+      .catch(error => {
+        console.error("LibFirebase.addTrackToQueue", error);
+      });
+  },
+
+  // move next track from queue to current track
+  async getNextTrack() {
+    let nextTrack = null;
+    return this.getQueue()
+      .then(queue => {
+        if (queue.length > 0) {
+          nextTrack = queue[0];
+          this.removeTrackFromQueue(nextTrack);
+        }
+        this.updateCurrentTrack(nextTrack);
+        return nextTrack;
+      })
+      .catch(error => {
+        console.error("LibFirebase.nextTrack", error);
       });
   }
 };

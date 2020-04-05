@@ -1,6 +1,4 @@
-import LibSpotifyApi from "@/lib/LibSpotifyApi";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
-import LibFirebase from "@/lib/LibFirebase";
 import store from "@/store";
 
 const spotifyApiUrl = "https://api.spotify.com";
@@ -37,71 +35,50 @@ export default {
         player.getCurrentState().then(state => {
           if (state && !state.paused) {
             store.commit("setPlayerState", state);
-            if (store.state.currentTrack.duration_ms - state.position < 1000) {
-              LibFirebase.removeTrack(store.state.currentTrack.id);
+            if (
+              store.state.currentTrack &&
+              store.state.currentTrack.duration - state.position < 1000
+            ) {
+              store.dispatch("nextTrack");
             }
           }
         });
       }, 1000);
     };
   },
-  addListeners(player) {
-    // Error handling
-    player.addListener("initialization_error", ({ message }) => {
-      console.error(message);
-    });
-    player.addListener("authentication_error", ({ message }) => {
-      console.error(message);
-    });
-    player.addListener("account_error", ({ message }) => {
-      console.error(message);
-    });
-    player.addListener("playback_error", ({ message }) => {
-      console.error(message);
-    });
 
+  addListeners(player) {
     // Playback status updates
     player.addListener("player_state_changed", state => {
       store.commit("setPlayerState", state);
       console.log(state);
     });
 
-    // Not Ready
-    // eslint-disable-next-line camelcase
-    player.addListener("not_ready", ({ device_id }) => {
-      console.log("Device ID has gone offline", device_id);
-    });
-
     // Ready
     // eslint-disable-next-line camelcase
     player.addListener("ready", ({ device_id }) => {
       console.log("Ready with Device ID", device_id);
-      this.play({ player });
+      store.dispatch("fetchCurrentTrack");
     });
   },
 
   async play({
     player: {
       _options: { getOAuthToken, id }
-    }
+    },
+    trackId
   }) {
-    getOAuthToken(async accessToken => {
-      const track = await LibSpotifyApi.getCurrentTrack(accessToken);
-      if (track && track.id) {
-        store.commit("setCurrentTrack", track);
-        fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            uris: ["spotify:track:" + track.id]
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`
-          }
-        });
-      } else {
-        store.commit("setCurrentTrack", null);
-      }
+    getOAuthToken(accessToken => {
+      fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          uris: ["spotify:track:" + trackId]
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
     });
   }
 };

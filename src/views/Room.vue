@@ -7,7 +7,7 @@
 
     <div class="room_content">
       <div class="room_content-wrapper">
-        <Player />
+        <Player :track="currentTrack" />
         <Queue :queue="queue" />
       </div>
 
@@ -20,7 +20,7 @@
       v-if="currentTrack"
       class="room_bg"
       :style="{
-        'background-image': 'url(' + currentTrack.album.images[0].url + ')'
+        'background-image': 'url(' + currentTrack.image_big + ')'
       }"
     ></div>
     <div v-else class="room_bg-default"></div>
@@ -33,7 +33,6 @@ import Queue from "@/components/Queue";
 import Search from "@/components/Search";
 import Header from "@/components/Header";
 import Debug from "@/components/Debug";
-import LibPlayback from "@/lib/LibPlayback";
 
 export default {
   name: "Room",
@@ -52,29 +51,19 @@ export default {
       return this.$store.state.queue;
     }
   },
-  serverPrefetch: {
-    tracks() {
-      return this.fetchQueue();
-    }
-  },
   created() {
+    // insert spotify script
     let spotifyPlayerScript = document.createElement("script");
     spotifyPlayerScript.setAttribute(
       "src",
       "https://sdk.scdn.co/spotify-player.js"
     );
     document.head.appendChild(spotifyPlayerScript);
-  },
-  mounted() {
-    if (!this.tracks) {
-      this.fetchQueue();
-      LibPlayback.initPlayer();
-    }
+
+    // init player, queue, current track, ...
+    this.$store.dispatch("initRoom");
   },
   methods: {
-    fetchQueue() {
-      return this.$store.dispatch("getQueue");
-    },
     showSearch() {
       this.$refs.search.$refs.searchWrapper.classList.toggle("active");
       this.$refs.search.$refs.searchInput.focus();

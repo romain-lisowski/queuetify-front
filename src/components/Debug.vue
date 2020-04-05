@@ -18,15 +18,15 @@ export default {
   name: "Search",
   methods: {
     next() {
-      console.log("next");
-      LibFirebase.removeTrack(this.$store.state.currentTrack.id);
+      this.$store.dispatch("nextTrack");
     },
     empty() {
-      console.log("empty");
       const tracks = this.$store.state.queue;
       tracks.forEach(track => {
-        LibFirebase.removeTrack(track.id);
+        LibFirebase.removeTrackFromQueue(track);
       });
+      this.$store.dispatch("nextTrack");
+      this.$store.dispatch("fetchQueue");
     }
   }
 };
