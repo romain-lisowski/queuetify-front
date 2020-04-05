@@ -77,7 +77,7 @@ export default new Vuex.Store({
       commit("setSpotifyAccessToken", token);
     },
 
-    logout({ commit }) {
+    logout({ commit, state }) {
       console.info("logout");
       commit("setSpotifyAccessToken", null);
       commit("setSpotifyRefreshToken", null);
@@ -85,6 +85,7 @@ export default new Vuex.Store({
       localStorage.removeItem("spotifyAccessToken");
       localStorage.removeItem("spotifyRefreshToken");
       localStorage.removeItem("spotifyUser");
+      state.player.disconnect();
     },
 
     fetchSpotifyUser({ commit, state }) {
