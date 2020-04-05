@@ -39,13 +39,11 @@ export default {
       const existingTrack = this.$store.state.queue.find(
         track => track.id === this.track.id
       );
-      console.log(existingTrack);
       return existingTrack !== undefined;
     }
   },
   methods: {
     addTrack() {
-      console.log(this.track);
       LibFirebase.addTrackToQueue(this.track);
     }
   }
