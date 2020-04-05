@@ -107,7 +107,8 @@ export default {
           const sortQueue = queue.sort((track1, track2) => {
             return track2.vote - track1.vote;
           });
-          this.removeTrackFromQueue(sortQueue[0]);
+          nextTrack = sortQueue[0];
+          this.removeTrackFromQueue(nextTrack);
         }
         this.updateCurrentTrack(nextTrack);
         return nextTrack;
