@@ -52,5 +52,7 @@
         height: calc(75vh - 3rem);
         padding: 0 5rem;
         overflow-y: scroll;
+        overflow-x: hidden;
+        position: relative;
     }
 }

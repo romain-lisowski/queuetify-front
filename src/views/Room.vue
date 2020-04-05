@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="room"
-    v-on:keyup.esc="closeSearch"
-    tabindex="0"
-    v-click-outside="closeSearch"
-  >
+  <div class="room" v-on:keyup.esc="closeSearch" tabindex="0">
     <Debug />
     <Header />
 

@@ -79,3 +79,19 @@ span {
     }
   }
 }
+
+.queue-track {
+  transition: all cubic-bezier(0.75, 0.25, 0.25, 0.75) .4s;
+}
+.list-complete-enter {
+  opacity: 0;
+  transform: translateX(-10rem);
+}
+
+.list-complete-leave-to {
+  opacity: 0;
+  transform: translateY(-10rem);
+}
+.list-complete-leave-active {
+  position: absolute;
+}

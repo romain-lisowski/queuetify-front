@@ -7,13 +7,16 @@
         Songs
       </div>
     </div>
+
     <div class="queue_list">
-      <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
-      <QueueTrack
-        v-for="({}, index) of queueEmptySlots"
-        :key="index"
-        :track="null"
-      />
+      <transition-group name="list-complete" tag="queue_list">>
+        <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
+        <QueueTrack
+          v-for="({}, index) of queueEmptySlots"
+          :key="index"
+          :track="null"
+        />
+      </transition-group>
     </div>
   </div>
 </template>
