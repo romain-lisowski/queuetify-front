@@ -56,11 +56,19 @@ export default {
       return this.fetchQueue();
     }
   },
+  created() {
+    let spotifyPlayerScript = document.createElement("script");
+    spotifyPlayerScript.setAttribute(
+      "src",
+      "https://sdk.scdn.co/spotify-player.js"
+    );
+    document.head.appendChild(spotifyPlayerScript);
+  },
   mounted() {
     if (!this.tracks) {
       this.fetchQueue();
+      this.$store.dispatch("initPlayer");
     }
-    this.$store.dispatch("initPlayer");
   },
   methods: {
     fetchQueue() {

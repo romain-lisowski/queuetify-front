@@ -14,6 +14,7 @@ export default {
       player = new Spotify.Player({
         name: "Queue Web Playback Player",
         getOAuthToken: cb => {
+          // get new token
           let accessToken = null;
           LibSpotifyAccount.refreshToken(store.state.spotifyRefreshToken)
             .then(token => {

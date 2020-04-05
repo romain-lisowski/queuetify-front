@@ -91,9 +91,9 @@ export default new Vuex.Store({
       localStorage.removeItem("spotifyUser");
     },
 
-    initPlayer({ commit, state }) {
+    async initPlayer({ commit, state }) {
       if (state.spotifyAccessToken) {
-        const player = LibPlayback.initPlayer();
+        const player = await LibPlayback.initPlayer();
         commit("setPlayer", player);
       } else {
         console.error("store.initPlayer : ", state.spotifyAccessToken);
