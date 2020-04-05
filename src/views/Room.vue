@@ -33,6 +33,7 @@ import Queue from "@/components/Queue";
 import Search from "@/components/Search";
 import Header from "@/components/Header";
 import Debug from "@/components/Debug";
+import LibPlayback from "@/lib/LibPlayback";
 
 export default {
   name: "Room",
@@ -67,7 +68,7 @@ export default {
   mounted() {
     if (!this.tracks) {
       this.fetchQueue();
-      this.$store.dispatch("initPlayer");
+      LibPlayback.initPlayer();
     }
   },
   methods: {
