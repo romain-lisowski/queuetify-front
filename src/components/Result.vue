@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     addTrack() {
-      console.log(this.track);
       LibFirebase.addTrackToQueue(this.track);
     }
   }

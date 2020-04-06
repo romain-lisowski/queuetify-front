@@ -1,6 +1,8 @@
 import { firebase } from "@firebase/app";
 import { db } from "@/firebase";
-import store from "@/store";
+import io from "socket.io-client";
+
+const socket = io("localhost:3000");
 
 export default {
   async getCurrentTrack() {
@@ -43,7 +45,8 @@ export default {
         })
       })
       .then(() => {
-        store.dispatch("addTrack");
+        //store.dispatch("addTrack");
+        socket.emit("E_ADD_TRACK");
       })
       .catch(error => {
         console.error("LibFirebase.addTrackToQueue", error);
@@ -69,7 +72,8 @@ export default {
         })
       })
       .then(() => {
-        store.dispatch("fetchQueue");
+        // store.dispatch("fetchQueue");
+        socket.emit("E_VOTE_TRACK");
       })
       .catch(error => {
         console.error("LibFirebase.voteTrack", error);
@@ -111,7 +115,8 @@ export default {
           this.removeTrackFromQueue(nextTrack);
         }
         this.updateCurrentTrack(nextTrack);
-        return nextTrack;
+        // return nextTrack;
+        socket.emit("E_NEXT_TRACK", nextTrack);
       })
       .catch(error => {
         console.error("LibFirebase.nextTrack", error);

@@ -26,7 +26,6 @@ export default {
         LibFirebase.removeTrackFromQueue(track);
       });
       this.$store.dispatch("nextTrack");
-      this.$store.dispatch("fetchQueue");
     }
   }
 };

@@ -28,20 +28,16 @@ try {
   localStorage.removeItem("spotifyUser");
 }
 
-let player = null;
-let playerState = null;
-let queue = [];
-let currentTrack = null;
-
 export default new Vuex.Store({
   state: {
     spotifyAccessToken,
     spotifyRefreshToken,
     spotifyUser,
-    player,
-    playerState,
-    queue,
-    currentTrack
+    player: null,
+    playerState: null,
+    queue: [],
+    currentTrack: null,
+    isConnected: false
   },
 
   actions: {
@@ -126,23 +122,9 @@ export default new Vuex.Store({
       });
     },
 
-    nextTrack({ commit, dispatch, state }) {
+    nextTrack() {
       console.info("nextTrack");
-      LibFirebase.getNextTrack().then(track => {
-        commit("setCurrentTrack", track);
-        if (track) {
-          dispatch("fetchQueue");
-          dispatch("play");
-        } else {
-          state.player.pause();
-        }
-      });
-    },
-
-    addTrack({ dispatch }) {
-      console.info("addTrack");
-      dispatch("fetchQueue");
-      dispatch("fetchCurrentTrack");
+      LibFirebase.getNextTrack();
     },
 
     play({ state }) {
@@ -161,6 +143,25 @@ export default new Vuex.Store({
     vote({ commit, dispatch }, { track, increment }) {
       console.info("vote");
       LibFirebase.voteTrack(track, increment);
+    },
+
+    SOCKET_ADD_TRACK({ dispatch }) {
+      dispatch("fetchQueue");
+      dispatch("fetchCurrentTrack");
+    },
+
+    SOCKET_VOTE_TRACK({ dispatch }) {
+      dispatch("fetchQueue");
+    },
+
+    SOCKET_NEXT_TRACK({ commit, state, dispatch }, track) {
+      commit("setCurrentTrack", track);
+      if (track) {
+        dispatch("fetchQueue");
+        dispatch("play");
+      } else {
+        state.player.pause();
+      }
     }
   },
 
@@ -185,6 +186,12 @@ export default new Vuex.Store({
     },
     setPlayerState(state, playerState) {
       state.playerState = playerState;
+    },
+    SOCKET_CONNECT(state) {
+      state.isConnected = true;
+    },
+    SOCKET_DISCONNECT(state) {
+      state.isConnected = false;
     }
   }
 });
