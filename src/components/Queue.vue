@@ -8,16 +8,14 @@
       </div>
     </div>
 
-    <div class="queue_list">
-      <transition-group name="list-complete" tag="queue_list">>
-        <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
-        <QueueTrack
-          v-for="({}, index) of queueEmptySlots"
-          :key="index"
-          :track="null"
-        />
-      </transition-group>
-    </div>
+    <transition-group class="queue_list" name="list-complete" tag="div">
+      <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
+      <QueueTrack
+        v-for="({}, index) of queueEmptySlots"
+        :key="index"
+        :track="null"
+      />
+    </transition-group>
   </div>
 </template>
 
