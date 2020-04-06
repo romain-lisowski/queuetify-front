@@ -1,6 +1,6 @@
 # Queue
 
-## Project setup
+## Client setup
 ```
 npm install
 ```
@@ -13,4 +13,15 @@ cp .env .env.local
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+```
+
+## Server setup
+```
+cd server
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+nodemon app.js
 ```
