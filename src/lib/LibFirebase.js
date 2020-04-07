@@ -41,6 +41,7 @@ export default {
           image_big: track.album.images[0].url,
           image_medium: track.album.images[1].url,
           image_small: track.album.images[2].url,
+          user: store.state.spotifyUser,
           vote: 0
         })
       })

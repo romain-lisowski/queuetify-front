@@ -20,7 +20,7 @@
     </div>
 
     <div class="queue-track__user" v-if="track">
-      bastien
+      {{ track.user.name }}
     </div>
     <div class="queue-track__vote" v-if="track">
       <div class="vote vote-up" @click="voteUp">
