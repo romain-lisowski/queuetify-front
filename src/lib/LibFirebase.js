@@ -115,11 +115,41 @@ export default {
           this.removeTrackFromQueue(nextTrack);
         }
         this.updateCurrentTrack(nextTrack);
-        // return nextTrack;
         socket.emit("E_NEXT_TRACK", nextTrack);
       })
       .catch(error => {
         console.error("LibFirebase.nextTrack", error);
+      });
+  },
+
+  addUser(user) {
+    db.collection("users")
+      .doc("room1")
+      .update({
+        users: firebase.firestore.FieldValue.arrayUnion({
+          spotify_id: user.spotify_id,
+          name: user.name,
+          spotify_url: user.spotify_url,
+          image: user.image
+        })
+      })
+      .then(() => {
+        socket.emit("E_USER_CONNECTED");
+      })
+      .catch(error => {
+        console.error("LibFirebase.addUser", error);
+      });
+  },
+
+  removeUser(user) {
+    console.log(user);
+    db.collection("users")
+      .doc("room1")
+      .update({
+        users: firebase.firestore.FieldValue.arrayRemove(user)
+      })
+      .catch(error => {
+        console.error("LibFirebase.removeUser", error);
       });
   }
 };

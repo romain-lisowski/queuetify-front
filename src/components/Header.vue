@@ -2,15 +2,12 @@
   <div class="header" v-if="spotifyUser">
     <div class="user">
       <div class="user_avatar">
-        <img
-          v-if="spotifyUser.images.length > 0"
-          :src="spotifyUser.images[0].url"
-        />
+        <img v-if="spotifyUser.image" :src="spotifyUser.image" />
         <div v-else class="avatar-placeholder">
-          <span>{{ spotifyUser.display_name.charAt(0) }}</span>
+          <span>{{ spotifyUser.name.charAt(0) }}</span>
         </div>
       </div>
-      <div class="user_name">{{ spotifyUser.display_name }}<UserArrow /></div>
+      <div class="user_name">{{ spotifyUser.name }}<UserArrow /></div>
 
       <ul class="user_menu">
         <li>
@@ -31,29 +28,29 @@
       <!-- else : display users -->
       <!-- for other users -->
       <div class="user">
-        <div class="user_name">{{ spotifyUser.display_name }}</div>
+        <div class="user_name">{{ spotifyUser.name }}</div>
         <div class="user_avatar">
           <!-- todo later if avatar else -->
           <div class="avatar-placeholder">
-            <span>{{ spotifyUser.display_name.charAt(0) }}</span>
+            <span>{{ spotifyUser.name.charAt(0) }}</span>
           </div>
         </div>
       </div>
 
       <div class="user">
-        <div class="user_name">{{ spotifyUser.display_name }}</div>
+        <div class="user_name">{{ spotifyUser.name }}</div>
         <div class="user_avatar">
           <div class="avatar-placeholder">
-            <span>{{ spotifyUser.display_name.charAt(0) }}</span>
+            <span>{{ spotifyUser.name.charAt(0) }}</span>
           </div>
         </div>
       </div>
 
       <div class="user">
-        <div class="user_name">{{ spotifyUser.display_name }}</div>
+        <div class="user_name">{{ spotifyUser.name }}</div>
         <div class="user_avatar">
           <div class="avatar-placeholder">
-            <span>{{ spotifyUser.display_name.charAt(0) }}</span>
+            <span>{{ spotifyUser.name.charAt(0) }}</span>
           </div>
         </div>
       </div>

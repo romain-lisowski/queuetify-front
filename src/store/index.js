@@ -37,7 +37,7 @@ export default new Vuex.Store({
     playerState: null,
     queue: [],
     currentTrack: null,
-    isConnected: false
+    socket: null
   },
 
   actions: {
@@ -73,21 +73,27 @@ export default new Vuex.Store({
       commit("setSpotifyAccessToken", token);
     },
 
-    logout({ commit, state }) {
+    logout({ commit, dispatch, state }) {
       console.info("logout");
+      dispatch("SOCKET_DISCONNECT");
+
       commit("setSpotifyAccessToken", null);
       commit("setSpotifyRefreshToken", null);
       commit("setSpotifyUser", null);
+
       localStorage.removeItem("spotifyAccessToken");
       localStorage.removeItem("spotifyRefreshToken");
       localStorage.removeItem("spotifyUser");
-      state.player.disconnect();
+
+      if (state.player) {
+        state.player.disconnect();
+      }
     },
 
     fetchSpotifyUser({ commit, state }) {
       console.info("fetchSpotifyUser");
       LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
-        localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
+        localStorage.setItem("spotifyUser", spotifyUser);
         commit("setSpotifyUser", spotifyUser);
       });
     },
@@ -162,6 +168,11 @@ export default new Vuex.Store({
       } else {
         state.player.pause();
       }
+    },
+
+    SOCKET_DISCONNECT({ state }) {
+      console.log("SOCKET_DISCONNECT");
+      LibFirebase.removeUser(state.spotifyUser);
     }
   },
 
@@ -186,12 +197,6 @@ export default new Vuex.Store({
     },
     setPlayerState(state, playerState) {
       state.playerState = playerState;
-    },
-    SOCKET_CONNECT(state) {
-      state.isConnected = true;
-    },
-    SOCKET_DISCONNECT(state) {
-      state.isConnected = false;
     }
   }
 });

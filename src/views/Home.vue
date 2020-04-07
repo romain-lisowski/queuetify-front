@@ -9,7 +9,7 @@
         The collaborative listening<br />room using Spotify<span>®</span>
       </h1>
       <button
-        v-if="!spotifyAccessToken"
+        v-if="!spotifyAccessToken || !spotifyUser"
         class="btn btn-main hover-this"
         @click="authentification"
         @mousemove="animateHoverThis"
@@ -23,11 +23,8 @@
 
       <div v-else>
         <div v-if="spotifyUser">
-          <img
-            v-if="spotifyUser.images.length > 0"
-            :src="spotifyUser.images[0].url"
-          />
-          <div>Logged as : {{ spotifyUser.display_name }}</div>
+          <img v-if="spotifyUser.image" :src="spotifyUser.image" />
+          <div>Logged as : {{ spotifyUser.name }}</div>
           <button class="btn btn-main hover-this" @click="logout">
             Logout
           </button>
