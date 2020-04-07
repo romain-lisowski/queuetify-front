@@ -100,6 +100,17 @@ export default {
       });
   },
 
+  async getUsers() {
+    return db
+      .collection("users")
+      .doc("room1")
+      .get()
+      .then(snapshot => snapshot.data().users)
+      .catch(error => {
+        console.error("LibFirebase.getUsers", error);
+      });
+  },
+
   // move next track from queue to current track
   async getNextTrack() {
     let nextTrack = null;

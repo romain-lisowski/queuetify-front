@@ -37,7 +37,8 @@ export default new Vuex.Store({
     playerState: null,
     queue: [],
     currentTrack: null,
-    socket: null
+    socket: null,
+    users: null
   },
 
   actions: {
@@ -102,6 +103,14 @@ export default new Vuex.Store({
       console.info("initRoom");
       LibPlayback.initPlayer();
       dispatch("fetchQueue");
+      dispatch("fetchUsers");
+    },
+
+    fetchUsers({ commit }) {
+      console.info("fetchUsers");
+      LibFirebase.getUsers().then(users => {
+        commit("setUsers", users);
+      });
     },
 
     fetchCurrentTrack({ commit, dispatch, state }) {
@@ -191,6 +200,9 @@ export default new Vuex.Store({
     },
     setQueue(state, tracks) {
       state.queue = tracks;
+    },
+    setUsers(state, users) {
+      state.users = users;
     },
     setCurrentTrack(state, track) {
       state.currentTrack = track;

@@ -21,39 +21,20 @@
     <!-- Get other connected users -->
     <div class="users">
       <!-- if no other users -->
-      <!-- 
-      <div class="user-none"></div>
-      -->
-
-      <!-- else : display users -->
-      <!-- for other users -->
-      <div class="user">
-        <div class="user_name">{{ spotifyUser.name }}</div>
-        <div class="user_avatar">
-          <!-- todo later if avatar else -->
-          <div class="avatar-placeholder">
-            <span>{{ spotifyUser.name.charAt(0) }}</span>
-          </div>
+      <div v-if="users && users.length > 0">
+        <div v-for="user of users" :key="user.spotify_id" class="user">
+          <a :href="user.spotify_url" target="_blank">
+            <div class="user_name">{{ user.name }}</div>
+            <div class="user_avatar">
+              <!-- todo later if avatar else -->
+              <div class="avatar-placeholder">
+                <span>{{ user.name.charAt(0) }}</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
-
-      <div class="user">
-        <div class="user_name">{{ spotifyUser.name }}</div>
-        <div class="user_avatar">
-          <div class="avatar-placeholder">
-            <span>{{ spotifyUser.name.charAt(0) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="user">
-        <div class="user_name">{{ spotifyUser.name }}</div>
-        <div class="user_avatar">
-          <div class="avatar-placeholder">
-            <span>{{ spotifyUser.name.charAt(0) }}</span>
-          </div>
-        </div>
-      </div>
+      <div v-else class="user-none"></div>
       <!-- endfor -->
     </div>
   </div>
@@ -70,6 +51,9 @@ export default {
   computed: {
     spotifyUser() {
       return this.$store.state.spotifyUser;
+    },
+    users() {
+      return this.$store.state.users;
     }
   },
   methods: {
