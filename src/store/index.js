@@ -93,7 +93,7 @@ export default new Vuex.Store({
     fetchSpotifyUser({ commit, state }) {
       console.info("fetchSpotifyUser");
       LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
-        localStorage.setItem("spotifyUser", spotifyUser);
+        localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
         commit("setSpotifyUser", spotifyUser);
       });
     },

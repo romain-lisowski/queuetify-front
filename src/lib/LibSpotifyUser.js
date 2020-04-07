@@ -16,7 +16,7 @@ export default {
         const user = {
           spotify_id: spotifyUser.id,
           name: spotifyUser.display_name,
-          spotify_url: spotifyUser.href,
+          spotify_url: spotifyUser.external_urls.spotify,
           image: spotifyUser.images[0].url
         };
 
