@@ -2,7 +2,7 @@ import { firebase } from "@firebase/app";
 import { db } from "@/firebase";
 import io from "socket.io-client";
 
-const socket = io("localhost:3000");
+const socket = io(process.env.VUE_APP_SERVER_URL);
 
 export default {
   async getCurrentTrack() {
@@ -45,7 +45,6 @@ export default {
         })
       })
       .then(() => {
-        //store.dispatch("addTrack");
         socket.emit("E_ADD_TRACK");
       })
       .catch(error => {
@@ -72,7 +71,6 @@ export default {
         })
       })
       .then(() => {
-        // store.dispatch("fetchQueue");
         socket.emit("E_VOTE_TRACK");
       })
       .catch(error => {

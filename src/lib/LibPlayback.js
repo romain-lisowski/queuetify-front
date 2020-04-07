@@ -1,7 +1,7 @@
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 import store from "@/store";
 
-const spotifyApiUrl = "https://api.spotify.com";
+const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
 export default {
   initPlayer() {

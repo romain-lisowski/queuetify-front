@@ -1,4 +1,4 @@
-const spotifyApiUrl = "https://api.spotify.com";
+const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
 export default {
   async searchTracks(search, spotifyAccessToken) {

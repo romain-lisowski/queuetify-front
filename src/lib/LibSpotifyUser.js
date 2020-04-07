@@ -1,4 +1,6 @@
-const spotifyApiUrl = "https://api.spotify.com";
+import LibFirebase from "@/lib/LibFirebase";
+
+const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
 export default {
   async getUser(spotifyAccessToken) {

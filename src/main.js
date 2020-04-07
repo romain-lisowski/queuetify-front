@@ -13,7 +13,7 @@ Vue.use(VueFirestore);
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: SocketIO("http://localhost:3000"),
+    connection: SocketIO(process.env.VUE_APP_SERVER_URL),
     vuex: {
       store,
       actionPrefix: "SOCKET_",
