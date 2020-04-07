@@ -1,5 +1,8 @@
 <template>
-  <div class="queue-track" :class="{ inactive: alreadyInQueue }">
+  <div
+    class="queue-track"
+    :class="{ inactive: alreadyInQueue || queueMaxLengthReach }"
+  >
     <div class="queue-track__info">
       <div class="queue-track__info_artwork">
         <img v-if="track" :src="track.album.images[2].url" />
@@ -37,6 +40,12 @@ export default {
         track => track.id === this.track.id
       );
       return existingTrack !== undefined;
+    },
+    queueMaxLengthReach() {
+      return (
+        this.$store.state.queue.length >=
+        process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH
+      );
     }
   },
   methods: {

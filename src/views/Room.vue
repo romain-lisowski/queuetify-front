@@ -11,10 +11,15 @@
         <Queue :queue="queue" />
       </div>
 
-      <button class="add-track" @click="showSearch">
-        <span>+</span>
-        Add a song
-      </button>
+      <div v-if="!queueMaxLengthReach">
+        <button class="add-track" @click="showSearch">
+          <span>+</span>
+          Add a song
+        </button>
+      </div>
+      <div v-else>
+        Queue is full
+      </div>
     </div>
     <div class="room_bg-texture"></div>
     <div
@@ -50,6 +55,12 @@ export default {
     },
     queue() {
       return this.$store.state.queue;
+    },
+    queueMaxLengthReach() {
+      return (
+        this.$store.state.queue.length >=
+        process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH
+      );
     }
   },
   created() {
