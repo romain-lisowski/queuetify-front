@@ -23,5 +23,5 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-nodemon app.js
+node app.js
 ```
