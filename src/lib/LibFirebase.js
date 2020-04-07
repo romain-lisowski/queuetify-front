@@ -1,13 +1,14 @@
 import { firebase } from "@firebase/app";
 import { db } from "@/firebase";
 import io from "socket.io-client";
+import store from "@/store";
 
 const socket = io(process.env.VUE_APP_SERVER_URL);
 
 export default {
   async getCurrentTrack() {
     return db
-      .collection("rooms")
+      .collection("tracks")
       .doc("room1")
       .get()
       .then(snapshot => snapshot.data().current_track)
@@ -18,7 +19,7 @@ export default {
 
   async getQueue() {
     return db
-      .collection("rooms")
+      .collection("tracks")
       .doc("room1")
       .get()
       .then(snapshot => {
@@ -30,7 +31,7 @@ export default {
   },
 
   addTrackToQueue(track) {
-    db.collection("rooms")
+    db.collection("tracks")
       .doc("room1")
       .update({
         queue: firebase.firestore.FieldValue.arrayUnion({
@@ -57,7 +58,7 @@ export default {
     // first remove old track
     this.removeTrackFromQueue(track);
     // and add updated track
-    db.collection("rooms")
+    db.collection("tracks")
       .doc("room1")
       .update({
         queue: firebase.firestore.FieldValue.arrayUnion({
@@ -80,7 +81,7 @@ export default {
   },
 
   removeTrackFromQueue(track) {
-    db.collection("rooms")
+    db.collection("tracks")
       .doc("room1")
       .update({
         queue: firebase.firestore.FieldValue.arrayRemove(track)
@@ -91,7 +92,7 @@ export default {
   },
 
   async updateCurrentTrack(track) {
-    db.collection("rooms")
+    db.collection("tracks")
       .doc("room1")
       .update({
         current_track: track
@@ -152,7 +153,6 @@ export default {
   },
 
   removeUser(user) {
-    console.log(user);
     db.collection("users")
       .doc("room1")
       .update({
