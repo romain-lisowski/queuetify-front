@@ -1,5 +1,5 @@
 <template>
-  <div class="queue">
+  <div @click="closeSearch" class="queue">
     <div class="queue_header">
       <h3>Queue</h3>
       <div class="queue-counter">
@@ -37,6 +37,11 @@ export default {
     queueEmptySlots() {
       let emptySlots = 6 - this.queue.length;
       return emptySlots > 0 ? new Array(emptySlots) : [];
+    }
+  },
+  methods: {
+    closeSearch() {
+      this.$parent.$refs.search.$refs.searchWrapper.classList.remove("active");
     }
   }
 };
