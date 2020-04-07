@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to home page.
-    if (!store.state.spotifyAccessToken || !store.state.spotifyUser) {
+    if (!store.state.spotifyAccessToken) {
       next({ name: "Home" });
     } else {
       next();
