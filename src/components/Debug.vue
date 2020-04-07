@@ -25,6 +25,7 @@ export default {
       tracks.forEach(track => {
         LibFirebase.removeTrackFromQueue(track);
       });
+      this.$store.dispatch("fetchQueue");
       this.$store.dispatch("nextTrack");
     }
   }
