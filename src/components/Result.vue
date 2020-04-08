@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     addTrack() {
-      LibFirebase.addTrackToQueue(this.track);
+      LibFirebase.addTrack(this.track);
     }
   }
 };

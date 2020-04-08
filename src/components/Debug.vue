@@ -23,7 +23,7 @@ export default {
     empty() {
       const tracks = this.$store.state.queue;
       tracks.forEach(track => {
-        LibFirebase.removeTrackFromQueue(track);
+        LibFirebase.removeTrack(track);
       });
       this.$store.dispatch("fetchQueue");
       this.$store.dispatch("nextTrack");

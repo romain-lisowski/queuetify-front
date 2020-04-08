@@ -43,7 +43,7 @@ export default new Vuex.Store({
 
   actions: {
     async fetchSpotifyTokens({ commit, dispatch }, code) {
-      console.info("fetchSpotifyTokens");
+      console.info("store: fetchSpotifyTokens");
       if (code !== "undefined") {
         LibSpotifyAccount.getTokens(code).then(spotifyAuth => {
           if (spotifyAuth.access_token !== undefined) {
@@ -69,13 +69,13 @@ export default new Vuex.Store({
     },
 
     refreshToken({ commit }, token) {
-      console.info("refreshToken");
+      console.info("store: refreshToken");
       localStorage.setItem("spotifyAccessToken", token);
       commit("setSpotifyAccessToken", token);
     },
 
     logout({ commit, dispatch, state }) {
-      console.info("logout");
+      console.info("store: logout");
       dispatch("SOCKET_DISCONNECT");
 
       commit("setSpotifyAccessToken", null);
@@ -92,7 +92,7 @@ export default new Vuex.Store({
     },
 
     fetchSpotifyUser({ commit, state }) {
-      console.info("fetchSpotifyUser");
+      console.info("store: fetchSpotifyUser");
       LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
         localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
         commit("setSpotifyUser", spotifyUser);
@@ -100,21 +100,22 @@ export default new Vuex.Store({
     },
 
     initRoom({ dispatch }) {
-      console.info("initRoom");
+      console.info("store: initRoom");
       LibPlayback.initPlayer();
       dispatch("fetchQueue");
       dispatch("fetchUsers");
     },
 
     fetchUsers({ commit }) {
-      console.info("fetchUsers");
+      console.info("store: fetchUsers");
       LibFirebase.getUsers().then(users => {
+        console.log(users);
         commit("setUsers", users);
       });
     },
 
     fetchCurrentTrack({ commit, dispatch, state }) {
-      console.info("fetchCurrentTrack");
+      console.info("store: fetchCurrentTrack");
       LibFirebase.getCurrentTrack().then(track => {
         commit("setCurrentTrack", track);
         if (!track) {
@@ -128,22 +129,19 @@ export default new Vuex.Store({
     },
 
     fetchQueue({ commit }) {
-      console.info("fetchQueue");
+      console.info("store: fetchQueue");
       LibFirebase.getQueue().then(queue => {
-        const sortQueue = queue.sort((track1, track2) => {
-          return track2.vote - track1.vote;
-        });
-        commit("setQueue", sortQueue);
+        commit("setQueue", queue);
       });
     },
 
     nextTrack() {
-      console.info("nextTrack");
-      LibFirebase.getNextTrack();
+      console.info("store: nextTrack");
+      LibFirebase.nextTrack();
     },
 
     play({ state }) {
-      console.info("play");
+      console.info("store: play");
       if (state.currentTrack) {
         LibPlayback.play({
           player: state.player,
@@ -156,20 +154,23 @@ export default new Vuex.Store({
 
     // eslint-disable-next-line no-unused-vars
     vote({ commit, dispatch }, { track, increment }) {
-      console.info("vote");
+      console.info("store: vote");
       LibFirebase.voteTrack(track, increment);
     },
 
     SOCKET_ADD_TRACK({ dispatch }) {
+      console.log("store: SOCKET_ADD_TRACK");
       dispatch("fetchQueue");
       dispatch("fetchCurrentTrack");
     },
 
     SOCKET_VOTE_TRACK({ dispatch }) {
+      console.log("store: SOCKET_VOTE_TRACK");
       dispatch("fetchQueue");
     },
 
     SOCKET_NEXT_TRACK({ commit, state, dispatch }, track) {
+      console.log("store: SOCKET_NEXT_TRACK");
       commit("setCurrentTrack", track);
       if (track) {
         dispatch("fetchQueue");
@@ -180,7 +181,7 @@ export default new Vuex.Store({
     },
 
     SOCKET_DISCONNECT({ state }) {
-      console.log("SOCKET_DISCONNECT");
+      console.log("store: SOCKET_DISCONNECT");
       LibFirebase.removeUser(state.spotifyUser);
     }
   },
