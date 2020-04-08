@@ -8,10 +8,10 @@ const socket = io(process.env.VUE_APP_SERVER_URL);
 export default {
   async getCurrentTrack() {
     return db
-      .collection("tracks")
+      .collection("current_tracks")
       .doc("room1")
       .get()
-      .then(snapshot => snapshot.data().current_track)
+      .then(snapshot => snapshot.data().track)
       .catch(error => {
         console.error("LibFirebase.getCurrentTrack", error);
       });
@@ -35,6 +35,7 @@ export default {
       .doc("room1")
       .update({
         queue: firebase.firestore.FieldValue.arrayUnion({
+          room: "room1",
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -62,6 +63,7 @@ export default {
       .doc("room1")
       .update({
         queue: firebase.firestore.FieldValue.arrayUnion({
+          room: "room1",
           id: track.id,
           name: track.name,
           artist: track.artist,
@@ -93,10 +95,10 @@ export default {
   },
 
   async updateCurrentTrack(track) {
-    db.collection("tracks")
-      .doc("room1")
+    db.collection("current_tracks")
+      .doc(track.room)
       .update({
-        current_track: track
+        track
       })
       .catch(error => {
         console.error("LibFirebase.addTrackToQueue", error);
