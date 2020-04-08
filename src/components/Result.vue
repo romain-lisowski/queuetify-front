@@ -1,11 +1,17 @@
 <template>
   <div
     class="queue-track"
-    :class="{ inactive: alreadyInQueue || queueMaxLengthReach }"
+    :class="{
+      inactive:
+        alreadyInQueue || queueMaxLengthReach || queueMaxLengthPerUserReach
+    }"
   >
     <div class="queue-track__info">
       <div class="queue-track__info_artwork">
-        <img v-if="track" :src="track.album.images[2].url" />
+        <img
+          v-if="track && track.album.images.length >= 2"
+          :src="track.album.images[2].url"
+        />
         <div class="artwork-default" v-else></div>
       </div>
       <div class="queue-track__info_content">
@@ -45,6 +51,16 @@ export default {
       return (
         this.$store.state.queue.length >=
         process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH
+      );
+    },
+    queueMaxLengthPerUserReach() {
+      const userTracks = this.$store.state.queue.filter(
+        track =>
+          track.user.spotify_id === this.$store.state.spotifyUser.spotify_id
+      );
+      return (
+        userTracks &&
+        userTracks.length >= process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH_PER_USER
       );
     }
   },
