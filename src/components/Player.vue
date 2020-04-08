@@ -3,7 +3,7 @@
     <div class="player__track">
       <div class="player__track_user">
         <div v-if="track" class="vote-count">{{ track.vote }}</div>
-        <div v-if="track" class="user">{{ track.user_name }}</div>
+        <div v-if="track" class="user">{{ track.user.name }}</div>
       </div>
       <div class="player__track_artwork">
         <div class="track-artwork--texture"></div>

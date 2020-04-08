@@ -20,7 +20,7 @@
     </div>
 
     <div class="queue-track__user" v-if="track">
-      {{ track.user_name }}
+      {{ track.user.name }}
     </div>
 
     <div class="users">
