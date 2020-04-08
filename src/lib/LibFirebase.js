@@ -69,6 +69,7 @@ export default {
           image_big: track.image_big,
           image_medium: track.image_medium,
           image_small: track.image_small,
+          user: store.state.spotifyUser,
           vote: track.vote + increment
         })
       })
