@@ -7,7 +7,7 @@ export default {
     const queryString = querystring.stringify({
       client_id: process.env.VUE_APP_SPOTIFY_CLIENT_ID,
       response_type: "code",
-      redirect_uri: process.env.VUE_APP_SPOTIFY_API_REDIRECT_URI,
+      redirect_uri: process.env.VUE_APP_SPOTIFY_API_REDIRECT_URL,
       scope:
         "streaming user-read-playback-state user-read-currently-playing user-read-playback-position user-read-recently-played"
     });
@@ -30,7 +30,7 @@ export default {
             `${process.env.VUE_APP_SPOTIFY_CLIENT_ID}:${process.env.VUE_APP_SPOTIFY_CLIENT_SECRET}`
           )
       },
-      body: `grant_type=authorization_code&code=${code}&redirect_uri=${process.env.VUE_APP_SPOTIFY_API_REDIRECT_URI}`
+      body: `grant_type=authorization_code&code=${code}&redirect_uri=${process.env.VUE_APP_SPOTIFY_API_REDIRECT_URL}`
     })
       .then(response => response.json())
       .catch(error => {
