@@ -110,9 +110,7 @@ export default {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          doc.ref.delete().then(() => {
-            this.removeVotes(track);
-          });
+          doc.ref.delete();
         });
       })
       .catch(error => {
@@ -120,33 +118,6 @@ export default {
       });
   },
 
-  addVote(track, increment) {
-    console.log("Fb : addVote");
-    return db
-      .collection("votes")
-      .add({
-        room: "room1",
-        track_id: track.id,
-        user_spotify_id: store.state.spotifyUser.spotify_id,
-        increment: increment
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
-  removeVotes(track) {
-    console.log("Fb : removeVotes");
-    return db
-      .collection("votes")
-      .where("room", "==", "room1")
-      .where("track_id", "==", track.id)
-      .get()
-      .then(querySnapshot =>
-        querySnapshot.forEach(doc => {
-          doc.ref.delete();
-        })
-      );
-  },
   voteTrack(track, increment) {
     console.log("Fb : voteTrack");
     return db
@@ -165,7 +136,6 @@ export default {
               })
             })
             .then(() => {
-              this.addVote(track, increment);
               socket.emit("E_VOTE_TRACK");
             });
         });
