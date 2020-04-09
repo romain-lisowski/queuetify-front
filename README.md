@@ -16,8 +16,6 @@ npm run serve
 ```
 
 ## Server setup
-```
-cd server
-npm install
-npm start
-```
+
+[Install queue-server](https://github.com/romain-lisowski/queue-server#readme)
+
