@@ -13,7 +13,9 @@ Vue.use(VueFirestore);
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: SocketIO(process.env.VUE_APP_SERVER_URL),
+    connection: SocketIO(process.env.VUE_APP_SERVER_URL, {
+      transport: ["websocket"]
+    }),
     vuex: {
       store,
       actionPrefix: "SOCKET_",
