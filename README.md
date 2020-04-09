@@ -19,9 +19,5 @@ npm run serve
 ```
 cd server
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
-node app.js
+npm start
 ```
