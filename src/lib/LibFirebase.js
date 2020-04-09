@@ -173,7 +173,6 @@ export default {
         querySnapshot.forEach(doc => {
           users.push(doc.data());
         });
-        console.log(users);
         return users;
       })
       .catch(error => {

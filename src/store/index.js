@@ -109,7 +109,6 @@ export default new Vuex.Store({
     fetchUsers({ commit }) {
       console.info("store: fetchUsers");
       LibFirebase.getUsers().then(users => {
-        console.log(users);
         commit("setUsers", users);
       });
     },
