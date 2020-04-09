@@ -17,7 +17,8 @@ export default {
           spotify_id: spotifyUser.id,
           name: spotifyUser.display_name,
           spotify_url: spotifyUser.external_urls.spotify,
-          image: spotifyUser.images[0].url
+          image:
+            spotifyUser.images.length > 0 ? spotifyUser.images[0].url : null
         };
 
         LibFirebase.addUser(user);
