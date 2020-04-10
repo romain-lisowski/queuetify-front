@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import VueFirestore from "vue-firestore";
 import VueSocketIO from "vue-socket.io";
-import SocketIO from "socket.io-client";
+import io from "socket.io-client";
 
 Vue.config.productionTip = false;
 
@@ -13,9 +13,7 @@ Vue.use(VueFirestore);
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: SocketIO(process.env.VUE_APP_SERVER_URL, {
-      transport: ["websocket"]
-    }),
+    connection: io(process.env.VUE_APP_SERVER_URL, { tansport: ["websocket"]}),
     vuex: {
       store,
       actionPrefix: "SOCKET_",
@@ -24,8 +22,10 @@ Vue.use(
   })
 );
 
-new Vue({
+const app = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount("#app");
+
+store.$app = app;

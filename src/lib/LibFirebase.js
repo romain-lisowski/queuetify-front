@@ -3,7 +3,7 @@ import { db } from "@/firebase";
 import io from "socket.io-client";
 import store from "@/store";
 
-const socket = io(process.env.VUE_APP_SERVER_URL, { transport: ["websocket"] });
+const socket = io(process.env.VUE_APP_SERVER_URL);
 
 export default {
   async getCurrentTrack() {
