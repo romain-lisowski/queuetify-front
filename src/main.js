@@ -10,10 +10,17 @@ Vue.config.productionTip = false;
 
 Vue.use(VueFirestore);
 
+const options = {
+  tansport: ["websocket", "polling"],
+  secure: true,
+  reconnect: true,
+  rejectUnauthorized: false
+};
+
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: io(process.env.VUE_APP_SERVER_URL, { tansport: ["websocket"]}),
+    connection: io(process.env.VUE_APP_SERVER_URL, options),
     vuex: {
       store,
       actionPrefix: "SOCKET_",

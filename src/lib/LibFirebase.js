@@ -3,7 +3,14 @@ import { db } from "@/firebase";
 import io from "socket.io-client";
 import store from "@/store";
 
-const socket = io(process.env.VUE_APP_SERVER_URL, { tansport: ["websocket"] });
+const options = {
+  tansport: ["websocket", "polling"],
+  secure: true,
+  reconnect: true,
+  rejectUnauthorized: false
+};
+
+const socket = io(process.env.VUE_APP_SERVER_URL, options);
 
 export default {
   async getCurrentTrack() {
