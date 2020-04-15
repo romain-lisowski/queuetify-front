@@ -188,9 +188,10 @@ export default {
   },
   addUser(user) {
     console.log("Fb : addUser");
+
     return db
       .collection("users")
-      .add({
+      .set({
         room: "room1",
         spotify_id: user.spotify_id,
         name: user.name,
