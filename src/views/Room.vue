@@ -1,6 +1,8 @@
 <template>
   <div class="room" v-on:keyup.esc="closeSearch" tabindex="0">
-    <Debug />
+    <Debug
+      v-if="user.spotify_id === '11175592942' || user.spotify_id === 'bqd'"
+    />
     <Header />
 
     <Search ref="search" />
@@ -55,6 +57,9 @@ export default {
     },
     queue() {
       return this.$store.state.queue;
+    },
+    user() {
+      return this.$store.state.spotifyUser;
     },
     queueMaxLengthReach() {
       return (
