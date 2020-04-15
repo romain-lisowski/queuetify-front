@@ -191,6 +191,7 @@ export default {
 
     return db
       .collection("users")
+      .doc(user.spotify_id)
       .set({
         room: "room1",
         spotify_id: user.spotify_id,
