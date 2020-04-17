@@ -31,38 +31,6 @@ export default {
         console.error(error);
       });
   },
-  async removeCurrentTrack() {
-    console.log("Fb : removeCurrentTrack");
-    return db
-      .collection("current_tracks")
-      .where("room", "==", "room1")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          doc.ref.delete();
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
-  async updateCurrentTrack(track) {
-    console.log("Fb : updateCurrentTrack");
-    return this.removeCurrentTrack().then(() => {
-      if (track) {
-        db.collection("current_tracks")
-          .add(track)
-          .then(() => {
-            socket.emit("E_NEXT_TRACK", track);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      } else {
-        socket.emit("E_NEXT_TRACK", track);
-      }
-    });
-  },
 
   async getQueue() {
     console.log("Fb : getQueue");
@@ -83,6 +51,7 @@ export default {
         console.error(error);
       });
   },
+
   addTrack(track) {
     console.log("Fb : addTrack");
     return db
@@ -108,25 +77,8 @@ export default {
         console.error(error);
       });
   },
-  removeTrack(track) {
-    console.log("Fb : removeTrack");
-    return db
-      .collection("tracks")
-      .where("room", "==", "room1")
-      .where("id", "==", track.id)
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          doc.ref.delete();
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
 
   voteTrack(track, increment) {
-    console.log("Fb : voteTrack");
     return db
       .collection("tracks")
       .where("room", "==", "room1")
@@ -152,25 +104,7 @@ export default {
       });
   },
 
-  // move next track from queue to current track
-  async nextTrack() {
-    console.log("Fb : nextTrack");
-    let nextTrack = null;
-    return this.getQueue()
-      .then(queue => {
-        if (queue.length > 0) {
-          nextTrack = queue[0];
-          this.removeTrack(nextTrack);
-        }
-        this.updateCurrentTrack(nextTrack);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
-
   async getUsers() {
-    console.log("Fb : getUsers");
     return db
       .collection("users")
       .where("room", "==", "room1")
@@ -186,9 +120,8 @@ export default {
         console.error(error);
       });
   },
-  addUser(user) {
-    console.log("Fb : addUser");
 
+  addUser(user) {
     return db
       .collection("users")
       .doc(user.spotify_id)
@@ -206,8 +139,8 @@ export default {
         console.error(error);
       });
   },
+
   removeUser(user) {
-    console.log("Fb : removeUser");
     return db
       .collection("users")
       .where("room", "==", "room1")
