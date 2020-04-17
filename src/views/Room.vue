@@ -1,8 +1,5 @@
 <template>
   <div class="room" v-on:keyup.esc="closeSearch" tabindex="0">
-    <Debug
-      v-if="user.spotify_id === '11175592942' || user.spotify_id === 'bqd'"
-    />
     <Header />
 
     <Search ref="search" />
@@ -40,7 +37,6 @@ import Player from "@/components/Player";
 import Queue from "@/components/Queue";
 import Search from "@/components/Search";
 import Header from "@/components/Header";
-import Debug from "@/components/Debug";
 
 export default {
   name: "Room",
@@ -48,8 +44,7 @@ export default {
     Player,
     Queue,
     Search,
-    Header,
-    Debug
+    Header
   },
   computed: {
     currentTrack() {
