@@ -126,7 +126,7 @@ export default new Vuex.Store({
 
     fetchQueue({ commit }) {
       console.info("store: fetchQueue");
-      LibFirebase.getQueue().then(queue => {
+      LibFirebase.getTracks().then(queue => {
         commit("setQueue", queue);
       });
     },
