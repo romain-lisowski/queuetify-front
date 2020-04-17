@@ -35,12 +35,6 @@ export default {
         player.getCurrentState().then(state => {
           if (state && !state.paused) {
             store.commit("setPlayerState", state);
-            if (
-              store.state.currentTrack &&
-              store.state.currentTrack.duration - state.position < 1000
-            ) {
-              store.dispatch("nextTrack");
-            }
           }
         });
       }, 1000);

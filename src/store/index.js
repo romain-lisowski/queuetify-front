@@ -117,9 +117,6 @@ export default new Vuex.Store({
       console.info("store: fetchCurrentTrack");
       LibFirebase.getCurrentTrack().then(track => {
         commit("setCurrentTrack", track);
-        if (!track) {
-          dispatch("nextTrack");
-        }
 
         if (!state.playerState || state.playerState.paused) {
           dispatch("play");
@@ -132,11 +129,6 @@ export default new Vuex.Store({
       LibFirebase.getQueue().then(queue => {
         commit("setQueue", queue);
       });
-    },
-
-    nextTrack() {
-      console.info("store: nextTrack");
-      LibFirebase.nextTrack();
     },
 
     play({ state }) {
