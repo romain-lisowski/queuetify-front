@@ -18,25 +18,20 @@
       </ul>
     </div>
 
-    <!-- Get other connected users -->
-    <div class="users">
-      <!-- if no other users -->
-      <div v-if="users && users.length > 0">
-        <div v-for="user of users" :key="user.spotify_id" class="user">
-          <a :href="user.spotify_url" target="_blank">
-            <div class="user_name">{{ user.name }}</div>
-            <div class="user_avatar">
-              <!-- todo later if avatar else -->
-              <div class="avatar-placeholder">
-                <span>{{ user.name.charAt(0) }}</span>
-              </div>
+    <div v-if="users && users.length > 0" class="users">
+      <div v-for="user of users" :key="user.spotify_id" class="user">
+        
+          <div class="user_name">{{ user.name }}</div>
+          <div class="user_avatar">
+            <!-- todo later if avatar else -->
+            <div class="avatar-placeholder">
+              <span>{{ user.name.charAt(0) }}</span>
             </div>
-          </a>
-        </div>
+          </div>
+        
       </div>
-      <div v-else class="user-none"></div>
-      <!-- endfor -->
     </div>
+    <div v-else class="user-none"></div>
   </div>
 </template>
 

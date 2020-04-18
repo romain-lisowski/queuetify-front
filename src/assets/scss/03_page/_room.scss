@@ -78,7 +78,7 @@
         background-position: center;
         filter: blur(8rem);
         opacity: 1;
-        transition: background-image 1s ease-in-out;
+        transition: background-image .4s ease-in-out;
 
         &-texture {
             background-image: url('~@/assets/img/bg-texture.png');

@@ -1,36 +1,3 @@
-.hover-this, .hover-this-small, .hover-vote {
-    transition: all 0.3s ease;
-    cursor: none;
-
-    &:hover {
-        cursor: none;
-    }
-}
-
-span {
-    display: inline-flex;
-    pointer-events: none;
-    transition: transform 0.1s linear;
-}
-
-.cursor {
-    pointer-events: none;
-    position: fixed;
-    padding: .6rem;
-    background-color: #fff;
-    border-radius: 99rem;
-    mix-blend-mode: difference;
-    z-index: 999;
-
-    transition-property: transform, padding;
-    transition-duration: .3s;
-    transition-timing-function: ease;
-
-    &.hover {
-        background-color: $color-primary;
-    }
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: .6rem;
@@ -61,10 +28,6 @@ span {
   flex-direction: column;
   align-items: center;
 
-  .actions {
-
-  }
-
   button {
     font-size: 1.2rem;
     font-weight: bold;
@@ -80,9 +43,6 @@ span {
   }
 }
 
-.queue-track {
-  transition: all cubic-bezier(0.75, 0.25, 0.25, 0.75) .4s;
-}
 .list-complete-enter {
   opacity: 0;
   transform: translateX(-10rem);

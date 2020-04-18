@@ -1,6 +1,5 @@
 html {
     font-size: 62.5%;
-    cursor: none;
 }
 
 body {
@@ -16,7 +15,6 @@ body {
     text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     background-color: #000;
-    cursor: none;
 }   
 
 #app {
@@ -39,10 +37,5 @@ main {
 }
 * { 
     user-select: none; 
-    cursor: none;
-
-    &:hover {
-        cursor: none;
-    }
 }
 

@@ -3,6 +3,7 @@
     align-items: center;
     height: 16.6666666667%;
     border-bottom: .1rem solid rgba(#fff, .1);
+    transition: all cubic-bezier(0.75, 0.25, 0.25, 0.75) .4s;
     
     &:last-child {
         border-color: transparent;
