@@ -3,9 +3,7 @@
     <div class="queue-track__info">
       <div class="queue-track__info_artwork">
         <img v-if="track" :src="track.image_small" />
-        <div class="artwork-default" v-else>
-          <ArtworkDefault />
-        </div>
+        <div class="artwork-default" v-else></div>
       </div>
       <div class="queue-track__info_content">
         <div class="track-name">
@@ -52,13 +50,11 @@
 <script>
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 import VoteArrow from "@/assets/svg/vote-arrow.svg";
-import ArtworkDefault from "@/assets/svg/artwork-default.svg";
 
 export default {
   name: "QueueTrack",
   components: {
-    VoteArrow,
-    ArtworkDefault
+    VoteArrow
   },
   props: {
     track: {

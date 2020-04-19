@@ -8,9 +8,7 @@
       <div class="player__track_artwork">
         <div class="track-artwork--texture"></div>
         <img v-if="track" :src="track.image_big" />
-        <div v-else class="artwork--default">
-          <ArtworkDefault />
-        </div>
+        <div v-else class="artwork--default"></div>
         <div v-if="track" class="track-artwork--vinyl"></div>
       </div>
       <div class="player__track_info">
@@ -46,7 +44,6 @@
 <script>
 import IconMute from "@/assets/svg/icon-mute.svg";
 import IconUnmute from "@/assets/svg/icon-unmute.svg";
-import ArtworkDefault from "@/assets/svg/artwork-default.svg";
 
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 
@@ -64,8 +61,7 @@ export default {
   },
   components: {
     IconMute,
-    IconUnmute,
-    ArtworkDefault
+    IconUnmute
   },
   computed: {
     playerPosition() {

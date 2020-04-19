@@ -1,76 +1,93 @@
 <template>
-  <div class="home">
-    <div class="home__logo">
-      <Logo />
-    </div>
-
-    <div class="home__content">
-      <h1 class="headline">
-        The collaborative listening<br />room using Spotify<span>®</span>
-      </h1>
-      <button
+  <transition
+    v-on:before-appear="customBeforeAppearHook"
+    v-on:appear="customAppearHook"
+    v-on:after-appear="customAfterAppearHook"
+  >
+    <div class="home">
+      <div ref="loaderBefore" class="loader-before"></div>
+      <div ref="loaderAfter" class="loader-after"></div>
+      <div
+        ref="homeContent"
+        class="home__content"
         v-if="!spotifyAccessToken || !spotifyUser"
-        class="btn btn-main"
-        @click="authentification"
       >
-        Connect with Spotify
-        <ButtonArrow />
-      </button>
+        <div class="logo"></div>
+        <h1 class="headline">
+          <div class="beta"></div>
+          Collaborative <span class="stroke">listening<br />room</span> using
+          Spotify<span class="small">®</span>
+        </h1>
+        <button class="btn btn-main" @click="authentification">
+          Connect with Spotify
+          <ButtonArrow />
+        </button>
+      </div>
 
-      <div v-else>
-        <div v-if="spotifyUser">
-          <img v-if="spotifyUser.image" :src="spotifyUser.image" />
-          <div>Logged as : {{ spotifyUser.name }}</div>
-          <button class="btn btn-main" @click="logout">
+      <div ref="homeUser" v-if="spotifyUser" class="home__user">
+        <div class="user">
+          <div class="user_avatar">
+            <img v-if="spotifyUser.image" :src="spotifyUser.image" />
+            <div v-else class="avatar-placeholder">
+              <span>{{ spotifyUser.name.charAt(0) }}</span>
+            </div>
+          </div>
+          <div class="user_name">
+            <span class="stroke">Hello,</span> {{ spotifyUser.name }}
+          </div>
+          <router-link
+            :to="{ name: 'Room' }"
+            tag="button"
+            class="btn btn-main in"
+          >
+            Enter the room
+            <ButtonArrow />
+          </router-link>
+          <button class="btn btn-inline out" @click="logout">
             Logout
           </button>
         </div>
-
-        <router-link :to="{ name: 'Room' }" tag="button" class="btn btn-main">
-          Enter the room
-          <ButtonArrow />
-        </router-link>
       </div>
+
+      <footer ref="homeFooter" class="home__footer">
+        <div class="copyrights">
+          Code by
+          <a
+            class="btn btn-inline"
+            target="_blank"
+            href="https://open.spotify.com/user/11175592942"
+            >Romain Lisowski<ButtonArrow />
+          </a>
+          , Design by
+          <a
+            class="btn btn-inline"
+            target="_blank"
+            href="https://open.spotify.com/user/bqd"
+            >Bastien Lemeunier<ButtonArrow />
+          </a>
+          . Get it on
+          <a
+            class="btn btn-inline"
+            target="_blank"
+            href="https://github.com/romain-lisowski"
+            >Github<ButtonArrow
+          /></a>
+        </div>
+      </footer>
+
+      <div ref="homeBackground" class="home__bg"></div>
     </div>
-
-    <footer class="home__footer">
-      <div class="copyrights">
-        Code by
-        <a
-          class="btn btn-inline"
-          target="_blank"
-          href="https://open.spotify.com/user/11175592942"
-          >Romain Lisowski<ButtonArrow />
-        </a>
-        , Design by
-        <a
-          class="btn btn-inline"
-          target="_blank"
-          href="https://open.spotify.com/user/bqd"
-          >Bastien Lemeunier<ButtonArrow />
-        </a>
-        . Get it on
-        <a
-          class="btn btn-inline"
-          target="_blank"
-          href="https://github.com/romain-lisowski"
-          >Github<ButtonArrow
-        /></a>
-      </div>
-    </footer>
-  </div>
+  </transition>
 </template>
 
 <script>
-import Logo from "@/assets/svg/logo.svg";
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
-
+import { gsap, TimelineLite, Back } from "gsap";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 
 export default {
   name: "Home",
   components: {
-    Logo,
     ButtonArrow
   },
   computed: {
@@ -82,6 +99,33 @@ export default {
     }
   },
   methods: {
+    customBeforeAppearHook() {
+      const content = this.$refs.homeContent;
+      gsap.to(content, { y: -100, opacity: 0 });
+    },
+    customAfterAppearHook() {
+      const loaderBefore = this.$refs.loaderBefore;
+      const loaderAfter = this.$refs.loaderAfter;
+      const content = this.$refs.homeContent;
+      const timeline = new TimelineLite();
+
+      timeline.to(loaderBefore, 0.4, {
+        x: "200vw",
+        ease: Back.easeInOut // Specify an ease
+      });
+      timeline.to(loaderAfter, 0.4, {
+        x: "200vw",
+        delay: -0.4,
+        ease: Back.easeInOut // Specify an ease
+      });
+      timeline.to(content, 1, {
+        opacity: "1",
+        y: "0",
+        delay: 0.2,
+        ease: Back.easeInOut // Specify an ease
+      });
+    },
+    customAppearHook() {},
     authentification() {
       LibSpotifyAccount.getAuthorization();
     },

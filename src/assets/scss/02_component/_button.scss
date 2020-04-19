@@ -23,24 +23,24 @@
             transition: all ease-in-out .2s;
 
             @include desktop-large {
-                width: 1.3rem;
-                height: 1.3rem;
+                width: 1.5rem;
+                height: 1.5rem;
             }
 
             @include desktop {
-                width: 1rem;
-                height: 1rem;
+                width: 1.3rem;
+                height: 1.3rem;
             }
         }
 
         @include desktop-large {
-            font-size: 2.4rem;
-            line-height: 2.8rem;
+            font-size: 3rem;
+            line-height: 3.2rem;
         }
 
         @include desktop {
-            font-size: 2rem;
-            line-height: 2.4rem;
+            font-size: 2.6rem;
+            line-height: 2.8rem;
         }
      
     }
@@ -49,21 +49,23 @@
         display: inline-flex;
         align-items: center;
         color: #fff;
+        transition: all ease-in-out .2s;
 
         &:hover {
+            color: $color-primary;
+
             svg {
-                width: .7rem;
-                height: .7rem;
-                opacity: 1;
+                path {
+                    fill: $color-primary;
+                }
             }
         }
 
         svg {
+            width: .7rem;
+            height: .7rem;
             margin-left: .3rem;
             margin-right: .3rem;
-            opacity: 0;
-            width: 0;
-            height: 0;
             transition: all ease-in-out .2s;
             
             path {

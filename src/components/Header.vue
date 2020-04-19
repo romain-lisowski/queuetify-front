@@ -18,17 +18,17 @@
       </ul>
     </div>
 
+    <div class="beta"></div>
+
     <div v-if="users && users.length > 0" class="users">
       <div v-for="user of users" :key="user.spotify_id" class="user">
-        
-          <div class="user_name">{{ user.name }}</div>
-          <div class="user_avatar">
-            <!-- todo later if avatar else -->
-            <div class="avatar-placeholder">
-              <span>{{ user.name.charAt(0) }}</span>
-            </div>
+        <div class="user_name">{{ user.name }}</div>
+        <div class="user_avatar">
+          <img v-if="user.image" :src="user.image" />
+          <div v-else class="avatar-placeholder">
+            <span>{{ user.name.charAt(0) }}</span>
           </div>
-        
+        </div>
       </div>
     </div>
     <div v-else class="user-none"></div>

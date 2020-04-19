@@ -55,3 +55,29 @@
 .list-complete-leave-active {
   position: absolute;
 }
+
+.loader-before {
+  position: absolute;   
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 999;
+  opacity: 1;
+  top: 0;
+  left: -100vw;
+  transition: all ease-in-out 1s;
+  pointer-events: none;
+}
+
+.loader-after {
+  position: absolute;   
+  width: 100vw;
+  height: 100vh;
+  background: #0036A5;
+  z-index: 999;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  transition: all ease-in-out 1s;
+  pointer-events: none;
+}
