@@ -18,19 +18,10 @@
     </div>
 
     <div class="queue-track__user" v-if="track">
-      {{ track.user.name }}
-    </div>
-
-    <div class="users">
-      <div v-if="track && track.voters.length > 0">
-        <div v-for="voter of track.voters" :key="voter.spotify_id" class="user">
-          <a :href="voter.spotify_url" target="_blank">
-            <div class="user_avatar">
-              <div class="avatar-placeholder">
-                <span>{{ voter.name.charAt(0) }}</span>
-              </div>
-            </div>
-          </a>
+      <div class="queue-track__user_avatar">
+        <img v-if="track.user.image" :src="track.user.image" />
+        <div v-else class="avatar-placeholder">
+          <span>{{ track.user.name.charAt(0) }}</span>
         </div>
       </div>
     </div>
@@ -39,8 +30,14 @@
       <div v-if="!hasVoted" class="vote vote-up" @click="voteUp">
         <VoteArrow />
       </div>
-      <div class="vote-counter">{{ track.vote }}</div>
+      <div v-else class="vote vote-up active">
+        <VoteArrow />
+      </div>
+      <div :class="{ active: hasVoted }" class="vote-counter">{{ track.vote }}</div>
       <div v-if="!hasVoted" class="vote vote-down" @click="voteDown">
+        <VoteArrow />
+      </div>
+      <div v-else class="vote vote-down active">
         <VoteArrow />
       </div>
     </div>

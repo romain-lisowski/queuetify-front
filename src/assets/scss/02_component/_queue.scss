@@ -8,7 +8,7 @@
         justify-content: space-between;
         height: calc(25vh - 3.9rem);
         padding-bottom: 2rem;
-        padding: 0 5rem 2rem 5rem;
+        padding: 0 4rem 2rem 4rem;
 
         @include desktop-xlarge {
             height: calc(25vh - 3.6rem);
@@ -50,7 +50,7 @@
 
     &_list {
         height: calc(75vh - 3rem);
-        padding: 0 5rem;
+        padding: 0 4rem;
         overflow-y: scroll;
         overflow-x: hidden;
         position: relative;
