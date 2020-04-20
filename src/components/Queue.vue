@@ -3,7 +3,8 @@
     <div class="queue_header">
       <h3>Queue</h3>
       <div class="queue-counter">
-        <span class="count">{{ queue.length }}</span>
+        <span class="count">{{ queue.length }}</span
+        >/<span class="count">{{ queueMaxLength }}</span>
         Songs
       </div>
     </div>
@@ -37,6 +38,9 @@ export default {
     queueEmptySlots() {
       let emptySlots = 6 - this.queue.length;
       return emptySlots > 0 ? new Array(emptySlots) : [];
+    },
+    queueMaxLength() {
+      return process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH;
     }
   },
   methods: {
