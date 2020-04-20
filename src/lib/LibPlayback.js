@@ -45,7 +45,6 @@ export default {
     // Playback status updates
     player.addListener("player_state_changed", state => {
       store.commit("setPlayerState", state);
-      console.log(state);
     });
 
     // Ready
