@@ -33,7 +33,9 @@
       <div v-else class="vote vote-up active">
         <VoteArrow />
       </div>
-      <div :class="{ active: hasVoted }" class="vote-counter">{{ track.vote }}</div>
+      <div :class="{ active: hasVoted }" class="vote-counter">
+        {{ track.vote }}
+      </div>
       <div v-if="!hasVoted" class="vote vote-down" @click="voteDown">
         <VoteArrow />
       </div>
