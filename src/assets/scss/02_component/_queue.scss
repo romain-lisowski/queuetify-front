@@ -39,10 +39,12 @@
         }
 
         .queue-counter {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: rgba(#fff, .4);
+            font-weight: 400;
 
             span {
+                font-weight: bold;
                 color: #fff;
             }
         }

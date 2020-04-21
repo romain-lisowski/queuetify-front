@@ -17,14 +17,25 @@
           <Queue :queue="queue" />
         </div>
 
-        <div v-if="!queueMaxLengthReach">
-          <button class="add-track" @click="showSearch">
-            <span>+</span>
-            Add a song
-          </button>
+        <div v-if="queueMaxLengthReach">
+          <div class="add-track blocked">
+            Sorry, the queue is full 😵
+          </div>
+        </div>
+        <div v-else-if="queueMaxLengthPerUserReach">
+          <div class="add-track blocked">
+            Sorry, you added too many songs 😵
+          </div>
         </div>
         <div v-else>
-          Queue is full
+          <button ref="addTrack" class="add-track" @click="showSearch">
+            <span class="icon">+</span>
+            Add a song
+            <span class="info"
+              >{{ userRemainingTracks }}
+              <span class="small">remaining</span></span
+            >
+          </button>
         </div>
       </div>
       <div class="room_bg-texture"></div>
@@ -70,6 +81,25 @@ export default {
         this.$store.state.queue.length >=
         process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH
       );
+    },
+    queueMaxLengthPerUserReach() {
+      const userTracks = this.$store.state.queue.filter(
+        track =>
+          track.user.spotify_id === this.$store.state.spotifyUser.spotify_id
+      );
+      return (
+        userTracks &&
+        userTracks.length >= process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH_PER_USER
+      );
+    },
+    userRemainingTracks() {
+      const userTracks = this.$store.state.queue.filter(
+        track =>
+          track.user.spotify_id === this.$store.state.spotifyUser.spotify_id
+      );
+      return (
+        process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH_PER_USER - userTracks.length
+      );
     }
   },
   created() {
@@ -104,10 +134,12 @@ export default {
     },
     showSearch() {
       this.$refs.search.$refs.searchWrapper.classList.toggle("active");
+      this.$refs.addTrack.classList.toggle("active");
       this.$refs.search.$refs.searchInput.focus();
     },
     closeSearch() {
       this.$refs.search.$refs.searchWrapper.classList.remove("active");
+      this.$refs.addTrack.classList.toggle("active");
     }
   }
 };

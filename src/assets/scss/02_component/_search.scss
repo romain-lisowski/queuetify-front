@@ -26,6 +26,7 @@
     .search {
         &__input {
             padding: 0 3rem;
+            
             input {
                 font-size: 3.8rem;
                 line-height: 1;
@@ -43,16 +44,72 @@
         }
 
         &__results {
-            padding: 0 3rem;
             height: calc(100vh - 22rem);
             overflow-y: scroll;
 
             .queue-track {
-                padding: 1.5rem 0;
+                padding: 1.5rem 3rem;
                 transition: all ease-in-out .2s;
+                border: none;
+                position: relative;
+
+                &:hover {
+                    cursor: none;
+                }
+
+                .cursor-wrapper {
+                    position: fixed;
+                    font-size: 2.4rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1600000;
+                    pointer-events: none;
+                    transform: translate(-50%, -50%);
+                    color: $color-primary;
+
+                    svg {
+                        width: .8rem;
+                        height: .8rem;
+                        margin-left: .4rem;
+
+                        path {
+                            fill: $color-primary;
+                        }
+                    }
+                }
+            
+                .queue-track_cursor {
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: all cubic-bezier(.17,.67,.28,1.86) .4s;
+                    transition-delay: .01s;
+                    transform: scale(0.4);
+                    font-size: 1.4rem;
+                    display: flex;
+                    white-space: nowrap;
+                    align-items: center;
+            
+                    &.active {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+
+                &:not(.inactive) {
+                    &:hover {
+                        background: rgba($color: #FFF, $alpha: .1);
+                    }
+                }
 
                 &.inactive {
-                    opacity: .2;
+                    .queue-track__info {
+                        opacity: .2;
+                    }
+
+                    .cursor-wrapper {
+                        color: $grey;
+                    }
                 }
             }   
         }

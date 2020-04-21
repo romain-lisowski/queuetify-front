@@ -75,25 +75,25 @@
             padding: 0 2rem;            
 
             .track-name {
-                font-size: 2.5rem;
-                line-height: 2.5rem;
+                font-size: 2.3rem;
+                line-height: 2.3rem;
                 padding: .2rem 0;
                 display: flex;
                 max-width: 25vw;
 
                 @include desktop-xlarge {
-                    font-size: 2.35rem;
-                    line-height: 2.35rem;
+                    font-size: 2.15rem;
+                    line-height: 2.15rem;
                 }
     
                 @include desktop-large {
-                    font-size: 2.2rem;
-                    line-height: 2.2rem;
+                    font-size: 2rem;
+                    line-height: 2rem;
                 }
     
                 @include desktop {
-                    font-size: 2rem;
-                    line-height: 2rem;
+                    font-size: 1.8rem;
+                    line-height: 1.8rem;
                 }
 
                 span {
@@ -179,7 +179,8 @@
     }
 
     &__user {
-        margin-left: auto;
+        //margin-left: auto;
+        margin-left: 1.5rem;
         font-size: 1.4rem;
         font-weight: 400;
         color: rgba(#fff, .6);
@@ -231,32 +232,20 @@
 
         .vote {
             padding: 1.4rem 1.2rem;
-            background: rgba(#000, .4);
             transition: all ease-in-out .2s;
+            background: rgba(#000, .4);
 
-            &.active {
-                background: none;
-
-                &:hover {
-                    cursor: default;
-                    background: none;
-                }
-
-                svg {
-                    opacity: 1;
-
-                    path {
-                        fill: $color-primary;
-                    }
-                }
+            &.disabled {
+                opacity: 0;
+                visibility: hidden;
             }
 
             &:hover {
-                background: rgba(#000, .8);
-                cursor: pointer;
+                cursor: none;
+                background: none;
 
                 svg {
-                    opacity: 1;
+                    opacity: 0;
                 }
             }
 
@@ -264,10 +253,40 @@
                 opacity: .6;
                 transition: all ease-in-out .2s;
             }
+        }
+    }
+}
 
-            &.vote-down {
-                transform: rotate(180deg);
-            }
+.queue_list {
+    .cursor-wrapper {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        font-size: 2.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1600000;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+    }
+
+    .queue-track_cursor {
+        opacity: 0;
+        pointer-events: none;
+        transition: all cubic-bezier(.17,.67,.28,1.86) .4s;
+
+        &.up {
+            transform: scale(0.4) rotate(30deg);
+        }
+
+        &.down {
+            transform: scale(0.4) rotate(-30deg);
+        }
+
+        &.active {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
         }
     }
 }

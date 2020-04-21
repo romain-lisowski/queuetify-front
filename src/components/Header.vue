@@ -18,8 +18,6 @@
       </ul>
     </div>
 
-    <div class="beta"></div>
-
     <div v-if="users && users.length > 0" class="users">
       <div v-for="user of users" :key="user.spotify_id" class="user">
         <div class="user_name">{{ user.name }}</div>

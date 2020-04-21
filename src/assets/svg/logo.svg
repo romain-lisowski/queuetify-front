@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 58 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
-    <title>logo</title>
+    <title>Combined Shape</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <linearGradient x1="16.2977431%" y1="0%" x2="83.5557726%" y2="83.7131076%" id="linearGradient-1">
-            <stop stop-color="#000000" offset="0%"></stop>
-            <stop stop-color="#2A0303" offset="32.8679265%"></stop>
-            <stop stop-color="#C60000" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#EBFF00" offset="0%"></stop>
-            <stop stop-color="#EBFF00" offset="100%"></stop>
-        </linearGradient>
-    </defs>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="logo">
-            <g id="Oval">
-                <circle stroke="url(#linearGradient-1)" stroke-width="26" opacity="0.902599516" cx="36" cy="36" r="23"></circle>
-                <circle fill="url(#linearGradient-2)" cx="60" cy="60" r="12"></circle>
-            </g>
-        </g>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M29.0766312,0 C45.0505667,0 58,12.1234659 58,27.0785191 C58,41.8840217 45.3082604,53.9142857 29.554932,54.1534104 L29.0766312,54.1570382 L30.183,54.6270877 L30.2952481,54.6637408 C34.297551,55.9207531 41.4179237,54.809905 51.656366,51.3311966 L52.2283763,51.1354989 L52.2283763,64 C18.253064,63.313873 0.859327201,52.2783903 0.0471657178,30.8935519 C-0.0981748222,27.0666233 0.0923833617,24.1728811 0.61884027,22.2123253 C3.06686454,9.5801618 14.8767423,0 29.0766312,0 Z M29,20 C25.6862915,20 23,23.1340068 23,27 C23,30.8659932 25.6862915,34 29,34 C32.3137085,34 35,30.8659932 35,27 C35,23.1340068 32.3137085,20 29,20 Z" id="Combined-Shape" fill="#FFFFFF"></path>
     </g>
 </svg>

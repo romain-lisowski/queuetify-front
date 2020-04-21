@@ -17,8 +17,13 @@
             margin-bottom: 4rem;
 
             .vote-count {
-                color: $color-primary;
+                color: #fff;
                 font-size: 2.4rem;
+
+                span {
+                    font-size: 1.6rem;
+                    margin-left: .4rem;
+                }
             }
             .user {
                 font-weight: 400;
@@ -253,11 +258,19 @@
             overflow: hidden;
             background: rgba(#fff, .15);
 
+            @include desktop {
+                height: .5rem;
+            }
+
             .progress-bar {
                 width: 0;
                 height: .8rem;
                 background: $color-primary;
                 transition: all linear 1s;
+
+                @include desktop {
+                    height: .5rem;
+                }
             }
         }
     }

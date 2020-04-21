@@ -3,20 +3,9 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-
-    .beta {
-        width: calc(8.2rem/1.2);
-        height: calc(2.65rem/1.2);
-        position: absolute;
-        z-index: 999;
-        background-image: url('~@/assets/img/beta.png');
-        background-size: cover;
-        background-position: center;
-        left: 50%;
-        opacity: .9;
-        transform: translateX(-50%);
-        top: -.3rem;
-    }
+    background-image: url('~@/assets/img/bg.jpg');
+    background-size: cover;
+    background-position: center;
 
     &_content {
         position: relative;
@@ -48,6 +37,14 @@
         }
     }
 
+    button.add-track {
+
+        &:hover {
+            background: $blue;
+
+        }
+    }
+
     .add-track {
         height: 7rem;
         background: #000;
@@ -57,6 +54,13 @@
         font-weight: bold;
         align-items: center;
         justify-content: center;
+        transition: all ease-in-out .2s;
+
+        &.blocked {
+            &:hover {
+                cursor: not-allowed;
+            }
+        }
 
         @include desktop-xlarge {
             height: 6.6rem;
@@ -68,16 +72,29 @@
             height: 6rem;
         }
 
-        span {
+        .icon {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-right: 1.5rem;
+            background: $color-primary;
+            color: #000;
             width: 2.4rem;
             height: 2.4rem;
-            border-radius: 99rem;    
-            color: #000;
-            background: $color-primary;
+            border-radius: 99rem;
+        }
+
+        .info {
+            margin-left: 2rem;
+            background: rgba(#fff, .1);
+            border-radius: 99rem;
+            padding: .3rem 1rem;
+
+            .small {
+                font-size: 1.4rem;
+                color: rgba(#fff, .4);
+                font-weight: 400;
+            }
         }
     }
     

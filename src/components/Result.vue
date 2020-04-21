@@ -1,11 +1,21 @@
 <template>
   <div
     class="queue-track"
+    @click="addTrack"
+    @mousemove="trackHover"
+    @mouseenter="trackIn"
+    @mouseleave="trackOut"
     :class="{
       inactive:
         alreadyInQueue || queueMaxLengthReach || queueMaxLengthPerUserReach
     }"
   >
+    <div ref="cursorWrapper" class="cursor-wrapper">
+      <div v-if="!alreadyInQueue" ref="cursor" class="queue-track_cursor">
+        Add<ButtonArrow />
+      </div>
+      <div v-else ref="cursor" class="queue-track_cursor">Already in queue</div>
+    </div>
     <div class="queue-track__info">
       <div class="queue-track__info_artwork">
         <img
@@ -23,17 +33,18 @@
         </div>
       </div>
     </div>
-    <button @click="addTrack" class="btn btn-inline">
-      Add to queue
-    </button>
   </div>
 </template>
 
 <script>
+import ButtonArrow from "@/assets/svg/button-arrow.svg";
 import LibFirebase from "@/lib/LibFirebase";
 
 export default {
   name: "Result",
+  components: {
+    ButtonArrow
+  },
   props: {
     track: {
       type: Object,
@@ -67,6 +78,20 @@ export default {
   methods: {
     addTrack() {
       LibFirebase.addTrack(this.track);
+    },
+    trackHover(e) {
+      const cursorWrapper = this.$refs.cursorWrapper;
+      const { clientX: x, clientY: y } = e;
+      cursorWrapper.style.left = x + "px";
+      cursorWrapper.style.top = y + "px";
+    },
+    trackIn() {
+      const cursor = this.$refs.cursor;
+      cursor.classList.add("active");
+    },
+    trackOut() {
+      const cursor = this.$refs.cursor;
+      cursor.classList.remove("active");
     }
   }
 };

@@ -63,7 +63,7 @@
             font-size: 1.6rem;
             font-weight: 400;
             margin: 0 .6rem;
-            transition: all ease-in-out .3s;
+            transition: all ease-in-out .4s;
             display: flex;
             line-height: 1;
             align-items: center;
@@ -99,6 +99,7 @@
 
     .users {
         display: flex;
+        overflow: hidden;
 
         .user-none {
             width: 2.6rem;

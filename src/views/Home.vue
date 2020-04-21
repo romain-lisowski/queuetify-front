@@ -12,7 +12,9 @@
         class="home__content"
         v-if="!spotifyAccessToken || !spotifyUser"
       >
-        <div class="logo"></div>
+        <div class="logo">
+          <Logo />
+        </div>
         <h1 class="headline">
           <div class="beta"></div>
           Collaborative <span class="stroke">listening<br />room</span> using
@@ -82,13 +84,15 @@
 
 <script>
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
+import Logo from "@/assets/svg/logo.svg";
 import { gsap, TimelineLite, Back } from "gsap";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 
 export default {
   name: "Home",
   components: {
-    ButtonArrow
+    ButtonArrow,
+    Logo
   },
   computed: {
     spotifyAccessToken() {
