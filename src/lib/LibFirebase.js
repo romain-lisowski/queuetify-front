@@ -92,7 +92,9 @@ export default {
       .get();
 
     querySnapshot.forEach(doc => {
-      users.push(doc.data());
+      if (doc.data().spotify_id != store.state.spotifyUser.spotify_id) {
+        users.push(doc.data());
+      }
     });
 
     return users;

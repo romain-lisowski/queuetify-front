@@ -46,6 +46,7 @@
         &__results {
             height: calc(100vh - 22rem);
             overflow-y: scroll;
+            cursor: none;
 
             .queue-track {
                 padding: 1.5rem 3rem;
@@ -59,6 +60,7 @@
 
                 .cursor-wrapper {
                     position: fixed;
+                    left: -10rem;
                     font-size: 2.4rem;
                     display: flex;
                     align-items: center;

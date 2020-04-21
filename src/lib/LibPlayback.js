@@ -1,5 +1,6 @@
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 import store from "@/store";
+import { DateTime } from "luxon";
 
 const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
@@ -10,7 +11,7 @@ export default {
     window.onSpotifyWebPlaybackSDKReady = () => {
       // eslint-disable-next-line no-undef
       player = new Spotify.Player({
-        name: "Queue Web Playback Player",
+        name: "Q Web Player",
         getOAuthToken: cb => {
           // get new token
           let accessToken = null;
@@ -44,8 +45,16 @@ export default {
   addListeners(player) {
     // Playback status updates
     player.addListener("player_state_changed", state => {
+      // from pause to play
+      if (
+        store.state.playerState &&
+        store.state.playerState.paused &&
+        !state.paused
+      ) {
+        this.seek(player);
+      }
+
       store.commit("setPlayerState", state);
-      console.log(state);
     });
 
     // Ready
@@ -56,23 +65,40 @@ export default {
     });
   },
 
-  async play({
-    player: {
-      _options: { getOAuthToken, id }
-    },
-    trackId
-  }) {
-    getOAuthToken(accessToken => {
-      fetch(`${spotifyApiUrl}/v1/me/player/play?device_id=${id}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          uris: ["spotify:track:" + trackId]
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`
+  async play({ player, trackId }) {
+    player._options.getOAuthToken(accessToken => {
+      fetch(
+        `${spotifyApiUrl}/v1/me/player/play?device_id=${player._options.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            uris: ["spotify:track:" + trackId]
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`
+          }
         }
+      ).then(() => {
+        setTimeout(() => {
+          this.seek(player);
+        }, 1000);
       });
     });
+  },
+
+  seek(player) {
+    if (store.state.currentTrack) {
+      const begin = DateTime.fromSeconds(
+        store.state.currentTrack.played.seconds
+      );
+      const now = DateTime.local().setZone("utc");
+      const seek = now - begin;
+
+      // seek position on track
+      if (seek > 0) {
+        player.seek(seek);
+      }
+    }
   }
 };

@@ -12,7 +12,7 @@
   >
     <div ref="cursorWrapper" class="cursor-wrapper">
       <div v-if="!alreadyInQueue" ref="cursor" class="queue-track_cursor">
-        Add<ButtonArrow />
+        Add to queue<ButtonArrow />
       </div>
       <div v-else ref="cursor" class="queue-track_cursor">Already in queue</div>
     </div>
