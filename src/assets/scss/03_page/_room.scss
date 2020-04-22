@@ -56,12 +56,6 @@
         justify-content: center;
         transition: all ease-in-out .2s;
 
-        &.blocked {
-            &:hover {
-                cursor: not-allowed;
-            }
-        }
-
         @include desktop-xlarge {
             height: 6.6rem;
         }

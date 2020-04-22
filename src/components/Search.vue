@@ -10,12 +10,14 @@
           v-model="search"
         />
       </div>
-      <div
+      <transition-group
         class="search__results"
+        name="list-complete"
+        tag="div"
         v-if="trackResults && trackResults.length > 0"
       >
         <Result v-for="track of trackResults" :key="track.id" :track="track" />
-      </div>
+      </transition-group>
     </div>
   </div>
 </template>
