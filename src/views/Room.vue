@@ -16,27 +16,14 @@
           <Player :track="currentTrack" />
           <Queue :queue="queue" />
         </div>
-
-        <div v-if="queueMaxLengthReach">
-          <div class="add-track blocked">
-            Sorry, the queue is full 😵
-          </div>
-        </div>
-        <div v-else-if="queueMaxLengthPerUserReach">
-          <div class="add-track blocked">
-            Sorry, you added too many songs 😵
-          </div>
-        </div>
-        <div v-else>
-          <button ref="addTrack" class="add-track" @click="showSearch">
-            <span class="icon">+</span>
-            Add a song
-            <span class="info"
-              >{{ userRemainingTracks }}
-              <span class="small">remaining</span></span
-            >
-          </button>
-        </div>
+        <button ref="addTrack" class="add-track" @click="showSearch">
+          <span class="icon">+</span>
+          Add a song
+          <span class="info"
+            >{{ userRemainingTracks }}
+            <span class="small">remaining</span></span
+          >
+        </button>
       </div>
       <div class="room_bg-texture"></div>
       <div

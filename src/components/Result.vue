@@ -11,7 +11,17 @@
     }"
   >
     <div ref="cursorWrapper" class="cursor-wrapper">
-      <div v-if="!alreadyInQueue" ref="cursor" class="queue-track_cursor">
+      <div v-if="queueMaxLengthReach" ref="cursor" class="queue-track_cursor">
+        Sorry, the queue is full 😵
+      </div>
+      <div
+        v-else-if="queueMaxLengthPerUserReach"
+        ref="cursor"
+        class="queue-track_cursor"
+      >
+        Sorry, you added too many songs 😵
+      </div>
+      <div v-else-if="!alreadyInQueue" ref="cursor" class="queue-track_cursor">
         Add to queue<ButtonArrow />
       </div>
       <div v-else ref="cursor" class="queue-track_cursor">Already in queue</div>
