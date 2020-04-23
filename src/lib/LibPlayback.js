@@ -96,7 +96,7 @@ export default {
       const seek = now - begin;
 
       // seek position on track
-      if (seek > 0) {
+      if (seek > 500) {
         player.seek(seek);
       }
     }
