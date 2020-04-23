@@ -22,7 +22,9 @@
         </div>
         <div class="track-artist">
           <span v-if="track">{{ track.artist }}</span>
-          <span v-else class="track-artist-default">Start adding songs</span>
+          <span v-else class="track-artist-default btn" @click="showSearch"
+            >Start adding songs <ButtonArrow />
+          </span>
         </div>
       </div>
     </div>
@@ -46,6 +48,7 @@
 <script>
 import IconMute from "@/assets/svg/icon-mute.svg";
 import IconUnmute from "@/assets/svg/icon-unmute.svg";
+import ButtonArrow from "@/assets/svg/button-arrow.svg";
 
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 
@@ -62,6 +65,7 @@ export default {
     }
   },
   components: {
+    ButtonArrow,
     IconMute,
     IconUnmute
   },
@@ -79,6 +83,11 @@ export default {
   methods: {
     convertTime(millis) {
       return millisToMinutesAndSeconds(millis);
+    },
+    showSearch() {
+      this.$parent.$refs.search.$refs.searchWrapper.classList.toggle("active");
+      this.$parent.$refs.addTrack.classList.toggle("active");
+      this.$parent.$refs.search.$refs.searchInput.focus();
     },
     togglePlay() {
       const player = this.$store.state.player;

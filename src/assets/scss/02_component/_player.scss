@@ -176,14 +176,49 @@
 
             .track-artist {
                 font-size: 2.4rem;
-                opacity: .6;
-
+                
                 @include desktop-large {
                     font-size: 2.2rem;
                 }
     
                 @include desktop {
                     font-size: 2rem;
+                }
+
+                span {
+                    opacity: .6;
+                }
+
+                &-default {
+                    display: inline-flex;
+                    align-items: center;
+                    transition: all ease-in-out .2s;
+                    
+                    &.btn {
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                            color: $color-primary;
+
+                            svg {
+                                path {
+                                    fill: $color-primary;
+                                }
+                            }
+                        }
+
+                        svg {
+                            width: .9rem;
+                            height: .9rem;
+                            margin-left: .4rem;
+                            transition: all ease-in-out .2s;
+                            
+                            path {
+                                fill: #fff;
+                            }
+                        }
+                    }
                 }
             }
         }

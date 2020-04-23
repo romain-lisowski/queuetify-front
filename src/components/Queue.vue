@@ -1,5 +1,16 @@
 <template>
-  <div @click="closeSearch" class="queue">
+  <div
+    @mousemove="closeSearchHover"
+    @mouseenter="closeSearchIn"
+    @mouseleave="closeSearchOut"
+    @click="closeSearch"
+    class="queue"
+    ref="queue"
+  >
+    <div ref="cursorWrapper" class="cursor-search-wrapper">
+      <div ref="cursor" class="search_cursor"><IconArrowRight /></div>
+    </div>
+
     <div class="queue_header">
       <h3>Queue</h3>
       <div class="queue-counter">
@@ -22,11 +33,13 @@
 
 <script>
 import QueueTrack from "@/components/QueueTrack";
+import IconArrowRight from "@/assets/svg/icon-arrow-right.svg";
 
 export default {
   name: "Queue",
   components: {
-    QueueTrack
+    QueueTrack,
+    IconArrowRight
   },
   props: {
     queue: {
@@ -47,6 +60,34 @@ export default {
     closeSearch() {
       this.$parent.$refs.search.$refs.searchWrapper.classList.remove("active");
       this.$parent.$refs.addTrack.classList.remove("active");
+      const cursor = this.$refs.cursor;
+      cursor.classList.remove("active");
+    },
+    closeSearchHover(e) {
+      const search = this.$parent.$refs.search.$refs.searchWrapper;
+      const cursorWrapper = this.$refs.cursorWrapper;
+      if (search.classList.contains("active")) {
+        const { clientX: x, clientY: y } = e;
+        this.$refs.queue.classList.add("hover");
+        cursorWrapper.style.left = x + "px";
+        cursorWrapper.style.top = y + "px";
+      } else {
+        this.$refs.queue.classList.remove("hover");
+      }
+    },
+    closeSearchIn() {
+      const search = this.$parent.$refs.search.$refs.searchWrapper;
+      const cursor = this.$refs.cursor;
+      if (search.classList.contains("active")) {
+        cursor.classList.add("active");
+      }
+    },
+    closeSearchOut() {
+      const search = this.$parent.$refs.search.$refs.searchWrapper;
+      const cursor = this.$refs.cursor;
+      if (search.classList.contains("active")) {
+        cursor.classList.remove("active");
+      }
     }
   }
 };

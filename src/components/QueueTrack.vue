@@ -100,10 +100,12 @@ export default {
     voteInUp() {
       const cursor = this.$refs.cursorUp;
       cursor.classList.add("active");
+      this.$parent.$parent.$refs.cursor.classList.remove("active");
     },
     voteOutUp() {
       const cursor = this.$refs.cursorUp;
       cursor.classList.remove("active");
+      this.$parent.$parent.$refs.cursor.classList.add("active");
     },
     voteHoverDown(e) {
       const cursorWrapperDown = this.$refs.cursorWrapperDown;
@@ -114,10 +116,12 @@ export default {
     voteInDown() {
       const cursorDown = this.$refs.cursorDown;
       cursorDown.classList.add("active");
+      this.$parent.$parent.$refs.cursor.classList.remove("active");
     },
     voteOutDown() {
       const cursorDown = this.$refs.cursorDown;
       cursorDown.classList.remove("active");
+      this.$parent.$parent.$refs.cursor.classList.add("active");
     },
     convertTime(millis) {
       return millisToMinutesAndSeconds(millis);

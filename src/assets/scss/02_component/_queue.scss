@@ -2,6 +2,40 @@
     background: rgba(#000, .4);
     height: 100%;
 
+    &.hover {
+        cursor: none;
+
+        .vote {
+            &:hover {
+            }
+        }
+    }
+
+    .cursor-search-wrapper {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        font-size: 2.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1600000;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+    }
+
+    .search_cursor {
+        opacity: 0;
+        pointer-events: none;
+        transition: all cubic-bezier(.17,.67,.28,1.86) .4s;
+        transform: scale(0.4);
+
+        &.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
     &_header {
         display: flex;
         align-items: flex-end;
