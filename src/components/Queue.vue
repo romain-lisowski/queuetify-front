@@ -24,7 +24,7 @@
       <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
       <QueueTrack
         v-for="({}, index) of queueEmptySlots"
-        :key="index"
+        :key="index + 1"
         :track="null"
       />
     </transition-group>
