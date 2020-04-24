@@ -1,21 +1,10 @@
 import { firebase } from "@firebase/app";
 import { db } from "@/firebase";
-import io from "socket.io-client";
 import store from "@/store";
-
-const options = {
-  tansport: ["websocket", "polling"],
-  secure: true,
-  reconnect: true,
-  rejectUnauthorized: false
-};
-
-const socket = io(process.env.VUE_APP_SERVER_URL, options);
 
 export default {
   async getCurrentTrack() {
-    let currentTrack = null;
-
+    let track = null;
     const querySnapshot = await db
       .collection("current_tracks")
       .where("room", "==", "room1")
@@ -23,10 +12,9 @@ export default {
       .get();
 
     querySnapshot.forEach(doc => {
-      currentTrack = doc.data();
+      track = doc.data();
     });
-
-    return currentTrack;
+    return track;
   },
 
   async getTracks() {
@@ -45,7 +33,7 @@ export default {
     return tracks;
   },
 
-  async addTrack(track) {
+  async addTrack(socket, track) {
     await db.collection("tracks").add({
       room: "room1",
       id: track.id,
@@ -64,7 +52,7 @@ export default {
     socket.emit("E_ADD_TRACK");
   },
 
-  async voteTrack(track, increment) {
+  async voteTrack(socket, track, increment) {
     const querySnapshot = await db
       .collection("tracks")
       .where("room", "==", "room1")
@@ -111,8 +99,6 @@ export default {
         spotify_url: user.spotify_url,
         image: user.image
       });
-
-    socket.emit("E_USER_CONNECTED");
   },
 
   async removeUser(user) {

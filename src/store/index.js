@@ -37,13 +37,11 @@ export default new Vuex.Store({
     playerState: null,
     queue: [],
     currentTrack: null,
-    socket: null,
     users: null
   },
 
   actions: {
     async fetchSpotifyTokens({ commit, dispatch }, code) {
-      console.info("store: fetchSpotifyTokens");
       if (code !== "undefined") {
         LibSpotifyAccount.getTokens(code).then(spotifyAuth => {
           if (spotifyAuth.access_token !== undefined) {
@@ -69,13 +67,11 @@ export default new Vuex.Store({
     },
 
     refreshToken({ commit }, token) {
-      console.info("store: refreshToken");
       localStorage.setItem("spotifyAccessToken", token);
       commit("setSpotifyAccessToken", token);
     },
 
     logout({ commit, dispatch, state }) {
-      console.info("store: logout");
       dispatch("SOCKET_DISCONNECT");
 
       commit("setSpotifyAccessToken", null);
@@ -92,7 +88,6 @@ export default new Vuex.Store({
     },
 
     fetchSpotifyUser({ commit, state }) {
-      console.info("store: fetchSpotifyUser");
       LibSpotifyUser.getUser(state.spotifyAccessToken).then(spotifyUser => {
         localStorage.setItem("spotifyUser", JSON.stringify(spotifyUser));
         commit("setSpotifyUser", spotifyUser);
@@ -100,80 +95,64 @@ export default new Vuex.Store({
     },
 
     initRoom({ dispatch }) {
-      console.info("store: initRoom");
       LibPlayback.initPlayer();
       dispatch("fetchQueue");
       dispatch("fetchUsers");
     },
 
     fetchUsers({ commit }) {
-      console.info("store: fetchUsers");
       LibFirebase.getUsers().then(users => {
         commit("setUsers", users);
       });
     },
 
-    fetchCurrentTrack({ commit, dispatch, state }) {
-      console.info("store: fetchCurrentTrack");
-      LibFirebase.getCurrentTrack().then(track => {
-        commit("setCurrentTrack", track);
-
-        if (!state.playerState || state.playerState.paused) {
-          dispatch("play");
-        }
-      });
-    },
-
     fetchQueue({ commit }) {
-      console.info("store: fetchQueue");
       LibFirebase.getTracks().then(queue => {
         commit("setQueue", queue);
       });
     },
 
-    play({ state }) {
-      console.info("store: play");
-      if (state.currentTrack) {
-        LibPlayback.play({
-          player: state.player,
-          trackId: state.currentTrack.id
-        });
-      } else {
-        console.log("No track to play");
+    async fetchCurrentTrack({ commit, state }) {
+      const track = await LibFirebase.getCurrentTrack();
+      commit("setCurrentTrack", track);
+
+      if (!state.playerState || state.playerState.paused) {
+        if (track) {
+          LibPlayback.play({
+            player: state.player,
+            trackId: track.id
+          });
+        } else {
+          console.log("No track to play");
+        }
       }
     },
 
     // eslint-disable-next-line no-unused-vars
-    vote({ commit, dispatch }, { track, increment }) {
-      console.info("store: vote");
-      LibFirebase.voteTrack(track, increment);
+    vote({ commit, dispatch }, { socket, track, increment }) {
+      LibFirebase.voteTrack(socket, track, increment);
     },
 
     SOCKET_ADD_TRACK({ dispatch }) {
-      console.log("store: SOCKET_ADD_TRACK");
+      dispatch("fetchQueue");
+    },
+
+    SOCKET_VOTE_TRACK({ dispatch }) {
+      dispatch("fetchQueue");
+    },
+
+    SOCKET_NEXT_TRACK({ dispatch }) {
       dispatch("fetchQueue");
       dispatch("fetchCurrentTrack");
     },
 
-    SOCKET_VOTE_TRACK({ dispatch }) {
-      console.log("store: SOCKET_VOTE_TRACK");
-      dispatch("fetchQueue");
+    SOCKET_CONNECT({ dispatch }) {
+      dispatch("fetchUsers");
     },
 
-    SOCKET_NEXT_TRACK({ commit, state, dispatch }, track) {
-      console.log("store: SOCKET_NEXT_TRACK");
-      commit("setCurrentTrack", track);
-      if (track) {
-        dispatch("fetchQueue");
-        dispatch("play");
-      } else {
-        state.player.pause();
-      }
-    },
-
-    SOCKET_DISCONNECT({ state }) {
-      console.log("store: SOCKET_DISCONNECT");
+    SOCKET_DISCONNECT({ dispatch, state }) {
       LibFirebase.removeUser(state.spotifyUser);
+      dispatch("fetchUsers");
     }
   },
 

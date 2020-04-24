@@ -24,7 +24,7 @@
         @mousemove="voteHoverUp"
         @mouseenter="voteInUp"
         @mouseleave="voteOutUp"
-        @click="voteUp"
+        @click="vote(1)"
       >
         <div ref="cursorWrapperUp" class="cursor-wrapper">
           <div ref="cursorUp" class="queue-track_cursor up">👍</div>
@@ -42,7 +42,7 @@
         @mousemove="voteHoverDown"
         @mouseenter="voteInDown"
         @mouseleave="voteOutDown"
-        @click="voteDown"
+        @click="vote(-1)"
       >
         <div ref="cursorWrapperDown" class="cursor-wrapper">
           <div ref="cursorDown" class="queue-track_cursor down">👎</div>
@@ -85,11 +85,12 @@ export default {
     }
   },
   methods: {
-    voteUp() {
-      this.$store.dispatch("vote", { track: this.track, increment: 1 });
-    },
-    voteDown() {
-      this.$store.dispatch("vote", { track: this.track, increment: -1 });
+    vote(increment) {
+      this.$store.dispatch("vote", {
+        socket: this.$socket,
+        track: this.track,
+        increment: increment
+      });
     },
     voteHoverUp(e) {
       const cursorWrapper = this.$refs.cursorWrapperUp;

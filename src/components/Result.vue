@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     addTrack() {
-      LibFirebase.addTrack(this.track);
+      LibFirebase.addTrack(this.$socket, this.track);
     },
     trackHover(e) {
       const cursorWrapper = this.$refs.cursorWrapper;
