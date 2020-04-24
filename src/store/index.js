@@ -115,7 +115,6 @@ export default new Vuex.Store({
     async fetchCurrentTrack({ commit, state }) {
       const track = await LibFirebase.getCurrentTrack();
       commit("setCurrentTrack", track);
-
       if (!state.playerState || state.playerState.paused) {
         if (track) {
           LibPlayback.play({
@@ -141,7 +140,7 @@ export default new Vuex.Store({
       dispatch("fetchQueue");
     },
 
-    SOCKET_NEXT_TRACK({ dispatch }) {
+    SOCKET_REFRESH({ dispatch }) {
       dispatch("fetchQueue");
       dispatch("fetchCurrentTrack");
     },
