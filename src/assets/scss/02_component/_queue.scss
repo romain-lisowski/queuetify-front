@@ -2,13 +2,13 @@
     background: rgba(#000, .4);
     height: 100%;
 
+    @include mobile {
+        background: none;
+        padding-bottom: 6rem;
+    }
+
     &.hover {
         cursor: none;
-
-        .vote {
-            &:hover {
-            }
-        }
     }
 
     .cursor-search-wrapper {
@@ -56,6 +56,12 @@
             height: calc(25vh - 3rem);
         }
 
+        @include mobile {
+            height: auto;
+            padding: 5rem 3rem 2rem 3rem;
+            align-items: center;
+        }
+
         h3 {
             font-size: 4rem;
 
@@ -69,6 +75,10 @@
 
             @include desktop {
                 font-size: 3.4rem;
+            }
+
+            @include mobile {
+                font-size: 2.4rem;
             }
         }
 
@@ -90,5 +100,10 @@
         overflow-y: scroll;
         overflow-x: hidden;
         position: relative;
+
+        @include mobile {
+            height: auto;
+            padding: 0 3rem 2rem 3rem;
+        }
     }
 }
