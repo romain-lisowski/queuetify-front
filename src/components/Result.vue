@@ -48,7 +48,7 @@
 
 <script>
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
-import LibFirebase from "@/lib/LibFirebase";
+import LibServerApi from "@/lib/LibServerApi";
 
 export default {
   name: "Result",
@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     addTrack() {
-      LibFirebase.addTrack(this.$socket, this.track);
+      LibServerApi.addTrack(this.$socket, this.track);
     },
     trackHover(e) {
       const cursorWrapper = this.$refs.cursorWrapper;

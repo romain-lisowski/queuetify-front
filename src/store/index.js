@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
 import LibPlayback from "@/lib/LibPlayback";
 import LibSpotifyUser from "@/lib/LibSpotifyUser";
-import LibFirebase from "@/lib/LibFirebase";
+import LibServerApi from "@/lib/LibServerApi";
 
 Vue.use(Vuex);
 
@@ -101,19 +101,19 @@ export default new Vuex.Store({
     },
 
     fetchUsers({ commit }) {
-      LibFirebase.getUsers().then(users => {
+      LibServerApi.getUsers().then(users => {
         commit("setUsers", users);
       });
     },
 
     fetchQueue({ commit }) {
-      LibFirebase.getTracks().then(queue => {
+      LibServerApi.getTracks().then(queue => {
         commit("setQueue", queue);
       });
     },
 
     async fetchCurrentTrack({ commit, state }) {
-      const track = await LibFirebase.getCurrentTrack();
+      const track = await LibServerApi.getCurrentTrack();
       commit("setCurrentTrack", track);
       if (!state.playerState || state.playerState.paused) {
         if (track) {
@@ -128,21 +128,20 @@ export default new Vuex.Store({
     },
 
     // eslint-disable-next-line no-unused-vars
-    vote({ commit, dispatch }, { socket, track, increment }) {
-      LibFirebase.voteTrack(socket, track, increment);
+    vote({ commit, dispatch }, { track, increment }) {
+      LibServerApi.voteTrack(track, increment);
     },
 
-    SOCKET_ADD_TRACK({ dispatch }) {
+    SOCKET_REFRESH_TRACKS({ dispatch }) {
       dispatch("fetchQueue");
     },
 
-    SOCKET_VOTE_TRACK({ dispatch }) {
-      dispatch("fetchQueue");
-    },
-
-    SOCKET_REFRESH({ dispatch }) {
-      dispatch("fetchQueue");
+    SOCKET_REFRESH_CURRENT_TRACK({ dispatch }) {
       dispatch("fetchCurrentTrack");
+    },
+
+    SOCKET_REFRESH_USERS({ dispatch }) {
+      dispatch("fetchUsers");
     },
 
     SOCKET_CONNECT({ dispatch }) {
@@ -150,7 +149,7 @@ export default new Vuex.Store({
     },
 
     SOCKET_DISCONNECT({ dispatch, state }) {
-      LibFirebase.removeUser(state.spotifyUser);
+      LibServerApi.removeUser(state.spotifyUser);
       dispatch("fetchUsers");
     }
   },

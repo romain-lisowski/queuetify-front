@@ -1,4 +1,4 @@
-import LibFirebase from "@/lib/LibFirebase";
+import LibServerApi from "@/lib/LibServerApi";
 
 const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
@@ -21,7 +21,7 @@ export default {
             spotifyUser.images.length > 0 ? spotifyUser.images[0].url : null
         };
 
-        LibFirebase.addUser(user);
+        LibServerApi.addUser(user);
         return user;
       })
       .catch(error => {

@@ -87,7 +87,6 @@ export default {
   methods: {
     vote(increment) {
       this.$store.dispatch("vote", {
-        socket: this.$socket,
         track: this.track,
         increment: increment
       });
