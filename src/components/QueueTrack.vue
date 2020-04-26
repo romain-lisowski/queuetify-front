@@ -105,7 +105,11 @@ export default {
     voteOutUp() {
       const cursor = this.$refs.cursorUp;
       cursor.classList.remove("active");
-      this.$parent.$parent.$refs.cursor.classList.add("active");
+      const search = this.$parent.$parent.$parent.$refs.search.$refs
+        .searchWrapper;
+      if (search.classList.contains("active")) {
+        this.$parent.$parent.$refs.cursor.classList.add("active");
+      }
     },
     voteHoverDown(e) {
       const cursorWrapperDown = this.$refs.cursorWrapperDown;
@@ -120,8 +124,13 @@ export default {
     },
     voteOutDown() {
       const cursorDown = this.$refs.cursorDown;
+      const search = this.$parent.$parent.$parent.$refs.search.$refs
+        .searchWrapper;
       cursorDown.classList.remove("active");
-      this.$parent.$parent.$refs.cursor.classList.add("active");
+
+      if (search.classList.contains("active")) {
+        this.$parent.$parent.$refs.cursor.classList.add("active");
+      }
     },
     convertTime(millis) {
       return millisToMinutesAndSeconds(millis);

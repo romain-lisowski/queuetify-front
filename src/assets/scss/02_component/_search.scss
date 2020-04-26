@@ -20,6 +20,11 @@
         bottom: 6rem;
     }
 
+    @include mobile {
+        right: 0;
+        width: 100%;
+    }
+
     &.active {
         transform: translateX(0);
     }

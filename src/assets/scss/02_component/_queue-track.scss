@@ -5,6 +5,11 @@
     border-bottom: .1rem solid rgba(#fff, .1);
     transition: all cubic-bezier(0.75, 0.25, 0.25, 0.75) .4s;
     
+    @include mobile {
+        height: auto;
+        padding: 1.5rem 0;
+    }
+
     &:last-child {
         border-color: transparent;
     }
@@ -32,6 +37,11 @@
             @include desktop {
                 width: 5rem;
                 height: 5rem;
+            }
+
+            @include desktop {
+                width: 3.5rem;
+                height: 3.5rem;
             }
 
             img {
@@ -74,6 +84,10 @@
             flex-direction: column;
             padding: 0 2rem;            
 
+            @include mobile {
+                padding: 0 1rem;
+            }
+
             .track-name {
                 font-size: 2.3rem;
                 line-height: 2.3rem;
@@ -94,6 +108,11 @@
                 @include desktop {
                     font-size: 1.8rem;
                     line-height: 1.8rem;
+                }
+
+                @include mobile {
+                    font-size: 1.5rem;
+                    line-height: 1.5rem;
                 }
 
                 span {
@@ -147,6 +166,11 @@
                 @include desktop {
                     font-size: 1.4rem;
                     line-height: 1.4rem;
+                }
+
+                @include mobile {
+                    font-size: 1.3rem;
+                    line-height: 1.3rem;
                 }
 
                 span {
@@ -234,6 +258,10 @@
             padding: 1.4rem 1.2rem;
             transition: all ease-in-out .2s;
             background: rgba(#000, .4);
+
+            @include mobile {
+                padding: 1rem .8rem;
+            }
 
             &.disabled {
                 opacity: 0;

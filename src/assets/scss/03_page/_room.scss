@@ -7,6 +7,10 @@
     background-size: cover;
     background-position: center;
 
+    @include mobile {
+        height: auto;
+    }
+
     &_content {
         position: relative;
         z-index: 3;
@@ -14,6 +18,7 @@
 
         &-wrapper {
             display: flex;
+            flex-wrap: wrap;
             height: calc(100% - 7rem);
 
             @include desktop-xlarge {
@@ -29,10 +34,18 @@
 
             .player {
                 width: 50%;
+
+                @include mobile {
+                    width: 100%;
+                }
             }
 
             .queue {
                 width: 50%;
+
+                @include mobile {
+                    width: 100%;
+                }
             }
         }
     }
@@ -64,6 +77,14 @@
         }
         @include desktop {
             height: 6rem;
+        }
+
+        @include mobile {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 99999;
         }
 
         .icon {

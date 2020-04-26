@@ -12,17 +12,34 @@
         align-items: center;
         margin-bottom: 10vh;
 
+        @include mobile {
+            margin-top: 10rem;
+            margin-bottom: 10rem;
+        }
+
         &_user {
             text-align: center;
             margin-bottom: 4rem;
+
+            @include mobile {
+                margin-bottom: 2rem;
+            }
 
             .vote-count {
                 color: #fff;
                 font-size: 2.4rem;
 
+                @include mobile {
+                    font-size: 1.8rem;
+                }
+
                 span {
                     font-size: 1.6rem;
                     margin-left: .4rem;
+
+                    @include mobile {
+                        font-size: 1.4rem;
+                    }
                 }
             }
             .user {
@@ -50,6 +67,12 @@
             @include desktop {
                 width: 25rem;
                 height: 25rem;
+            }
+
+            @include mobile {
+                width: 22.5rem;
+                height: 22.5rem;
+                margin-bottom: 2rem;
             }
             
             .track-artwork--texture {
@@ -93,6 +116,10 @@
                     width: 5.8rem;
                     height: 25rem;
                     right: -5rem;
+                }
+
+                @include mobile {
+                    display: none;
                 }
             }
 
@@ -165,6 +192,11 @@
                     font-size: 3.4rem;
                 }
 
+                @include mobile {
+                    font-size: 2.4rem;
+                    max-width: 100%;
+                }
+
                 span {
                     display: block;
                     flex: 1;
@@ -185,6 +217,10 @@
                     font-size: 2rem;
                 }
 
+                @include mobile {
+                    font-size: 1.8rem;
+                }
+
                 span {
                     opacity: .6;
                 }
@@ -193,7 +229,7 @@
                     display: inline-flex;
                     align-items: center;
                     transition: all ease-in-out .2s;
-                    
+
                     &.btn {
                         cursor: pointer;
 
@@ -229,11 +265,19 @@
         bottom: 0;
         width: 100%;
 
+        @include mobile {
+            width: 60%;
+        }
+
         &_inner {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             padding: 1rem 1.5rem;
+
+            @include mobile {
+                padding: 1rem 0;
+            }
 
             .toggle-mute {
                 width: 6rem;
@@ -260,6 +304,10 @@
                     height: 4.5rem;
                 }
 
+                @include mobile {
+                    margin-bottom: 2rem;
+                }
+
                 .unmute {
                     svg {
                         path {
@@ -276,6 +324,10 @@
             .timer {
                 width: 6rem;
                 display: flex;
+
+                @include mobile {
+                    font-size: 1.2rem;
+                }
 
                 &.start {
                     justify-content: flex-start;
@@ -297,6 +349,10 @@
                 height: .5rem;
             }
 
+            @include mobile {
+                height: .3rem;
+            }
+
             .progress-bar {
                 width: 0;
                 height: .8rem;
@@ -305,6 +361,10 @@
 
                 @include desktop {
                     height: .5rem;
+                }
+
+                @include mobile {
+                    height: .3rem;
                 }
             }
         }
