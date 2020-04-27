@@ -27,13 +27,20 @@
           </span>
         </div>
       </div>
+
+      <div v-if="sync">
+        SYNC
+      </div>
+      <div v-else>
+        UNSYNC
+      </div>
     </div>
 
     <div class="player__controls" v-if="track">
       <div class="player__controls_inner">
         <div class="timer start">{{ convertTime(playerPosition) }}</div>
-        <button class="toggle-mute" @click="togglePlay">
-          <span v-if="play" class="control mute"><IconMute /></span>
+        <button class="toggle-mute" @click="togglePause">
+          <span v-if="volume" class="control mute"><IconMute /></span>
           <span v-else class="control unmute"><IconUnmute /></span>
         </button>
         <div class="timer end">{{ convertTime(track.duration) }}</div>
@@ -56,7 +63,7 @@ export default {
   name: "Player",
   data() {
     return {
-      play: true
+      volume: 1
     };
   },
   props: {
@@ -78,6 +85,15 @@ export default {
       return {
         width: `${(this.playerPosition / this.track.duration) * 100}%`
       };
+    },
+    sync() {
+      return (
+        (!this.$store.state.playerState && !this.$store.state.currentTrack) ||
+        (this.$store.state.playerState &&
+          this.$store.state.currentTrack &&
+          this.$store.state.playerState.track_window.current_track.id ===
+            this.$store.state.currentTrack.id)
+      );
     }
   },
   methods: {
@@ -89,11 +105,14 @@ export default {
       this.$parent.$refs.addTrack.classList.toggle("active");
       this.$parent.$refs.search.$refs.searchInput.focus();
     },
-    togglePlay() {
+    togglePause() {
+      if (this.volume === 1) {
+        this.volume = 0;
+      } else {
+        this.volume = 1;
+      }
       const player = this.$store.state.player;
-      player.togglePlay().then(() => {
-        this.play = !this.play;
-      });
+      player.setVolume(this.volume);
     }
   }
 };
