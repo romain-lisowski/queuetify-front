@@ -51,6 +51,7 @@ export default {
         store.state.playerState.paused &&
         !state.paused
       ) {
+        store.dispatch("fetchCurrentTrack");
         this.seek(player);
       }
 
@@ -66,24 +67,25 @@ export default {
   },
 
   async play({ player, trackId }) {
+    const begin = DateTime.fromSeconds(store.state.currentTrack.played.seconds);
+    const now = DateTime.local().setZone("utc");
+    const seek = now - begin > 0 ? now - begin : 0;
+
     player._options.getOAuthToken(accessToken => {
       fetch(
         `${spotifyApiUrl}/v1/me/player/play?device_id=${player._options.id}`,
         {
           method: "PUT",
           body: JSON.stringify({
-            uris: ["spotify:track:" + trackId]
+            uris: ["spotify:track:" + trackId],
+            position_ms: seek
           }),
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`
           }
         }
-      ).then(() => {
-        setTimeout(() => {
-          this.seek(player);
-        }, 1000);
-      });
+      );
     });
   },
 
