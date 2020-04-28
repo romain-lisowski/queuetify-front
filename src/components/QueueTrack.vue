@@ -1,6 +1,7 @@
 <template>
   <div class="queue-track">
     <div class="queue-track__info">
+      <div>{{ index }}</div>
       <div class="queue-track__info_artwork">
         <img v-if="track" :src="track.image_small" />
         <div class="artwork-default" v-else></div>
@@ -14,6 +15,9 @@
           <span v-if="track">{{ track.artist }}</span>
           <span v-else class="track-artist-default">Hidden artist</span>
         </div>
+      </div>
+      <div v-if="track">
+        {{ convertTime(track.duration) }}
       </div>
     </div>
 
@@ -75,7 +79,8 @@ export default {
   props: {
     track: {
       type: Object
-    }
+    },
+    index: Number
   },
   computed: {
     hasVoted() {

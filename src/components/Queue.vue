@@ -21,10 +21,16 @@
     </div>
 
     <transition-group class="queue_list" name="list-complete" tag="div">
-      <QueueTrack v-for="track of queue" :key="track.id" :track="track" />
+      <QueueTrack
+        v-for="(track, index) of queue"
+        :key="track.id"
+        :index="index + 1"
+        :track="track"
+      />
       <QueueTrack
         v-for="({}, index) of queueEmptySlots"
         :key="index + 1"
+        :index="index + 1 + queue.length"
         :track="null"
       />
     </transition-group>
@@ -49,7 +55,8 @@ export default {
   },
   computed: {
     queueEmptySlots() {
-      let emptySlots = 6 - this.queue.length;
+      let emptySlots =
+        process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH - this.queue.length;
       return emptySlots > 0 ? new Array(emptySlots) : [];
     },
     queueMaxLenght() {
