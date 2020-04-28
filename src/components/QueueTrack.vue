@@ -62,10 +62,18 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="track && track.user.spotify_id === user.spotify_id"
+      @click="removeTrack"
+      style="margin-left: 30px"
+    >
+      X
+    </div>
   </div>
 </template>
 
 <script>
+import LibServerApi from "@/lib/LibServerApi";
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 import VoteArrowUp from "@/assets/svg/vote-arrow-up.svg";
 import VoteArrowDown from "@/assets/svg/vote-arrow-down.svg";
@@ -87,6 +95,9 @@ export default {
       return this.track.voters.find(
         user => user.spotify_id == this.$store.state.spotifyUser.spotify_id
       );
+    },
+    user() {
+      return this.$store.state.spotifyUser;
     }
   },
   methods: {
@@ -95,6 +106,12 @@ export default {
         track: this.track,
         increment: increment
       });
+    },
+    convertTime(millis) {
+      return millisToMinutesAndSeconds(millis);
+    },
+    removeTrack() {
+      LibServerApi.removeTrack(this.track);
     },
     voteHoverUp(e) {
       const cursorWrapper = this.$refs.cursorWrapperUp;
@@ -136,9 +153,6 @@ export default {
       if (search.classList.contains("active")) {
         this.$parent.$parent.$refs.cursor.classList.add("active");
       }
-    },
-    convertTime(millis) {
-      return millisToMinutesAndSeconds(millis);
     }
   }
 };

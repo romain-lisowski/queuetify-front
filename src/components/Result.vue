@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     addTrack() {
-      LibServerApi.addTrack(this.$socket, this.track);
+      LibServerApi.addTrack(this.track);
     },
     trackHover(e) {
       const cursorWrapper = this.$refs.cursorWrapper;

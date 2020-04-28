@@ -19,7 +19,7 @@ export default {
   },
 
   // add track to queue
-  async addTrack(socket, track) {
+  async addTrack(track) {
     const trackFromatted = {
       room: "room1",
       id: track.id,
@@ -38,6 +38,16 @@ export default {
       method: "POST",
       body: JSON.stringify({
         track: trackFromatted
+      }),
+      headers: dataHeaders
+    });
+  },
+
+  async removeTrack(track) {
+    fetch(baseUrl + "/tracks", {
+      method: "DELETE",
+      body: JSON.stringify({
+        track: track
       }),
       headers: dataHeaders
     });
