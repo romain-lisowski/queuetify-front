@@ -38,11 +38,13 @@
             <span class="stroke">Hello,</span> {{ spotifyUser.name }}
           </div>
           <router-link
-            :to="{ name: 'Room' }"
+            v-for="room of rooms"
+            :key="room.name"
+            :to="{ name: 'Room', params: { name: room.name } }"
             tag="button"
             class="btn btn-main in"
           >
-            Enter the room
+            Enter {{ room.name }}
             <ButtonArrow />
           </router-link>
           <button class="btn btn-inline out" @click="logout">
@@ -100,7 +102,13 @@ export default {
     },
     spotifyUser() {
       return this.$store.state.spotifyUser;
+    },
+    rooms() {
+      return this.$store.state.rooms;
     }
+  },
+  created() {
+    this.$store.dispatch("fetchRooms");
   },
   methods: {
     customBeforeAppearHook() {

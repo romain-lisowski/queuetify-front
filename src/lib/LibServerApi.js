@@ -1,27 +1,31 @@
-import store from "@/store";
-
 const baseUrl = process.env.VUE_APP_SERVER_URL;
 const dataHeaders = { "Content-type": "application/json; charset=UTF-8" };
 
 export default {
+  // get rooms
+  async getRooms() {
+    const response = await fetch(baseUrl + "/rooms");
+    const rooms = await response.json();
+    return rooms;
+  },
+
   // get playing track
-  async getCurrentTrack() {
-    const response = await fetch(baseUrl + "/current_track");
+  async getCurrentTrack(roomName) {
+    const response = await fetch(baseUrl + "/current_track/" + roomName);
     const track = await response.json();
     return track;
   },
 
   // get queued tracks
-  async getTracks() {
-    const response = await fetch(baseUrl + "/tracks");
+  async getTracks(roomName) {
+    const response = await fetch(baseUrl + "/tracks/" + roomName);
     const tracks = await response.json();
     return tracks;
   },
 
   // add track to queue
-  async addTrack(track) {
+  async addTrack(roomName, track, spotifyUser) {
     const trackFromatted = {
-      room: "room1",
       id: track.id,
       name: track.name,
       artist: track.artists[0].name,
@@ -29,12 +33,12 @@ export default {
       image_big: track.album.images[0].url,
       image_medium: track.album.images[1].url,
       image_small: track.album.images[2].url,
-      user: store.state.spotifyUser,
+      user: spotifyUser,
       vote: 0,
       voters: []
     };
 
-    fetch(baseUrl + "/tracks", {
+    fetch(baseUrl + "/tracks/" + roomName, {
       method: "POST",
       body: JSON.stringify({
         track: trackFromatted
@@ -43,8 +47,8 @@ export default {
     });
   },
 
-  async removeTrack(track) {
-    fetch(baseUrl + "/tracks", {
+  async removeTrack(roomName, track) {
+    fetch(baseUrl + "/tracks/" + roomName, {
       method: "DELETE",
       body: JSON.stringify({
         track: track
@@ -54,27 +58,27 @@ export default {
   },
 
   // vote for a track
-  async voteTrack(track, increment) {
-    fetch(baseUrl + "/tracks/vote", {
+  async voteTrack(roomName, track, increment, spotifyUser) {
+    fetch(baseUrl + "/tracks/vote/" + roomName, {
       method: "POST",
       body: JSON.stringify({
         track: track,
         increment: increment,
-        spotifyUser: store.state.spotifyUser
+        spotifyUser: spotifyUser
       }),
       headers: dataHeaders
     });
   },
 
   // get other users of the room
-  async getUsers() {
-    const response = await fetch(baseUrl + "/users");
+  async getUsers(roomName, spotifyUser) {
+    const response = await fetch(baseUrl + "/users/" + roomName);
     const users = await response.json();
 
     // remove current user from array
-    if (store.state.spotifyUser) {
+    if (spotifyUser) {
       users.forEach((user, index) => {
-        if (user.spotify_id === store.state.spotifyUser.spotify_id) {
+        if (user.spotify_id === spotifyUser.spotify_id) {
           users.splice(index, 1);
         }
       });
@@ -84,16 +88,15 @@ export default {
   },
 
   // add user to the room
-  async addUser(user) {
+  async addUser(roomName, user) {
     const userFormatted = {
-      room: "room1",
       spotify_id: user.spotify_id,
       name: user.name,
       spotify_url: user.spotify_url,
       image: user.image
     };
 
-    fetch(baseUrl + "/users", {
+    fetch(baseUrl + "/users/" + roomName, {
       method: "POST",
       body: JSON.stringify({
         user: userFormatted
@@ -103,8 +106,8 @@ export default {
   },
 
   // remove user from the room
-  async removeUser(user) {
-    fetch(baseUrl + "/users", {
+  async removeUser(roomName, user) {
+    fetch(baseUrl + "/users/" + roomName, {
       method: "DELETE",
       body: JSON.stringify({
         user: user

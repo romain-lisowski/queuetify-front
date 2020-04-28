@@ -1,6 +1,13 @@
 <template>
   <div class="header" v-if="spotifyUser">
     <div class="user">
+      <div v-if="sync" style="margin-right: 10px">
+        <span>SYNC</span>
+      </div>
+      <div v-else>
+        <span>UNSYNC</span>
+      </div>
+
       <div class="user_avatar">
         <img v-if="spotifyUser.image" :src="spotifyUser.image" />
         <div v-else class="avatar-placeholder">
@@ -11,18 +18,16 @@
 
       <ul class="user_menu">
         <li>
+          <button class="" @click="home">
+            Change room
+          </button>
+        </li>
+        <li>
           <button class="" @click="logout">
             Logout
           </button>
         </li>
       </ul>
-    </div>
-
-    <div v-if="sync" style="padding-right: 40px">
-      SYNC
-    </div>
-    <div v-else>
-      UNSYNC
     </div>
 
     <div v-if="users && users.length > 0" class="users">
@@ -61,6 +66,9 @@ export default {
     }
   },
   methods: {
+    home() {
+      this.$router.push({ name: "Home" });
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ name: "Home" });

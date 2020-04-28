@@ -91,7 +91,11 @@ export default {
   },
   methods: {
     addTrack() {
-      LibServerApi.addTrack(this.track);
+      LibServerApi.addTrack(
+        this.$store.state.currentRoom,
+        this.track,
+        this.$store.state.spotifyUser
+      );
     },
     trackHover(e) {
       const cursorWrapper = this.$refs.cursorWrapper;

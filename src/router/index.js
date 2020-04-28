@@ -19,9 +19,10 @@ const routes = [
     component: Callback
   },
   {
-    path: "/room",
+    path: "/room/:name",
     name: "Room",
     component: Room,
+    props: true,
     meta: {
       requiresAuth: true
     }

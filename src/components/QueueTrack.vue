@@ -111,7 +111,7 @@ export default {
       return millisToMinutesAndSeconds(millis);
     },
     removeTrack() {
-      LibServerApi.removeTrack(this.track);
+      LibServerApi.removeTrack(this.$store.state.currentRoom, this.track);
     },
     voteHoverUp(e) {
       const cursorWrapper = this.$refs.cursorWrapperUp;

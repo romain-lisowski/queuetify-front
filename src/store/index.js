@@ -37,7 +37,9 @@ export default new Vuex.Store({
     playerState: null,
     queue: [],
     currentTrack: null,
-    users: null
+    users: null,
+    rooms: [],
+    currentRoom: null
   },
 
   actions: {
@@ -94,26 +96,35 @@ export default new Vuex.Store({
       });
     },
 
-    initRoom({ dispatch }) {
+    initRoom({ commit, dispatch, state }, { roomName }) {
       LibPlayback.initPlayer();
-      dispatch("fetchQueue");
+      LibServerApi.addUser(roomName, state.spotifyUser);
+      commit("setCurrentRoom", roomName);
+      dispatch("fetchRooms");
+      dispatch("fetchTracks");
       dispatch("fetchUsers");
     },
 
-    fetchUsers({ commit }) {
-      LibServerApi.getUsers().then(users => {
+    fetchUsers({ commit, state }) {
+      LibServerApi.getUsers(state.spotifyUser).then(users => {
         commit("setUsers", users);
       });
     },
 
-    fetchQueue({ commit }) {
-      LibServerApi.getTracks().then(queue => {
+    fetchRooms({ commit }) {
+      LibServerApi.getRooms().then(rooms => {
+        commit("setRooms", rooms);
+      });
+    },
+
+    fetchTracks({ commit, state }) {
+      LibServerApi.getTracks(state.currentRoom).then(queue => {
         commit("setQueue", queue);
       });
     },
 
     async fetchCurrentTrack({ commit, state }) {
-      const track = await LibServerApi.getCurrentTrack();
+      const track = await LibServerApi.getCurrentTrack(state.currentRoom);
       commit("setCurrentTrack", track);
       if (!state.playerState || state.playerState.paused) {
         if (track) {
@@ -127,13 +138,17 @@ export default new Vuex.Store({
       }
     },
 
-    // eslint-disable-next-line no-unused-vars
-    vote({ commit, dispatch }, { track, increment }) {
-      LibServerApi.voteTrack(track, increment);
+    vote({ state }, { track, increment }) {
+      LibServerApi.voteTrack(
+        state.currentRoom,
+        track,
+        increment,
+        state.spotifyUser
+      );
     },
 
     SOCKET_REFRESH_TRACKS({ dispatch }) {
-      dispatch("fetchQueue");
+      dispatch("fetchTracks");
     },
 
     SOCKET_REFRESH_CURRENT_TRACK({ dispatch }) {
@@ -149,7 +164,7 @@ export default new Vuex.Store({
     },
 
     SOCKET_DISCONNECT({ dispatch, state }) {
-      LibServerApi.removeUser(state.spotifyUser);
+      LibServerApi.removeUser(state.currentRoom, state.spotifyUser);
       dispatch("fetchUsers");
     }
   },
@@ -178,6 +193,12 @@ export default new Vuex.Store({
     },
     setPlayerState(state, playerState) {
       state.playerState = playerState;
+    },
+    setRooms(state, rooms) {
+      state.rooms = rooms;
+    },
+    setCurrentRoom(state, room) {
+      state.currentRoom = room;
     }
   }
 });

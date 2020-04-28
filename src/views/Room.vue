@@ -53,6 +53,12 @@ export default {
     Search,
     Header
   },
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     currentTrack() {
       return this.$store.state.currentTrack;
@@ -99,7 +105,7 @@ export default {
     document.head.appendChild(spotifyPlayerScript);
 
     // init player, queue, current track, ...
-    this.$store.dispatch("initRoom");
+    this.$store.dispatch("initRoom", { roomName: this.name });
   },
   methods: {
     customBeforeAppearHook() {},

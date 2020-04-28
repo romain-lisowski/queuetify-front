@@ -1,5 +1,3 @@
-import LibServerApi from "@/lib/LibServerApi";
-
 const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
 export default {
@@ -21,7 +19,6 @@ export default {
             spotifyUser.images.length > 0 ? spotifyUser.images[0].url : null
         };
 
-        LibServerApi.addUser(user);
         return user;
       })
       .catch(error => {
