@@ -43,10 +43,14 @@
         </div>
       </div>
     </div>
+    <div>
+      {{ convertTime(track.duration_ms) }}
+    </div>
   </div>
 </template>
 
 <script>
+import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
 import LibServerApi from "@/lib/LibServerApi";
 
@@ -102,6 +106,9 @@ export default {
     trackOut() {
       const cursor = this.$refs.cursor;
       cursor.classList.remove("active");
+    },
+    convertTime(millis) {
+      return millisToMinutesAndSeconds(millis);
     }
   }
 };
