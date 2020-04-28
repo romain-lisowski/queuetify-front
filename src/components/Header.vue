@@ -20,7 +20,11 @@
 
     <div v-if="users && users.length > 0" class="users">
       <div v-for="user of users" :key="user.spotify_id" class="user">
-        <div class="user_name">{{ user.name }}</div>
+        <div class="user_name">
+          <a :href="user.spotify_url" target="_blank">
+            {{ user.name }}
+          </a>
+        </div>
         <div class="user_avatar">
           <img v-if="user.image" :src="user.image" />
           <div v-else class="avatar-placeholder">
