@@ -27,13 +27,6 @@
           </span>
         </div>
       </div>
-
-      <div v-if="sync">
-        SYNC
-      </div>
-      <div v-else>
-        UNSYNC
-      </div>
     </div>
 
     <div class="player__controls" v-if="track">
@@ -85,15 +78,6 @@ export default {
       return {
         width: `${(this.playerPosition / this.track.duration) * 100}%`
       };
-    },
-    sync() {
-      return (
-        (!this.$store.state.playerState && !this.$store.state.currentTrack) ||
-        (this.$store.state.playerState &&
-          this.$store.state.currentTrack &&
-          this.$store.state.playerState.track_window.current_track.id ===
-            this.$store.state.currentTrack.id)
-      );
     }
   },
   methods: {

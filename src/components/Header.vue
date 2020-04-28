@@ -18,6 +18,13 @@
       </ul>
     </div>
 
+    <div v-if="sync" style="padding-right: 40px">
+      SYNC
+    </div>
+    <div v-else>
+      UNSYNC
+    </div>
+
     <div v-if="users && users.length > 0" class="users">
       <div v-for="user of users" :key="user.spotify_id" class="user">
         <div class="user_name">
@@ -57,6 +64,15 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ name: "Home" });
+    },
+    sync() {
+      return (
+        (!this.$store.state.playerState && !this.$store.state.currentTrack) ||
+        (this.$store.state.playerState &&
+          this.$store.state.currentTrack &&
+          this.$store.state.playerState.track_window.current_track.id ===
+            this.$store.state.currentTrack.id)
+      );
     }
   }
 };
