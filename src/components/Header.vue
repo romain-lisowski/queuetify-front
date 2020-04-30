@@ -1,6 +1,7 @@
 <template>
   <div class="header" v-if="spotifyUser">
     <div class="user">
+      <div style="margin-right: 10px">[{{ currentRoom }}]</div>
       <div v-if="sync" style="margin-right: 10px">
         <span>SYNC</span>
       </div>
@@ -63,15 +64,9 @@ export default {
     },
     users() {
       return this.$store.state.users;
-    }
-  },
-  methods: {
-    home() {
-      this.$router.push({ name: "Home" });
     },
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.push({ name: "Home" });
+    currentRoom() {
+      return this.$store.state.currentRoom;
     },
     sync() {
       return (
@@ -81,6 +76,15 @@ export default {
           this.$store.state.playerState.track_window.current_track.id ===
             this.$store.state.currentTrack.id)
       );
+    }
+  },
+  methods: {
+    home() {
+      this.$router.push({ name: "Home" });
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Home" });
     }
   }
 };
