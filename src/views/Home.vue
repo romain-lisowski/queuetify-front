@@ -109,6 +109,12 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchRooms");
+
+    // leave socket room
+    const currentRoom = this.$store.state.currentRoom;
+    if (currentRoom) {
+      this.$socket.emit("LEAVE", currentRoom);
+    }
   },
   methods: {
     customBeforeAppearHook() {

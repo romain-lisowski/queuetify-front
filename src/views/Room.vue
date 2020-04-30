@@ -106,6 +106,9 @@ export default {
 
     // init player, queue, current track, ...
     this.$store.dispatch("initRoom", { roomName: this.name });
+
+    // change room of socket
+    this.$socket.emit("JOIN", this.name);
   },
   methods: {
     customBeforeAppearHook() {},
