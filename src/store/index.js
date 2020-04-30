@@ -97,6 +97,9 @@ export default new Vuex.Store({
     },
 
     initRoom({ commit, dispatch, state }, { roomName }) {
+      if (state.player) {
+        state.player.disconnect();
+      }
       LibPlayback.initPlayer();
       LibServerApi.addUser(roomName, state.spotifyUser);
       commit("setCurrentRoom", roomName);
