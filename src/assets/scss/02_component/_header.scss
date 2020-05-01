@@ -97,6 +97,90 @@
         }
     }
 
+    .room_info {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            .room_info__menu {
+                opacity: 1;
+                width: auto;
+                height: auto;
+                transition: all ease-in-out .3s;
+            }
+            svg {
+                transform: rotate(-90deg);
+                opacity: 1;
+
+                path {
+                    fill: $color-primary;
+                }
+            }
+        }
+
+        &__name {
+            font-weight: 900;
+            font-size: 1.8rem;
+            transition: all ease-in-out .4s;
+            display: flex;
+            line-height: 1;
+            align-items: center;
+            margin: 0 .6rem;
+
+            svg {
+                margin-left: .6rem;
+                opacity: .4;
+                transition: all ease-in-out .2s;
+            }
+        }
+
+        &__menu {
+            background: #000;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            display: flex;
+            position: absolute;
+            right: 0;
+            transform: translateX(100%);
+
+            li {
+                button {
+                    padding: .4rem 1rem;
+                    color: #fff;
+                    transition: all ease-in-out .2s;
+                    font-size: 1.5rem;
+
+                    &:hover {
+                        background: $blue;
+                    }
+                }
+            }
+        }
+
+        &__status {
+            margin-right: .2rem;
+
+            span {
+                width: .8rem;
+                height: .8rem;
+                border-radius: 99rem;
+                display: inline-block;
+
+                &.sync {
+                    background: $green;
+                }
+
+                &.unsync {
+                    background: $orange;
+                }
+            }
+        }
+    }
+
     .users {
         display: flex;
         overflow: hidden;

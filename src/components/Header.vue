@@ -1,14 +1,6 @@
 <template>
   <div class="header" v-if="spotifyUser">
     <div class="user">
-      <div style="margin-right: 10px">[{{ currentRoom }}]</div>
-      <div v-if="sync" style="margin-right: 10px">
-        <span>SYNC</span>
-      </div>
-      <div v-else>
-        <span>UNSYNC</span>
-      </div>
-
       <div class="user_avatar">
         <img v-if="spotifyUser.image" :src="spotifyUser.image" />
         <div v-else class="avatar-placeholder">
@@ -19,13 +11,23 @@
 
       <ul class="user_menu">
         <li>
-          <button class="" @click="home">
-            Change room
+          <button @click="logout">
+            Logout
           </button>
         </li>
+      </ul>
+    </div>
+
+    <div class="room_info">
+      <div class="room_info__status">
+        <span v-if="sync" class="sync"></span>
+        <span v-else class="unsync"></span>
+      </div>
+      <div class="room_info__name">{{ currentRoom }}<UserArrow /></div>
+      <ul class="room_info__menu">
         <li>
-          <button class="" @click="logout">
-            Logout
+          <button @click="home">
+            Change room
           </button>
         </li>
       </ul>
