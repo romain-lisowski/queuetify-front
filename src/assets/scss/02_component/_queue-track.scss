@@ -13,11 +13,77 @@
     &:last-child {
         border-color: transparent;
     }
+
     
     &__info {
         display: flex;
         align-items: center;
         flex: 1;
+
+        &_index {
+            display: none;
+        }
+
+        &_actions {
+            margin-left: .9rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+
+            svg {
+                margin-left: .6rem;
+                margin-top: .6rem;
+                margin-bottom: .6rem;
+                margin-right: .6rem;
+                transition: all ease-in-out .3s;
+            }
+
+            &:hover {
+                overflow: visible;
+                cursor: pointer;
+
+                svg {
+
+                    path {
+                        fill: $color-primary;
+                    }
+                }
+            }
+
+            &:hover {
+                .action-menu{
+                    opacity: 1;
+                    width: auto;
+                    height: auto;
+                    transition: all ease-in-out .3s;
+                }
+            }
+
+            .action-menu {
+                background: #000;
+                opacity: 0;
+                width: 0;
+                height: 0;
+                display: flex;
+                position: absolute;
+                left: 0;
+                transform: translateX(-100%);
+
+                li {
+                    button {
+                        padding: .4rem 1rem;
+                        color: #fff;
+                        transition: all ease-in-out .2s;
+                        font-size: 1.5rem;
+    
+                        &:hover {
+                            background: $blue;
+                        }
+                    }
+                }
+            }
+        }
 
         &_artwork {
             width: 7rem;
@@ -82,7 +148,7 @@
             display: flex;
             flex: 1;
             flex-direction: column;
-            padding: 0 2rem;            
+            padding: 0 1rem;            
 
             @include mobile {
                 padding: 0 1rem;
@@ -202,9 +268,14 @@
         }
     }
 
+    &__duration {
+        font-size: 1.2rem;
+        margin-left: 3rem;
+        margin-right: 1.5rem;
+    }
+
     &__user {
-        //margin-left: auto;
-        margin-left: 1.5rem;
+        margin-right: 1.5rem;
         font-size: 1.4rem;
         font-weight: 400;
         color: rgba(#fff, .6);
@@ -241,7 +312,6 @@
     }
 
     &__vote {
-        margin-left: 3rem;
         display: flex;
         align-items: center;
 

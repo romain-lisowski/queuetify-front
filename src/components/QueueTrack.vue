@@ -1,7 +1,16 @@
 <template>
   <div class="queue-track">
     <div class="queue-track__info">
-      <div>{{ index }}</div>
+      <div class="queue-track__info_index">{{ index }}</div>
+      <div class="queue-track__user" v-if="track">
+        <div class="queue-track__user_avatar">
+          <img v-if="track.user.image" :src="track.user.image" />
+          <div v-else class="avatar-placeholder">
+            <span>{{ track.user.name.charAt(0) }}</span>
+          </div>
+        </div>
+      </div>
+
       <div class="queue-track__info_artwork">
         <img v-if="track" :src="track.image_small" />
         <div class="artwork-default" v-else></div>
@@ -16,7 +25,7 @@
           <span v-else class="track-artist-default">Hidden artist</span>
         </div>
       </div>
-      <div v-if="track">
+      <div class="queue-track__duration" v-if="track">
         {{ convertTime(track.duration) }}
       </div>
     </div>
@@ -54,20 +63,13 @@
         <VoteArrowDown />
       </div>
     </div>
-    <div class="queue-track__user" v-if="track">
-      <div class="queue-track__user_avatar">
-        <img v-if="track.user.image" :src="track.user.image" />
-        <div v-else class="avatar-placeholder">
-          <span>{{ track.user.name.charAt(0) }}</span>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="track && track.user.spotify_id === user.spotify_id"
-      @click="removeTrack"
-      style="margin-left: 30px"
-    >
-      X
+    <div v-if="track" class="queue-track__info_actions">
+      <IconMenu />
+      <ul class="action-menu">
+        <li v-if="track.user.spotify_id === user.spotify_id">
+          <button @click="removeTrack">Remove</button>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -77,12 +79,14 @@ import LibServerApi from "@/lib/LibServerApi";
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 import VoteArrowUp from "@/assets/svg/vote-arrow-up.svg";
 import VoteArrowDown from "@/assets/svg/vote-arrow-down.svg";
+import IconMenu from "@/assets/svg/icon-menu.svg";
 
 export default {
   name: "QueueTrack",
   components: {
     VoteArrowUp,
-    VoteArrowDown
+    VoteArrowDown,
+    IconMenu
   },
   props: {
     track: {
