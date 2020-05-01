@@ -105,13 +105,15 @@ export default new Vuex.Store({
       commit("setCurrentRoom", roomName);
       dispatch("fetchRooms");
       dispatch("fetchTracks");
-      dispatch("fetchUsers", { roomName: roomName });
+      dispatch("fetchUsers");
     },
 
-    fetchUsers({ commit, state }, { roomName }) {
-      LibServerApi.getUsers(roomName, state.spotifyUser).then(users => {
-        commit("setUsers", users);
-      });
+    fetchUsers({ commit, state }) {
+      LibServerApi.getUsers(state.currentRoom, state.spotifyUser).then(
+        users => {
+          commit("setUsers", users);
+        }
+      );
     },
 
     fetchRooms({ commit }) {
