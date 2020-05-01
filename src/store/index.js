@@ -105,7 +105,7 @@ export default new Vuex.Store({
       commit("setCurrentRoom", roomName);
       dispatch("fetchRooms");
       dispatch("fetchTracks");
-      dispatch("fetchUsers", { roomName });
+      dispatch("fetchUsers", { roomName: roomName });
     },
 
     fetchUsers({ commit, state }, { roomName }) {
