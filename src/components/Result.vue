@@ -91,11 +91,17 @@ export default {
   },
   methods: {
     addTrack() {
-      LibServerApi.addTrack(
-        this.$store.state.currentRoom,
-        this.track,
-        this.$store.state.spotifyUser
+      const existingTrack = this.$store.state.queue.find(
+        track => track.id === this.track.id
       );
+
+      if (existingTrack === undefined) {
+        LibServerApi.addTrack(
+          this.$store.state.currentRoom,
+          this.track,
+          this.$store.state.spotifyUser
+        );
+      }
     },
     trackHover(e) {
       const cursorWrapper = this.$refs.cursorWrapper;
