@@ -25,34 +25,16 @@
         }
 
         &_actions {
-            margin-left: .9rem;
-            position: relative;
             display: flex;
             align-items: center;
+            position: relative;
             overflow: hidden;
-
-            svg {
-                margin-left: .6rem;
-                margin-top: .6rem;
-                margin-bottom: .6rem;
-                margin-right: .6rem;
-                transition: all ease-in-out .3s;
-            }
+            margin-left: 1.5rem;
 
             &:hover {
                 overflow: visible;
-                cursor: pointer;
 
-                svg {
-
-                    path {
-                        fill: $color-primary;
-                    }
-                }
-            }
-
-            &:hover {
-                .action-menu{
+                .tooltip {
                     opacity: 1;
                     width: auto;
                     height: auto;
@@ -60,8 +42,33 @@
                 }
             }
 
-            .action-menu {
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                width: 2rem;
+                height: 2rem;
+                padding: 0;
+
+                &:hover {
+                    svg {
+                    
+                        path {
+                            fill: $color-primary;
+                        }
+                    }
+                }
+
+                svg {
+                    width: 1.2rem;
+                    height: 1.2rem;
+                }
+            }
+
+            .tooltip {
                 background: #000;
+                color: #fff;
                 opacity: 0;
                 width: 0;
                 height: 0;
@@ -69,19 +76,8 @@
                 position: absolute;
                 left: 0;
                 transform: translateX(-100%);
-
-                li {
-                    button {
-                        padding: .4rem 1rem;
-                        color: #fff;
-                        transition: all ease-in-out .2s;
-                        font-size: 1.5rem;
-    
-                        &:hover {
-                            background: $blue;
-                        }
-                    }
-                }
+                font-size: 1.4rem;
+                padding: .4rem .8rem;
             }
         }
 
@@ -275,7 +271,7 @@
     }
 
     &__user {
-        margin-right: 1.5rem;
+        margin-left: 1.5rem;
         font-size: 1.4rem;
         font-weight: 400;
         color: rgba(#fff, .6);
