@@ -54,7 +54,7 @@ export default {
     Header
   },
   props: {
-    name: {
+    roomId: {
       type: String,
       required: true
     }
@@ -105,10 +105,10 @@ export default {
     document.head.appendChild(spotifyPlayerScript);
 
     // init player, queue, current track, ...
-    this.$store.dispatch("initRoom", { roomName: this.name });
+    this.$store.dispatch("initRoom", { roomId: this.roomId });
 
     // change room of socket
-    this.$socket.emit("JOIN", this.name);
+    this.$socket.emit("JOIN", this.id);
   },
   methods: {
     customBeforeAppearHook() {},

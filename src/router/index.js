@@ -19,7 +19,7 @@ const routes = [
     component: Callback
   },
   {
-    path: "/room/:name",
+    path: "/room/:roomId",
     name: "Room",
     component: Room,
     props: true,

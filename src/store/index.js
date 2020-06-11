@@ -96,13 +96,16 @@ export default new Vuex.Store({
       });
     },
 
-    initRoom({ commit, dispatch, state }, { roomName }) {
+    async initRoom({ commit, dispatch, state }, { roomId }) {
+      const room = await LibServerApi.getRoom(roomId);
+      commit("setCurrentRoom", room);
+
       if (state.player) {
         state.player.disconnect();
       }
       LibPlayback.initPlayer();
-      LibServerApi.addUser(roomName, state.spotifyUser);
-      commit("setCurrentRoom", roomName);
+      LibServerApi.addUser(room, state.spotifyUser);
+
       dispatch("fetchRooms");
       dispatch("fetchTracks");
       dispatch("fetchUsers");

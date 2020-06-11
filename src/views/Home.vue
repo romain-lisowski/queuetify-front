@@ -40,7 +40,7 @@
           <router-link
             v-for="room of rooms"
             :key="room.name"
-            :to="{ name: 'Room', params: { name: room.name } }"
+            :to="{ name: 'Room', params: { roomId: room.id } }"
             tag="button"
             class="btn btn-main in"
           >
@@ -111,9 +111,9 @@ export default {
     this.$store.dispatch("fetchRooms");
 
     // leave socket room
-    const currentRoom = this.$store.state.currentRoom;
-    if (currentRoom) {
-      this.$socket.emit("LEAVE", currentRoom);
+    const currentRoomId = this.$store.state.currentRoomId;
+    if (currentRoomId) {
+      this.$socket.emit("LEAVE", currentRoomId);
     }
   },
   methods: {
