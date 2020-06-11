@@ -23,7 +23,9 @@
         <span v-if="sync" class="sync"></span>
         <span v-else class="unsync"></span>
       </div>
-      <div v-if="currentRoom" class="room_info__name">{{ currentRoom.name }}<UserArrow /></div>
+      <div v-if="currentRoom" class="room_info__name">
+        {{ currentRoom.name }}<UserArrow />
+      </div>
       <ul class="room_info__menu">
         <li>
           <button @click="home">
