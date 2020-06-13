@@ -22,7 +22,7 @@ export default {
         return user;
       })
       .catch(error => {
-        console.error("LibSpotifyApi.getTracks", error);
+        console.error("LibSpotifyUser.getUser", error);
       });
   }
 };
