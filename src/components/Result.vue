@@ -85,7 +85,8 @@ export default {
       );
       return (
         userTracks &&
-        userTracks.length >= process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH_PER_USER
+        userTracks.length >=
+          process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH_PER_USER
       );
     }
   },

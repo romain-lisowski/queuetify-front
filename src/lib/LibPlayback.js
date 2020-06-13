@@ -5,13 +5,13 @@ import { DateTime } from "luxon";
 const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
 export default {
-  initPlayer() {
+  async initPlayer() {
     let player = null;
 
     window.onSpotifyWebPlaybackSDKReady = () => {
       // eslint-disable-next-line no-undef
       player = new Spotify.Player({
-        name: "Q Web Player",
+        name: "Rasputify Web Player",
         getOAuthToken: cb => {
           // get new token
           let accessToken = null;

@@ -56,11 +56,11 @@ export default {
   computed: {
     queueEmptySlots() {
       let emptySlots =
-        process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH - this.queue.length;
+        process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH - this.queue.length;
       return emptySlots > 0 ? new Array(emptySlots) : [];
     },
     queueMaxLenght() {
-      return process.env.VUE_APP_QUEUE_MAX_QUEUE_LENGTH;
+      return process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH;
     }
   },
   methods: {
