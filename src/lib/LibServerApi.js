@@ -41,23 +41,18 @@ export default {
       image_big: track.album.images[0].url,
       image_medium: track.album.images[1].url,
       image_small: track.album.images[2].url,
-      user: spotifyUser,
-      vote: 0,
-      voters: [],
-      played_at: null
+      user: spotifyUser
     };
 
     fetch(baseUrl + "/tracks", {
       method: "POST",
-      body: JSON.stringify({
-        track: trackFromatted
-      }),
+      body: JSON.stringify(trackFromatted),
       headers: dataHeaders
     });
   },
 
   async removeTrack(room, track) {
-    fetch(baseUrl + "/tracks/", {
+    fetch(baseUrl + "/tracks", {
       method: "DELETE",
       body: JSON.stringify({
         ...track,
@@ -69,7 +64,7 @@ export default {
 
   // vote for a track
   async voteTrack(track, increment, spotifyUser) {
-    fetch(baseUrl + "/tracks/vote/", {
+    fetch(baseUrl + "/tracks/vote", {
       method: "POST",
       body: JSON.stringify({
         track: track,
@@ -99,26 +94,24 @@ export default {
 
   // add user to the room
   async addUser(room, user) {
-    const userFormatted = {
+    const createUserDto = {
       room_id: room.id,
+      spotify_id: user.spotify_id,
       name: user.name,
       image: user.image,
-      spotify_id: user.spotify_id,
       spotify_url: user.spotify_url
     };
 
-    fetch(baseUrl + "/users/", {
+    fetch(baseUrl + "/users", {
       method: "POST",
-      body: JSON.stringify({
-        user: userFormatted
-      }),
+      body: JSON.stringify(createUserDto),
       headers: dataHeaders
     });
   },
 
   // remove user from the room
   async removeUser(room, user) {
-    fetch(baseUrl + "/users/", {
+    fetch(baseUrl + "/users", {
       method: "DELETE",
       body: JSON.stringify({
         ...user,
