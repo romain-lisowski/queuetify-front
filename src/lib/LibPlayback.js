@@ -67,7 +67,9 @@ export default {
   },
 
   async play({ player, trackId }) {
-    const begin = DateTime.fromSeconds(store.state.currentTrack.played.seconds);
+    const begin = DateTime.fromSeconds(
+      store.state.currentTrack.played_at.seconds
+    );
     const now = DateTime.local().setZone("utc");
     const seek = now - begin > 0 ? now - begin : 0;
 
@@ -92,7 +94,7 @@ export default {
   seek(player) {
     if (store.state.currentTrack) {
       const begin = DateTime.fromSeconds(
-        store.state.currentTrack.played.seconds
+        store.state.currentTrack.played_at.seconds
       );
       const now = DateTime.local().setZone("utc");
       const seek = now - begin;
