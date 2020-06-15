@@ -110,7 +110,7 @@ export default {
     this.$store.dispatch("initRoom", { roomId: this.roomId });
 
     // change room of socket
-    this.$socket.emit("JOIN", this.id);
+    this.$socket.emit("JOIN", this.roomId);
   },
   methods: {
     customBeforeAppearHook() {},
