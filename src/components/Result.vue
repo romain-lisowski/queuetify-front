@@ -107,16 +107,22 @@ export default {
     trackHover(e) {
       const cursorWrapper = this.$refs.cursorWrapper;
       const { clientX: x, clientY: y } = e;
-      cursorWrapper.style.left = x + "px";
-      cursorWrapper.style.top = y + "px";
+      if (cursorWrapper) {
+        cursorWrapper.style.left = x + "px";
+        cursorWrapper.style.top = y + "px";
+      }
     },
     trackIn() {
       const cursor = this.$refs.cursor;
-      cursor.classList.add("active");
+      if (cursor) {
+        cursor.classList.add("active");
+      }
     },
     trackOut() {
       const cursor = this.$refs.cursor;
-      cursor.classList.remove("active");
+      if (cursor) {
+        cursor.classList.remove("active");
+      }
     },
     convertTime(millis) {
       return millisToMinutesAndSeconds(millis);
