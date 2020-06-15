@@ -5,43 +5,62 @@ import { DateTime } from "luxon";
 const spotifyApiUrl = process.env.VUE_APP_SPOTIFY_API_URL;
 
 export default {
+  /**
+   * Wait SDK to be loaded
+   */
+  async waitForSpotifyWebPlaybackSDKToLoad() {
+    return new Promise(resolve => {
+      if (window.Spotify) {
+        resolve(window.Spotify);
+      } else {
+        window.onSpotifyWebPlaybackSDKReady = () => {
+          resolve(window.Spotify);
+        };
+      }
+    });
+  },
+
+  /**
+   * Init Spotify playback
+   */
   async initPlayer() {
     let player = null;
 
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      // eslint-disable-next-line no-undef
-      player = new Spotify.Player({
-        name: "Rasputify Web Player",
-        getOAuthToken: cb => {
-          // get new token
-          let accessToken = null;
-          LibSpotifyAccount.refreshToken(store.state.spotifyRefreshToken)
-            .then(token => {
-              accessToken = token.access_token;
-              store.dispatch("refreshToken", accessToken);
-              cb(accessToken);
-            })
-            .catch(error => {
-              console.log("Error refreshing token", error);
-            });
+    const { Player } = await this.waitForSpotifyWebPlaybackSDKToLoad();
+    player = new Player({
+      name: "Rasputify Web Player",
+      getOAuthToken: cb => {
+        // get new token
+        let accessToken = null;
+        LibSpotifyAccount.refreshToken(store.state.spotifyRefreshToken)
+          .then(token => {
+            accessToken = token.access_token;
+            store.dispatch("refreshToken", accessToken);
+            cb(accessToken);
+          })
+          .catch(error => {
+            console.log("Error refreshing token", error);
+          });
+      }
+    });
+
+    this.addListeners(player);
+    store.commit("setPlayer", player);
+    player.connect();
+
+    // store player state every second and skip track if played
+    setInterval(() => {
+      player.getCurrentState().then(state => {
+        if (state && !state.paused) {
+          store.commit("setPlayerState", state);
         }
       });
-
-      this.addListeners(player);
-      store.commit("setPlayer", player);
-      player.connect();
-
-      // store player state every second and skip track if played
-      setInterval(() => {
-        player.getCurrentState().then(state => {
-          if (state && !state.paused) {
-            store.commit("setPlayerState", state);
-          }
-        });
-      }, 1000);
-    };
+    }, 1000);
   },
 
+  /**
+   * Add listeners to the Spotify playback
+   */
   addListeners(player) {
     // Playback status updates
     player.addListener("player_state_changed", state => {
@@ -66,6 +85,9 @@ export default {
     });
   },
 
+  /**
+   * Play track on Spotify playback
+   */
   async play({ player, trackId }) {
     const begin = DateTime.fromSeconds(
       store.state.currentTrack.played_at.seconds
@@ -91,6 +113,9 @@ export default {
     });
   },
 
+  /**
+   * Seek and go to position on current track
+   */
   seek(player) {
     if (store.state.currentTrack) {
       const begin = DateTime.fromSeconds(
