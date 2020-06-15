@@ -9,7 +9,7 @@ export default {
       response_type: "code",
       redirect_uri: process.env.VUE_APP_SPOTIFY_API_REDIRECT_URL,
       scope:
-        "streaming user-read-playback-state user-read-currently-playing user-read-playback-position user-read-recently-played user-modify-playback-state"
+        "streaming user-read-email user-read-private user-read-playback-state user-read-currently-playing user-read-playback-position user-read-recently-played user-modify-playback-state"
     });
 
     const url = `${accountUrl}/authorize?${queryString}`;
