@@ -1,36 +1,49 @@
 const baseUrl = process.env.VUE_APP_SERVER_URL;
 const dataHeaders = { "Content-type": "application/json; charset=UTF-8" };
 
+/**
+ * Calls to server API
+ */
 export default {
-  // get rooms
+  /**
+   * Get rooms available
+   */
   async getRooms() {
     const response = await fetch(baseUrl + "/rooms");
     const rooms = await response.json();
     return rooms;
   },
 
-  // get room
+  /**
+   * Get one room
+   */
   async getRoom(roomId) {
     const response = await fetch(baseUrl + "/rooms/" + roomId);
     const room = await response.json();
     return room;
   },
 
-  // get playing track
+  /**
+   * Get current playing track of a room
+   */
   async getCurrentTrack(room) {
     const response = await fetch(baseUrl + "/tracks/current/" + room.id);
     const track = await response.json();
     return track;
   },
 
-  // get queued tracks
+  /**
+   * Get queue tracks of a room
+   */
   async getTracks(room) {
     const response = await fetch(baseUrl + "/tracks/" + room.id);
     const tracks = await response.json();
     return tracks;
   },
 
-  // add track to queue
+  /**
+   * Add track to queue
+   */
   async addTrack(room, track, user) {
     const trackFromatted = {
       room_id: room.id,
@@ -51,6 +64,9 @@ export default {
     });
   },
 
+  /**
+   * Remove track from queue
+   */
   async removeTrack(room, track) {
     fetch(baseUrl + "/tracks", {
       method: "DELETE",
@@ -62,7 +78,9 @@ export default {
     });
   },
 
-  // vote for a track
+  /**
+   * Vote for a track
+   */
   async voteTrack(track, user, increment) {
     fetch(baseUrl + "/votes", {
       method: "POST",
