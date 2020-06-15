@@ -1,4 +1,4 @@
-# Queue
+# Rasputify
 
 ## Client setup
 ```
@@ -15,7 +15,6 @@ cp .env .env.local
 npm run serve
 ```
 
-## Server setup
+## Back setup
 
-[Install queue-server](https://github.com/romain-lisowski/queue-server#readme)
-
+[Install rasputify-back](https://github.com/romain-lisowski/rasputify-back#readme)
