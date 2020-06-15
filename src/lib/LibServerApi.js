@@ -31,7 +31,7 @@ export default {
   },
 
   // add track to queue
-  async addTrack(room, track, spotifyUser) {
+  async addTrack(room, track, user) {
     const trackFromatted = {
       room_id: room.id,
       id: track.id,
@@ -41,7 +41,7 @@ export default {
       image_big: track.album.images[0].url,
       image_medium: track.album.images[1].url,
       image_small: track.album.images[2].url,
-      user: spotifyUser
+      user: user
     };
 
     fetch(baseUrl + "/tracks", {
@@ -63,27 +63,27 @@ export default {
   },
 
   // vote for a track
-  async voteTrack(track, increment, spotifyUser) {
-    fetch(baseUrl + "/tracks/vote", {
+  async voteTrack(track, user, increment) {
+    fetch(baseUrl + "/votes", {
       method: "POST",
       body: JSON.stringify({
         track: track,
         increment: increment,
-        spotifyUser: spotifyUser
+        user: user
       }),
       headers: dataHeaders
     });
   },
 
   // get other users of the room
-  async getUsers(room, spotifyUser) {
+  async getUsers(room, user) {
     const response = await fetch(baseUrl + "/users/" + room.id);
     const users = await response.json();
 
     // remove current user from array
-    if (spotifyUser) {
+    if (user) {
       users.forEach((user, index) => {
-        if (user.spotify_id === spotifyUser.spotify_id) {
+        if (user.spotify_id === user.spotify_id) {
           users.splice(index, 1);
         }
       });

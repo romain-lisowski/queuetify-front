@@ -147,12 +147,7 @@ export default new Vuex.Store({
     },
 
     vote({ state }, { track, increment }) {
-      LibServerApi.voteTrack(
-        state.currentRoom,
-        track,
-        increment,
-        state.spotifyUser
-      );
+      LibServerApi.voteTrack(track, state.spotifyUser, increment);
     },
 
     SOCKET_REFRESH_TRACKS({ dispatch }) {
