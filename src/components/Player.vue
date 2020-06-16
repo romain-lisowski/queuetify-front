@@ -1,5 +1,7 @@
 <template>
   <div class="player">
+    <Message />
+
     <div class="player__track">
       <div class="player__track_user">
         <div v-if="track" class="vote-count">
@@ -49,6 +51,7 @@
 import IconMute from "@/assets/svg/icon-mute.svg";
 import IconUnmute from "@/assets/svg/icon-unmute.svg";
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
+import Message from "@/components/Message";
 
 import { millisToMinutesAndSeconds } from "@/lib/LibUtils";
 
@@ -65,6 +68,7 @@ export default {
     }
   },
   components: {
+    Message,
     ButtonArrow,
     IconMute,
     IconUnmute

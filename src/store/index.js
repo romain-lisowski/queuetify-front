@@ -39,7 +39,8 @@ export default new Vuex.Store({
     currentTrack: null,
     users: null,
     rooms: [],
-    currentRoom: null
+    currentRoom: null,
+    messages: []
   },
 
   actions: {
@@ -152,6 +153,15 @@ export default new Vuex.Store({
       LibServerApi.voteTrack(track, state.spotifyUser, increment);
     },
 
+    SOCKET_CONNECT({ dispatch }) {
+      dispatch("fetchUsers");
+    },
+
+    SOCKET_DISCONNECT({ dispatch, state }) {
+      LibServerApi.removeUser(state.currentRoom, state.spotifyUser);
+      dispatch("fetchUsers");
+    },
+
     SOCKET_REFRESH_TRACKS({ dispatch }) {
       dispatch("fetchTracks");
     },
@@ -164,13 +174,8 @@ export default new Vuex.Store({
       dispatch("fetchUsers");
     },
 
-    SOCKET_CONNECT({ dispatch }) {
-      dispatch("fetchUsers");
-    },
-
-    SOCKET_DISCONNECT({ dispatch, state }) {
-      LibServerApi.removeUser(state.currentRoom, state.spotifyUser);
-      dispatch("fetchUsers");
+    SOCKET_MESSAGE({ commit }, message) {
+      commit("setMessage", message);
     }
   },
 
@@ -204,6 +209,9 @@ export default new Vuex.Store({
     },
     setCurrentRoom(state, room) {
       state.currentRoom = room;
+    },
+    setMessage(state, message) {
+      state.messages.push(message);
     }
   }
 });
