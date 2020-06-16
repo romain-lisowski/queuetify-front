@@ -8,9 +8,9 @@
   position: absolute;
   z-index: 10;
   width: 95%;
-  bottom: 10px;
+  bottom: 50px;
   overflow-y: scroll;
-  max-height: 93%;
+  max-height: 88%;
   "
     >
       <ul>
