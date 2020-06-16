@@ -20,7 +20,7 @@
 
     <div class="room_info">
       <div class="room_info__share" @click="share">
-        Share
+        Share room
       </div>
       <div class="room_info__status">
         <span v-if="sync" class="sync"></span>
