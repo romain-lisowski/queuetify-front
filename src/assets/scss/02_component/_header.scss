@@ -179,6 +179,12 @@
                 }
             }
         }
+
+        &__share {
+            margin-right: 1rem;
+            cursor: pointer;
+            border: 1rem solid black;
+        }
     }
 
     .users {

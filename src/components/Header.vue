@@ -19,6 +19,9 @@
     </div>
 
     <div class="room_info">
+      <div class="room_info__share" @click="share">
+        Share
+      </div>
       <div class="room_info__status">
         <span v-if="sync" class="sync"></span>
         <span v-else class="unsync"></span>
@@ -89,6 +92,14 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ name: "Home" });
+    },
+    share() {
+      let inputUrl = document.createElement("textarea");
+      document.body.appendChild(inputUrl);
+      inputUrl.value = document.location.href;
+      inputUrl.select();
+      document.execCommand("copy");
+      document.body.removeChild(inputUrl);
     }
   }
 };
