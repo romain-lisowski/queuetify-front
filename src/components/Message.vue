@@ -1,38 +1,23 @@
 <template>
-  <div style="margin-left: 2.5%; width: 100%;">
-    <div
-      id="messages"
-      style="
-  background-color: black; 
-  opacity: 0.5; 
-  position: absolute;
-  z-index: 10;
-  width: 95%;
-  bottom: 50px;
-  overflow-y: scroll;
-  max-height: 88%;
-  "
-    >
+  <div class="message">
+    <div class="message__container" id="messages">
       <ul>
         <li v-for="(message, index) of messages" :key="index">
           <div v-html="message"></div>
         </li>
       </ul>
 
-      <div style="width: 100%">
+      <div class="message__inputs">
         <input
-          ref="message"
+          class="message__inputs__input"
           type="text"
           placeholder="Your message..."
           v-model="message"
           @keyup.enter="send"
-          style="width: 80%; padding: 2px"
         />
-        <button
-          @click="send"
-          style="background-color: white; text-align: center; width: 20%; padding: 2px;"
-        >
-          <b>Send</b>
+
+        <button class="message__inputs__button" @click="send">
+          <strong>Send</strong>
         </button>
       </div>
     </div>

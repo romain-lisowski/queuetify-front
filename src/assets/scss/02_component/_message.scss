@@ -1,0 +1,47 @@
+.message {
+  margin-left: 2.5%; 
+  width: 100%;
+  position: absolute;
+  bottom: 7rem;
+
+  &__container {
+    width: 94%;
+    margin-left: 0.6rem;
+    z-index: 10;
+    overflow-y: scroll;
+    max-height: 88%;
+  }
+
+  ul {
+    background-color: black; 
+    opacity: 0.5; 
+
+    li {
+      padding-bottom: 0.5rem;
+
+      strong {
+        font-size: 1.4rem;
+      }
+    }
+  }
+  
+  &__inputs {
+    margin-top: 0.5rem;
+    width: 100%;
+
+    &__input {
+      width: 80%; 
+      padding: 0.5rem;
+      border-style: none;
+    }
+
+    &__button {
+      background-color: #000000; 
+      color: #ffffff;
+      opacity: 0.5; 
+      text-align: center; 
+      width: 20%; 
+      padding: 0.5rem;
+    }
+  }
+}

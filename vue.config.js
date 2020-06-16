@@ -17,6 +17,7 @@ module.exports = {
                 @import "@/assets/scss/01_base/_root.scss";
                 @import "@/assets/scss/02_component/_button.scss";
                 @import "@/assets/scss/02_component/_header.scss";
+                @import "@/assets/scss/02_component/_message.scss";
                 @import "@/assets/scss/02_component/_search.scss";
                 @import "@/assets/scss/02_component/_player.scss";
                 @import "@/assets/scss/02_component/_queue.scss";
