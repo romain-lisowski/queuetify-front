@@ -137,8 +137,11 @@ export default new Vuex.Store({
       commit("setCurrentTrack", track);
       if (!state.playerState || state.playerState.paused) {
         if (track) {
+          // update page title
           document.title =
             "Rasputify" + " - " + track.name + " - " + track.artist;
+
+          // play track on playback
           LibPlayback.play({
             player: state.player,
             trackId: track.spotify_id
