@@ -121,7 +121,7 @@ export default new Vuex.Store({
     },
 
     fetchRooms({ commit }) {
-      LibServerApi.getRooms().then(rooms => {
+      LibServerApi.getPublicRooms().then(rooms => {
         commit("setRooms", rooms);
       });
     },

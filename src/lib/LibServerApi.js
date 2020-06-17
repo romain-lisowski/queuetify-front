@@ -8,7 +8,7 @@ export default {
   /**
    * Get rooms available
    */
-  async getRooms() {
+  async getPublicRooms() {
     const response = await fetch(baseUrl + "/rooms");
     const rooms = await response.json();
     return rooms;
@@ -24,16 +24,16 @@ export default {
   },
 
   /**
-   * Create room
+   * Get user secret room
    */
-  async createRoom() {
-    const response = await fetch(baseUrl + "/rooms", {
+  async getUserRoom(user) {
+    const response = await fetch(baseUrl + "/rooms/user", {
       method: "POST",
-      body: JSON.stringify({}),
+      body: JSON.stringify({ user: user }),
       headers: dataHeaders
     });
+
     const room = await response.json();
-    console.log(room);
     return room;
   },
 
@@ -71,9 +71,7 @@ export default {
       user: user
     };
 
-    console.log(createTrackDto);
-
-    fetch(baseUrl + "/tracks", {
+    await fetch(baseUrl + "/tracks", {
       method: "POST",
       body: JSON.stringify(createTrackDto),
       headers: dataHeaders
@@ -84,7 +82,7 @@ export default {
    * Remove track from queue
    */
   async removeTrack(room, track) {
-    fetch(baseUrl + "/tracks", {
+    await fetch(baseUrl + "/tracks", {
       method: "DELETE",
       body: JSON.stringify({
         ...track,
@@ -98,7 +96,7 @@ export default {
    * Vote for a track
    */
   async voteTrack(track, user, increment) {
-    fetch(baseUrl + "/votes", {
+    await fetch(baseUrl + "/votes", {
       method: "POST",
       body: JSON.stringify({
         track: track,
@@ -136,7 +134,7 @@ export default {
       spotify_url: user.spotify_url
     };
 
-    fetch(baseUrl + "/users", {
+    await fetch(baseUrl + "/users", {
       method: "POST",
       body: JSON.stringify(createUserDto),
       headers: dataHeaders
@@ -145,7 +143,7 @@ export default {
 
   // remove user from the room
   async removeUser(room, user) {
-    fetch(baseUrl + "/users", {
+    await fetch(baseUrl + "/users", {
       method: "DELETE",
       body: JSON.stringify({
         ...user,

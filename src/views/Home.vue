@@ -37,6 +37,11 @@
           <div class="user_name">
             <span class="stroke">Hello,</span> {{ spotifyUser.name }}
           </div>
+
+          <div class="home__or">
+            <strong>ENTER : </strong>
+          </div>
+
           <router-link
             v-for="room of rooms"
             :key="room.name"
@@ -44,7 +49,7 @@
             tag="button"
             class="btn btn-main in"
           >
-            Enter {{ room.name }}
+            {{ room.name }}
             <ButtonArrow />
           </router-link>
 
@@ -52,9 +57,9 @@
             <strong>OR</strong>
           </div>
 
-          <div class="home__create">
-            <button class="btn btn-main in" @click="create">
-              Create
+          <div class="home__secret">
+            <button class="btn btn-main in" @click="joinUserRoom">
+              Your secret room
               <ButtonArrow />
             </button>
           </div>
@@ -69,8 +74,8 @@
               v-model="joinRoomId"
               placeholder="Enter room id..."
             />
-            <button class="btn btn-main in" @click="join">
-              Join
+            <button class="btn btn-main in" @click="joinRoom">
+              Join a room
               <ButtonArrow />
             </button>
           </div>
@@ -152,14 +157,16 @@ export default {
     authentification() {
       LibSpotifyAccount.getAuthorization();
     },
-    async create() {
-      const room = await LibServerApi.createRoom();
+    async joinUserRoom() {
+      const room = await LibServerApi.getUserRoom(
+        this.$store.state.spotifyUser
+      );
       this.$router.push({
         name: "Room",
         params: { roomId: room.id }
       });
     },
-    join() {
+    joinRoom() {
       if (this.joinRoomId.length > 4) {
         this.$router.push({
           name: "Room",
