@@ -27,10 +27,14 @@ export default {
    * Create room
    */
   async createRoom() {
-    fetch(baseUrl + "/rooms", {
+    const response = await fetch(baseUrl + "/rooms", {
       method: "POST",
+      body: JSON.stringify({}),
       headers: dataHeaders
     });
+    const room = await response.json();
+    console.log(room);
+    return room;
   },
 
   /**

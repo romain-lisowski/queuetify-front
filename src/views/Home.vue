@@ -152,8 +152,12 @@ export default {
     authentification() {
       LibSpotifyAccount.getAuthorization();
     },
-    create() {
-      LibServerApi.createRoom();
+    async create() {
+      const room = await LibServerApi.createRoom();
+      this.$router.push({
+        name: "Room",
+        params: { roomId: room.id }
+      });
     },
     join() {
       if (this.joinRoomId.length > 4) {
