@@ -19,8 +19,8 @@
     </div>
 
     <div class="room_info">
-      <div class="room_info__share" @click="share">
-        Share room
+      <div class="room_info__invite" @click="invite">
+        Invite to room
       </div>
       <div class="room_info__status">
         <span v-if="sync" class="sync"></span>
@@ -93,7 +93,7 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push({ name: "Home" });
     },
-    share() {
+    invite() {
       let inputUrl = document.createElement("textarea");
       document.body.appendChild(inputUrl);
       inputUrl.value = document.location.href;
