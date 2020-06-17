@@ -5,17 +5,17 @@ h1 {
     text-align: center;
 
     &.headline {
-        font-size: 8rem;
-        line-height: 7rem;
+        font-size: 6rem;
+        line-height: 6rem;
 
         @include desktop-large {
-            font-size: 6.8rem;
-            line-height: 5.8rem;
+            font-size: 5rem;
+            line-height: 5rem;
         }
 
         @include desktop {
-            font-size: 8.2rem;
-            line-height: 7.2rem;
+            font-size: 4rem;
+            line-height: 4rem;
         }
     }
 

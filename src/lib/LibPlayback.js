@@ -88,7 +88,8 @@ export default {
   /**
    * Play track on Spotify playback
    */
-  async play({ player, trackId }) {
+  async play({ player, trackSpotifyId }) {
+    console.log(trackSpotifyId);
     const begin = DateTime.fromSeconds(
       store.state.currentTrack.played_at.seconds
     );
@@ -101,7 +102,7 @@ export default {
         {
           method: "PUT",
           body: JSON.stringify({
-            uris: ["spotify:track:" + trackId],
+            uris: ["spotify:track:" + trackSpotifyId],
             position_ms: seek
           }),
           headers: {

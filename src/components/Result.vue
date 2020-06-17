@@ -68,7 +68,7 @@ export default {
   computed: {
     alreadyInQueue() {
       const existingTrack = this.$store.state.queue.find(
-        track => track.id === this.track.id
+        track => track.spotify_id === this.track.id
       );
       return existingTrack !== undefined;
     },
@@ -93,7 +93,7 @@ export default {
   methods: {
     addTrack() {
       const existingTrack = this.$store.state.queue.find(
-        track => track.id === this.track.id
+        track => track.spotify_id === this.track.id
       );
 
       if (existingTrack === undefined) {

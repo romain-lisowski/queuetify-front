@@ -141,7 +141,7 @@ export default new Vuex.Store({
             "Rasputify" + " - " + track.name + " - " + track.artist;
           LibPlayback.play({
             player: state.player,
-            trackId: track.id
+            trackId: track.spotify_id
           });
         } else {
           console.log("No track to play");

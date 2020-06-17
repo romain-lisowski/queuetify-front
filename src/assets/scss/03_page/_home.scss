@@ -8,9 +8,14 @@
     overflow: hidden;
 
     .logo {
-        svg {
-            width: calc(5.8rem / 1.2);
-            height: calc(6.4rem / 1.2);
+        font-size: 14rem;
+
+        @include desktop-large {
+            font-size: 12rem;
+        }
+
+        @include desktop {
+            font-size: 8rem;
         }
     }
 
@@ -95,6 +100,7 @@
     
         .out {
             margin-top: 6rem;
+            padding: 1rem;
             background: #000;
         }
     
@@ -156,6 +162,20 @@
                     transition: all ease-in-out .2s;
                 }
             }
+        }
+    }
+
+    &__or {
+        margin-top: 3rem;
+    }
+
+    &__join {
+        input {
+            padding: 0.7rem;
+        }
+
+        button {
+            margin-left: 0.5rem;
         }
     }
 

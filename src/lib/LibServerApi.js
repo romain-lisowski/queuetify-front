@@ -24,6 +24,16 @@ export default {
   },
 
   /**
+   * Create room
+   */
+  async createRoom() {
+    fetch(baseUrl + "/rooms", {
+      method: "POST",
+      headers: dataHeaders
+    });
+  },
+
+  /**
    * Get current playing track of a room
    */
   async getCurrentTrack(room) {
@@ -45,9 +55,9 @@ export default {
    * Add track to queue
    */
   async addTrack(room, track, user) {
-    const trackFromatted = {
+    const createTrackDto = {
       room_id: room.id,
-      id: track.id,
+      spotify_id: track.id,
       name: track.name,
       artist: track.artists[0].name,
       duration: track.duration_ms,
@@ -57,9 +67,11 @@ export default {
       user: user
     };
 
+    console.log(createTrackDto);
+
     fetch(baseUrl + "/tracks", {
       method: "POST",
-      body: JSON.stringify(trackFromatted),
+      body: JSON.stringify(createTrackDto),
       headers: dataHeaders
     });
   },

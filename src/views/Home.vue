@@ -13,7 +13,7 @@
         v-if="!spotifyAccessToken || !spotifyUser"
       >
         <div class="logo">
-          <Logo />
+          Rasputify
         </div>
         <h1 class="headline">
           <div class="beta"></div>
@@ -47,6 +47,34 @@
             Enter {{ room.name }}
             <ButtonArrow />
           </router-link>
+
+          <div class="home__or">
+            <strong>OR</strong>
+          </div>
+
+          <div class="home__create">
+            <button class="btn btn-main in" @click="create">
+              Create
+              <ButtonArrow />
+            </button>
+          </div>
+
+          <div class="home__or">
+            <strong>OR</strong>
+          </div>
+
+          <div class="home__join">
+            <input
+              type="text"
+              v-model="joinRoomId"
+              placeholder="Enter room id..."
+            />
+            <button class="btn btn-main in" @click="join">
+              Join
+              <ButtonArrow />
+            </button>
+          </div>
+
           <button class="btn btn-inline out" @click="logout">
             Logout
           </button>
@@ -73,7 +101,7 @@
           <a
             class="btn btn-inline"
             target="_blank"
-            href="https://github.com/romain-lisowski"
+            href="https://github.com/romain-lisowski/rasputify-front"
             >Github<ButtonArrow
           /></a>
         </div>
@@ -86,15 +114,19 @@
 
 <script>
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
-import Logo from "@/assets/svg/logo.svg";
 import { gsap, TimelineLite, Back } from "gsap";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
+import LibServerApi from "@/lib/LibServerApi";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      joinRoomId: ""
+    };
+  },
   components: {
-    ButtonArrow,
-    Logo
+    ButtonArrow
   },
   computed: {
     spotifyAccessToken() {
@@ -117,6 +149,23 @@ export default {
     }
   },
   methods: {
+    authentification() {
+      LibSpotifyAccount.getAuthorization();
+    },
+    create() {
+      LibServerApi.createRoom();
+    },
+    join() {
+      if (this.joinRoomId.length > 4) {
+        this.$router.push({
+          name: "Room",
+          params: { roomId: this.joinRoomId }
+        });
+      }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+    },
     customBeforeAppearHook() {
       const content = this.$refs.homeContent;
       gsap.to(content, { y: -100, opacity: 0 });
@@ -143,13 +192,7 @@ export default {
         ease: Back.easeInOut // Specify an ease
       });
     },
-    customAppearHook() {},
-    authentification() {
-      LibSpotifyAccount.getAuthorization();
-    },
-    logout() {
-      this.$store.dispatch("logout");
-    }
+    customAppearHook() {}
   }
 };
 </script>
