@@ -20,7 +20,7 @@
 
     <div class="room_info">
       <div class="room_info__invite" @click="invite">
-        Invite to room
+        Copy to room
       </div>
       <div class="room_info__status">
         <span v-if="sync" class="sync"></span>
@@ -76,13 +76,7 @@ export default {
       return this.$store.state.currentRoom;
     },
     sync() {
-      return (
-        (!this.$store.state.playerState && !this.$store.state.currentTrack) ||
-        (this.$store.state.playerState &&
-          this.$store.state.currentTrack &&
-          this.$store.state.playerState.track_window.current_track.id ===
-            this.$store.state.currentTrack.id)
-      );
+      return true;
     }
   },
   methods: {

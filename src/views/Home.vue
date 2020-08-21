@@ -111,8 +111,12 @@
           /></a>
         </div>
       </footer>
-
-      <div ref="homeBackground" class="home__bg"></div>
+      <div ref="homeBackground" class="home__bg">
+        <div
+          v-if="!spotifyAccessToken || !spotifyUser"
+          class="home__bg-logo"
+        ></div>
+      </div>
     </div>
   </transition>
 </template>

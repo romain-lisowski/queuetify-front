@@ -8,7 +8,7 @@
     overflow: hidden;
 
     .logo {
-        font-size: 14rem;
+        font-size: 12rem;
 
         @include desktop-large {
             font-size: 12rem;
@@ -19,32 +19,18 @@
         }
     }
 
-    .beta {
-        width: calc(8.2rem);
-        height: calc(2.65rem);
-        background-image: url('~@/assets/img/beta.png');
-        background-size: cover;
-        background-position: center;
-        opacity: .9;
-        margin-left: auto;
-        transform: rotate(10deg);
-        position: relative;
-        left: 2rem;
-        top: 2rem;
-    }
-
     &__content {
         position: relative;
         z-index: 2;
-        margin-bottom: 10vh;
+        margin-bottom: -21vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
+        
         h1 {
-            margin-top: 10vh;
-            margin-bottom: 3rem;
+            margin-top: 0vh;
+            margin-bottom: 8rem;
 
             span.small {
                 font-size: 2.2rem;
@@ -59,6 +45,8 @@
             }
         }
     }
+
+
 
     &__footer {
         position: relative;
@@ -189,6 +177,19 @@
         top: 0;
         right: 0;
         bottom: 0;
+
+        &-logo {
+            background-image: url('~@/assets/img/rasputify-big.jpg');
+            position: absolute;
+            top: 100px;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 600px;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
 }
 
