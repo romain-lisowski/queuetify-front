@@ -15,7 +15,7 @@
       <h3>Queue</h3>
       <div class="queue-counter">
         <span class="count">{{ queue.length }}</span> out of
-        <span class="count">{{ queueMaxLenght }}</span>
+        <span class="count">{{ queueMaxLength }}</span>
         songs
       </div>
     </div>
@@ -59,7 +59,7 @@ export default {
         process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH - this.queue.length;
       return emptySlots > 0 ? new Array(emptySlots) : [];
     },
-    queueMaxLenght() {
+    queueMaxLength() {
       return process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH;
     }
   },
