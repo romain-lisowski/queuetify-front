@@ -139,7 +139,7 @@ export default new Vuex.Store({
         if (track) {
           // update page title
           document.title =
-            "Rasputify" + " - " + track.name + " - " + track.artist;
+            "Queuetify" + " - " + track.name + " - " + track.artist;
 
           // play track on playback
           LibPlayback.play({

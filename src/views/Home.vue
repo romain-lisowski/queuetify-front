@@ -13,7 +13,7 @@
         v-if="!spotifyAccessToken || !spotifyUser"
       >
         <div class="logo">
-          Rasputify
+          Queuetify
         </div>
         <h1 class="headline">
           <div class="beta"></div>
@@ -106,7 +106,7 @@
           <a
             class="btn btn-inline"
             target="_blank"
-            href="https://github.com/romain-lisowski/rasputify-front"
+            href="https://github.com/romain-lisowski/queuetify-front"
             >Github<ButtonArrow
           /></a>
         </div>

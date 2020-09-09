@@ -1,4 +1,4 @@
-# Rasputify
+# Queuetify
 
 ## Client setup
 ```
@@ -17,4 +17,4 @@ npm run serve
 
 ## Back setup
 
-[Install rasputify-back](https://github.com/romain-lisowski/rasputify-back#readme)
+[Install queuetify-back](https://github.com/romain-lisowski/queuetify-back#readme)

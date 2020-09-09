@@ -72,7 +72,7 @@ export default {
     queueMaxLengthReach() {
       return (
         this.$store.state.queue.length >=
-        process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH
+        process.env.VUE_APP_QUEUETIFY_MAX_QUEUE_LENGTH
       );
     },
     queueMaxLengthPerUserReach() {
@@ -83,7 +83,7 @@ export default {
       return (
         userTracks &&
         userTracks.length >=
-          process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH_PER_USER
+          process.env.VUE_APP_QUEUETIFY_MAX_QUEUE_LENGTH_PER_USER
       );
     },
     userRemainingTracks() {
@@ -92,7 +92,7 @@ export default {
           track.user.spotify_id === this.$store.state.spotifyUser.spotify_id
       );
       return (
-        process.env.VUE_APP_RASPUTIFY_MAX_QUEUE_LENGTH_PER_USER -
+        process.env.VUE_APP_QUEUETIFY_MAX_QUEUE_LENGTH_PER_USER -
         userTracks.length
       );
     }

@@ -28,7 +28,7 @@ export default {
 
     const { Player } = await this.waitForSpotifyWebPlaybackSDKToLoad();
     player = new Player({
-      name: "Rasputify Web Player",
+      name: "Queuetify Web Player",
       getOAuthToken: cb => {
         // get new token
         let accessToken = null;
