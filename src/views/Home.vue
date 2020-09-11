@@ -53,33 +53,6 @@
             <ButtonArrow />
           </router-link>
 
-          <div class="home__or">
-            <strong>OR</strong>
-          </div>
-
-          <div class="home__secret">
-            <button class="btn btn-main in" @click="joinUserRoom">
-              Your secret room
-              <ButtonArrow />
-            </button>
-          </div>
-
-          <div class="home__or">
-            <strong>OR</strong>
-          </div>
-
-          <div class="home__join">
-            <input
-              type="text"
-              v-model="joinRoomId"
-              placeholder="Enter room id..."
-            />
-            <button class="btn btn-main in" @click="joinRoom">
-              Join a room
-              <ButtonArrow />
-            </button>
-          </div>
-
           <button class="btn btn-inline out" @click="logout">
             Logout
           </button>
@@ -121,15 +94,9 @@
 import ButtonArrow from "@/assets/svg/button-arrow.svg";
 import { gsap, TimelineLite, Back } from "gsap";
 import LibSpotifyAccount from "@/lib/LibSpotifyAccount";
-import LibServerApi from "@/lib/LibServerApi";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      joinRoomId: ""
-    };
-  },
   components: {
     ButtonArrow
   },
@@ -156,23 +123,6 @@ export default {
   methods: {
     authentification() {
       LibSpotifyAccount.getAuthorization();
-    },
-    async joinUserRoom() {
-      const room = await LibServerApi.getUserRoom(
-        this.$store.state.spotifyUser
-      );
-      this.$router.push({
-        name: "Room",
-        params: { roomId: room.id }
-      });
-    },
-    joinRoom() {
-      if (this.joinRoomId.length > 4) {
-        this.$router.push({
-          name: "Room",
-          params: { roomId: this.joinRoomId }
-        });
-      }
     },
     logout() {
       this.$store.dispatch("logout");
