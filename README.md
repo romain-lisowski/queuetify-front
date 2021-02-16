@@ -1,5 +1,8 @@
 # Queuetify
 
+## Demo
+[https://queuetify.netlify.app/](https://queuetify.netlify.app/)
+
 ## Client setup
 ```
 npm install
