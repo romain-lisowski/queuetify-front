@@ -31,7 +31,7 @@
     "vue-socket.io": "^3.0.7",
     "vue-svg-loader": "^0.16.0",
     "vuex": "^3.1.2",
-    "@vue/cli-service": "~4.2.0",
+    "@vue/cli-service": "~5.0.8",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-plugin-router": "~4.2.0",
