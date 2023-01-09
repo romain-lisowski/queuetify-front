@@ -23,7 +23,7 @@
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "gsap": "^3.2.6",
-    "luxon": "^1.23.0",
+    "luxon": "^2.5.2",
     "socket.io-client": "^2.3.0",
     "vue": "^2.6.11",
     "vue-firestore": "^0.3.30",
